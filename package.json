@@ -1,0 +1,41 @@
+{
+  "name": "inboxshield-cli",
+  "version": "1.0.0",
+  "description": "Zero-dependency email deliverability CLI — audit recursive SPF 10-lookup limits (RFC 7208), DMARC enforcement, DKIM selectors, MX, MTA-STS, TLS-RPT, and BIMI in one command.",
+  "type": "module",
+  "bin": {
+    "inboxshield": "./bin/inboxshield.mjs"
+  },
+  "scripts": {
+    "start": "node ./bin/inboxshield.mjs",
+    "test": "node ./bin/inboxshield.mjs check stripe.com"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "email-deliverability",
+    "spf",
+    "dkim",
+    "dmarc",
+    "mta-sts",
+    "bimi",
+    "dnsbl",
+    "cold-email",
+    "devops",
+    "dns",
+    "rfc7208",
+    "cli",
+    "saas"
+  ],
+  "homepage": "https://zcoldwater.github.io/inboxshield-cli/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zColdWater/inboxshield-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zColdWater/inboxshield-cli/issues"
+  },
+  "author": "OmniForge Studio",
+  "license": "MIT"
+}

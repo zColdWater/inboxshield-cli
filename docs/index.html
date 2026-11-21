@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>InboxShield — Free SPF 10-Lookup, DMARC, DKIM &amp; Email Deliverability Fleet Checker</title>
+  <meta name="description" content="Audit recursive SPF 10-DNS-lookup limits (RFC 7208), DMARC enforcement, DKIM selectors, MX, MTA-STS, and BIMI in seconds. Replace $59–$129/mo email deliverability SaaS with InboxShield Pro ($29 one-time CLI, Fleet Dashboard &amp; 24/7 Slack drift alerts)." />
+  <meta name="keywords" content="SPF 10 lookup checker, DMARC checker CLI, DKIM validator, email deliverability audit tool, cold email domain health monitor, Google Yahoo bulk sender compliance, DNSBL blacklist monitor, white label deliverability report" />
+  <link rel="canonical" href="https://zcoldwater.github.io/inboxshield-cli/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="InboxShield — Catch Silent SPF PermErrors, DMARC Gaps &amp; Blacklists for $0/mo" />
+  <meta property="og:description" content="Instant recursive SPF 10-lookup counter, DMARC/DKIM auditor &amp; 24/7 GitHub Actions + Slack DNS drift monitor for founders and outbound agencies." />
+  <meta property="og:url" content="https://zcoldwater.github.io/inboxshield-cli/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="InboxShield — SPF/DKIM/DMARC &amp; Blacklist Fleet Monitor" />
+  <meta name="twitter:description" content="Stop paying $59–$129/month to watch your sending domains. Audit recursive SPF lookups, DMARC, DKIM &amp; blacklists locally." />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "InboxShield Pro — Email Deliverability, SPF/DKIM/DMARC & Blacklist Fleet Monitor",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "macOS, Windows, Linux (Node.js 18+)",
+        "url": "https://zcoldwater.github.io/inboxshield-cli/",
+        "downloadUrl": "https://agentarenastudi.gumroad.com/l/omniforge-inboxshield",
+        "description": "Zero-dependency local Node.js CLI, interactive Fleet Dashboard, and 24/7 GitHub Actions + Slack/Discord drift monitor for SPF 10-lookup limits, 18-selector DKIM RSA bit-length checks, DMARC enforcement, and live Spamhaus/Barracuda DNSBL screening.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "InboxShield Pro — Solo Founder Edition",
+            "price": "29.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://agentarenastudi.gumroad.com/l/omniforge-inboxshield"
+          },
+          {
+            "@type": "Offer",
+            "name": "InboxShield Pro — Agency & Outbound Fleet Edition",
+            "price": "49.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://agentarenastudi.gumroad.com/l/omniforge-inboxshield"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the RFC 7208 SPF 10-DNS-lookup limit?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "RFC 7208 requires receiving mail servers to abort SPF evaluation with a PermError if nested include, a, mx, ptr, exists, or redirect mechanisms exceed 10 DNS queries. One extra SaaS include can silently break authentication across your domain."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does InboxShield Pro monitor domains 24/7 without a monthly subscription?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "InboxShield Pro includes a ready-to-use GitHub Actions cron workflow that runs every 6 hours on GitHub's free tier, diffs your fleet's SPF, DKIM, DMARC, and DNSBL status against a baseline, and alerts Slack or Discord immediately on any drift."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #090e1a;
+      --panel: #11192c;
+      --panel-2: #17223b;
+      --border: #25355a;
+      --text: #f4f7fd;
+      --muted: #9cb0d3;
+      --accent: #38bdf8;
+      --cta: #10b981;
+      --cta-hover: #059669;
+      --danger: #f43f5e;
+      --warn: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #13284c 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+    header {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(9, 14, 26, 0.88);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 66px; gap: 14px; }
+    .brand { font-weight: 800; font-size: 1.15rem; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .logo-badge {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: linear-gradient(135deg, #10b981, #38bdf8);
+      color: #05161c; font-weight: 900; display: inline-flex; align-items: center; justify-content: center;
+    }
+    .nav-links { display: flex; align-items: center; gap: 18px; font-size: 0.93rem; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px 20px; border-radius: 10px; font-weight: 700; font-size: 0.95rem;
+      cursor: pointer; border: none; transition: transform 0.12s ease, background 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-cta { background: var(--cta); color: #041b13; }
+    .btn-cta:hover { background: var(--cta-hover); color: #fff; }
+    .btn-outline { background: rgba(255,255,255,0.05); color: var(--text); border: 1px solid var(--border); }
+    .hero { padding: 66px 0 42px; text-align: center; }
+    .eyebrow {
+      display: inline-block; padding: 5px 14px; border-radius: 999px; font-size: 0.82rem; font-weight: 600;
+      background: rgba(16, 185, 129, 0.13); border: 1px solid rgba(16, 185, 129, 0.36); color: #34d399; margin-bottom: 18px;
+    }
+    h1 { font-size: clamp(2.05rem, 4.5vw, 3.25rem); line-height: 1.12; letter-spacing: -0.03em; margin: 0 auto 18px; max-width: 880px; }
+    .sub { font-size: 1.1rem; color: var(--muted); max-width: 730px; margin: 0 auto 28px; }
+    .scanner-box {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 16px;
+      padding: 22px; max-width: 800px; margin: 0 auto 24px;
+      box-shadow: 0 22px 50px rgba(0,0,0,0.44); text-align: left;
+    }
+    .scan-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .scan-input {
+      flex: 1; min-width: 220px; padding: 13px 16px; border-radius: 10px;
+      border: 1px solid var(--border); background: #090f1f; color: #fff; font-size: 1rem;
+    }
+    .presets { margin-top: 10px; font-size: 0.84rem; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .pill { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); padding: 3px 10px; border-radius: 999px; cursor: pointer; font-size: 0.8rem; }
+    .pill:hover { border-color: var(--accent); }
+    #auditResult { margin-top: 18px; display: none; }
+    .res-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 10px; margin-top: 10px; }
+    .res-card { background: #0b1326; border: 1px solid var(--border); border-radius: 10px; padding: 11px 13px; font-size: 0.88rem; }
+    .ok { color: var(--cta); font-weight: 700; }
+    .bad { color: var(--danger); font-weight: 700; }
+    .unk { color: var(--warn); font-weight: 700; }
+    .upsell-strip {
+      margin-top: 16px; padding: 14px 16px; border-radius: 12px;
+      background: linear-gradient(90deg, rgba(16,185,129,0.15), rgba(56,189,248,0.15));
+      border: 1px solid rgba(16,185,129,0.42);
+      display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+    }
+    .cli-bar {
+      display: inline-flex; align-items: center; gap: 12px; background: #070c18;
+      border: 1px solid var(--border); padding: 10px 18px; border-radius: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9rem; color: #cbd5e1;
+    }
+    section { padding: 50px 0; }
+    h2 { font-size: 1.85rem; letter-spacing: -0.02em; margin: 0 0 12px; text-align: center; }
+    .sec-sub { text-align: center; color: var(--muted); max-width: 670px; margin: 0 auto 34px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+    .card h3 { margin-top: 0; font-size: 1.14rem; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 22px; align-items: stretch; }
+    .price-card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; }
+    .price-card.featured { border: 2px solid var(--cta); background: linear-gradient(180deg, #12253f 0%, var(--panel) 100%); position: relative; }
+    .badge-top { position: absolute; top: -12px; right: 20px; background: var(--cta); color: #041b13; font-size: 0.75rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; text-transform: uppercase; }
+    .price-num { font-size: 2.5rem; font-weight: 800; margin: 8px 0 4px; }
+    .price-note { font-size: 0.85rem; color: var(--muted); margin-bottom: 18px; }
+    ul.feat { list-style: none; padding: 0; margin: 0 0 24px; }
+    ul.feat li { padding: 6px 0; font-size: 0.93rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    footer { border-top: 1px solid rgba(255,255,255,0.08); padding: 34px 0 50px; color: var(--muted); font-size: 0.88rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#">
+        <span class="logo-badge">✉</span>
+        <span>InboxShield</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features">Why Domains Land in Spam</a>
+        <a href="#pricing">Pro Fleet Kit ($29)</a>
+        <a href="https://github.com/zColdWater/inboxshield-cli" target="_blank" rel="noopener">GitHub CLI</a>
+        <a class="btn btn-cta" href="https://agentarenastudi.gumroad.com/l/omniforge-inboxshield" target="_blank" rel="noopener">Get InboxShield Pro →</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <span class="eyebrow">RFC 7208 SPF 10-Lookup Walker · Google/Yahoo Bulk-Sender Grader · $0/mo Monitoring</span>
+      <h1>Stop Paying $99/Month to Watch Your Sending Domains</h1>
+      <p class="sub">
+        Catch silent SPF <code>&gt;10</code> lookup PermErrors, unenforced <code>p=none</code> DMARC, weak DKIM keys, and DNSBL blacklists across 1 to 200+ domains—locally and via free GitHub Actions alerts.
+      </p>
+
+      <div class="scanner-box">
+        <form id="auditForm" class="scan-row">
+          <input id="domainInput" class="scan-input" type="text" placeholder="Enter sending domain (e.g. stripe.com or yourcompany.com)" maxlength="80" required />
+          <button type="submit" class="btn btn-cta" id="auditBtn">Audit Domain Free</button>
+          <a class="btn btn-outline" id="deepScannerLink" href="https://inbox-checker.appwrite.network" target="_blank" rel="noopener">Deep 18-DKIM &amp; DNSBL Scan ↗</a>
+        </form>
+        <div class="presets">
+          <span>Instant live DNS demo:</span>
+          <button type="button" class="pill" onclick="runDomain('stripe.com')">stripe.com</button>
+          <button type="button" class="pill" onclick="runDomain('linear.app')">linear.app</button>
+          <button type="button" class="pill" onclick="runDomain('example.com')">example.com</button>
+        </div>
+
+        <div id="auditResult">
+          <div id="auditHeader" style="font-weight:700; margin-top:6px;"></div>
+          <div id="auditGrid" class="res-grid"></div>
+          <div id="auditNotes" style="margin-top:10px; font-size:0.85rem; color:var(--muted);"></div>
+          <div class="upsell-strip">
+            <div>
+              <strong>Managing 5–200+ sending or client domains?</strong>
+              <div style="font-size:0.86rem; color:var(--muted);">Get Spamhaus/Barracuda DNSBL screening, 18-selector DKIM RSA bit-length checks, copy-paste Cloudflare TXT fixes, 24/7 Slack drift alerts &amp; White-Label PDF reports.</div>
+            </div>
+            <a class="btn btn-cta" href="https://agentarenastudi.gumroad.com/l/omniforge-inboxshield" target="_blank" rel="noopener">Get InboxShield Pro ($29) →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="cli-bar">
+        <span>$ npx github:zColdWater/inboxshield-cli check stripe.com</span>
+      </div>
+    </section>
+
+    <section id="features">
+      <h2>Three Silent Bugs That Tank Reply &amp; Onboarding Rates</h2>
+      <p class="sec-sub">When transactional signups or outbound sequences suddenly hit Spam, spreadsheets don't tell you which DNS change broke authentication.</p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>1. Recursive SPF &gt;10 Lookup Bomb</h3>
+          <p style="color:var(--muted);">Adding one new marketing or support tool pushes nested <code>include:</code> queries past RFC 7208's strict 10-lookup ceiling—triggering immediate <code>PermError</code> failures at Gmail and Microsoft 365.</p>
+        </div>
+        <div class="card">
+          <h3>2. Broken DKIM &amp; Weak RSA Keys</h3>
+          <p style="color:var(--muted);">InboxShield Pro probes 18+ provider selectors (Google, M365, Resend, Postmark, SendGrid, Mailgun) and flags revoked keys or legacy <code>&lt;1024-bit</code> RSA keys rejected by modern filters.</p>
+        </div>
+        <div class="card">
+          <h3>3. Zero-Subscription 24/7 Drift Alerts</h3>
+          <p style="color:var(--muted);">Drop our pre-built GitHub Actions workflow into any private repo to diff your entire domain fleet every 6 hours for $0/month and ping Slack or Discord the instant DNS drifts or hits a blacklist.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <h2>Replace Monthly Deliverability SaaS With One Download</h2>
+      <p class="sec-sub">100% local zero-dependency Node.js source kit. No recurring fees, no per-domain seat taxes, no sharing client domain lists with third parties.</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div>
+            <h3>InboxShield Lite CLI</h3>
+            <div class="price-num">$0</div>
+            <div class="price-note">Open-source MIT · Single-domain quick check</div>
+            <ul class="feat">
+              <li>✔ 1 domain per run</li>
+              <li>✔ Recursive SPF 10-lookup counter</li>
+              <li>✔ DMARC policy &amp; MX check</li>
+              <li>✔ 8 common DKIM selectors</li>
+              <li style="color:var(--muted);">— No Spamhaus / Barracuda DNSBL scan</li>
+              <li style="color:var(--muted);">— No 24/7 Slack/Discord drift alerts</li>
+            </ul>
+          </div>
+          <a class="btn btn-outline" href="https://inbox-checker.appwrite.network" target="_blank" rel="noopener">Open Free Web Diagnostic ↗</a>
+        </div>
+
+        <div class="price-card featured">
+          <span class="badge-top">Best Value · $0/mo Ongoing</span>
+          <div>
+            <h3>InboxShield Pro — Solo</h3>
+            <div class="price-num">$29</div>
+            <div class="price-note">One-time payment · Unlimited own sending domains</div>
+            <ul class="feat">
+              <li>✔ <strong>Unlimited domain fleet batch CLI</strong> (CSV/TXT/JSON)</li>
+              <li>✔ <strong>18-selector DKIM RSA bit-length</strong> &amp; revocation audit</li>
+              <li>✔ <strong>Live DNSBL Blacklist scan</strong> (Spamhaus, Barracuda, SpamCop, SURBL)</li>
+              <li>✔ <strong>Copy-paste Cloudflare / Route53 TXT fixes</strong></li>
+              <li>✔ <strong>24/7 GitHub Actions + Slack/Discord</strong> drift watcher</li>
+              <li>✔ <strong>Local Interactive Fleet Dashboard</strong> (<code>:3848</code>)</li>
+            </ul>
+          </div>
+          <a class="btn btn-cta" href="https://agentarenastudi.gumroad.com/l/omniforge-inboxshield" target="_blank" rel="noopener">Buy Solo Edition ($29) →</a>
+        </div>
+
+        <div class="price-card">
+          <div>
+            <h3>InboxShield Pro — Agency</h3>
+            <div class="price-num">$49</div>
+            <div class="price-note">One-time payment · Outbound agencies, MSPs &amp; consultants</div>
+            <ul class="feat">
+              <li>✔ Everything in InboxShield Pro Solo</li>
+              <li>✔ <strong>White-Label HTML &amp; PDF Client Audit Reports</strong></li>
+              <li>✔ Custom agency logo &amp; client branding (<code>--brand</code> / <code>--client</code>)</li>
+              <li>✔ Commercial license for up to 10 team seats &amp; unlimited clients</li>
+              <li>✔ Client-ready DNS remediation handoff sheets</li>
+              <li>✔ Lifetime v1.x updates included</li>
+            </ul>
+          </div>
+          <a class="btn btn-outline" style="border-color:var(--cta); color:var(--cta);" href="https://agentarenastudi.gumroad.com/l/omniforge-inboxshield" target="_blank" rel="noopener">Buy Agency Edition ($49) →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>
+        <a href="https://inbox-checker.appwrite.network">Free Live Web Diagnostic</a> ·
+        <a href="https://github.com/zColdWater/inboxshield-cli">Open-Source GitHub CLI</a> ·
+        <a href="https://agentarenastudi.gumroad.com/l/omniforge-inboxshield">InboxShield Pro on Gumroad</a> ·
+        <a href="./llms.txt">llms.txt</a>
+      </p>
+      <p>© 2026 OmniForge Studio · MIT Open-Source Lite CLI</p>
+    </div>
+  </footer>
+
+  <script>
+    async function dohQuery(name, type) {
+      try {
+        const r = await fetch("https://dns.google/resolve?name=" + encodeURIComponent(name) + "&type=" + type);
+        if (!r.ok) return [];
+        const d = await r.json();
+        return (d.Answer || []).map(a => String(a.data || "").replace(/^"|"$/g, "").replace(/"\s*"/g, ""));
+      } catch {
+        return [];
+      }
+    }
+
+    async function walkSpfBrowser(domain, visited = new Set(), depth = 0) {
+      if (depth > 6 || visited.has(domain)) return { lookups: 0, record: null };
+      visited.add(domain);
+      const txts = await dohQuery(domain, "TXT");
+      const spf = txts.find(t => /^v=spf1(\s|$)/i.test(t.trim()));
+      if (!spf) return { lookups: 0, record: null };
+      let lookups = 0;
+      for (const tok of spf.trim().split(/\s+/).slice(1)) {
+        const clean = tok.replace(/^[+\-~?]/, "");
+        if (/^include:/i.test(clean)) {
+          lookups += 1;
+          const sub = await walkSpfBrowser(clean.slice(8), visited, depth + 1);
+          lookups += sub.lookups;
+        } else if (/^redirect=/i.test(clean)) {
+          lookups += 1;
+          const sub = await walkSpfBrowser(clean.slice(9), visited, depth + 1);
+          lookups += sub.lookups;
+        } else if (/^(a|mx|ptr|exists)(:|\/|$)/i.test(clean)) {
+          lookups += 1;
+        }
+      }
+      return { lookups, record: spf.trim() };
+    }
+
+    function runDomain(d) {
+      document.getElementById("domainInput").value = d;
+      document.getElementById("auditForm").requestSubmit();
+    }
+
+    document.getElementById("auditForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const domain = document.getElementById("domainInput").value.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/.*$/, "").replace(/^.*@/, "");
+      if (!domain || !domain.includes(".")) return;
+
+      const btn = document.getElementById("auditBtn");
+      const box = document.getElementById("auditResult");
+      const hdr = document.getElementById("auditHeader");
+      const grid = document.getElementById("auditGrid");
+      const notes = document.getElementById("auditNotes");
+      document.getElementById("deepScannerLink").href = "https://inbox-checker.appwrite.network/?domain=" + encodeURIComponent(domain);
+
+      btn.disabled = true;
+      btn.textContent = "Auditing DNS...";
+      box.style.display = "block";
+      hdr.textContent = "Live Recursive DNS Deliverability Audit: " + domain;
+      grid.innerHTML = "";
+      notes.textContent = "";
+
+      const [mx, spf, dmarc, mtaSts, bimi, apiAudit] = await Promise.all([
+        dohQuery(domain, "MX"),
+        walkSpfBrowser(domain),
+        dohQuery("_dmarc." + domain, "TXT"),
+        dohQuery("_mta-sts." + domain, "TXT"),
+        dohQuery("default._bimi." + domain, "TXT"),
+        fetch("https://inbox-checker.appwrite.network/api/free-audit?domain=" + encodeURIComponent(domain)).then(r => r.ok ? r.json() : null).catch(() => null)
+      ]);
+
+      const dmarcRec = dmarc.find(t => /^v=DMARC1/i.test(t.trim())) || "";
+      const pMatch = dmarcRec.match(/;\s*p=([a-z]+)/i) || dmarcRec.match(/^v=DMARC1;\s*p=([a-z]+)/i);
+      const policy = pMatch ? pMatch[1].toLowerCase() : null;
+
+      const cards = [
+        {
+          label: "MX Records",
+          val: mx.length ? (mx.length + " Server(s)") : "Missing MX",
+          cls: mx.length ? "ok" : "bad"
+        },
+        {
+          label: "SPF Lookups (Max 10)",
+          val: spf.record ? (spf.lookups + " / 10 Lookups") : "Missing SPF",
+          cls: !spf.record ? "bad" : (spf.lookups > 10 ? "bad" : (spf.lookups >= 8 ? "unk" : "ok"))
+        },
+        {
+          label: "DMARC Enforcement",
+          val: policy ? ("p=" + policy) : "Missing _dmarc",
+          cls: (policy === "reject" || policy === "quarantine") ? "ok" : (policy === "none" ? "unk" : "bad")
+        },
+        {
+          label: "MTA-STS & BIMI",
+          val: (mtaSts.length ? "MTA-STS ✔" : "No MTA-STS") + " · " + (bimi.length ? "BIMI ✔" : "No BIMI"),
+          cls: mtaSts.length ? "ok" : "unk"
+        }
+      ];
+
+      if (apiAudit && (apiAudit.score !== undefined || (apiAudit.summary && apiAudit.summary.score !== undefined))) {
+        const sc = apiAudit.score ?? apiAudit.summary.score;
+        cards.unshift({
+          label: "Deliverability Score",
+          val: sc + " / 100",
+          cls: sc >= 80 ? "ok" : (sc >= 55 ? "unk" : "bad")
+        });
+      }
+
+      grid.innerHTML = cards.map(c =>
+        '<div class="res-card"><div style="color:var(--muted);font-size:0.78rem;">' + c.label + '</div><div class="' + c.cls + '">' + c.val + '</div></div>'
+      ).join("");
+
+      notes.textContent = spf.record ? ("SPF Record: " + spf.record.slice(0, 140) + (spf.record.length > 140 ? "..." : "")) : "Warning: No v=spf1 record found on root domain.";
+      btn.disabled = false;
+      btn.textContent = "Audit Domain Free";
+    });
+  </script>
+</body>
+</html>

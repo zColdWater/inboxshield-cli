@@ -1,0 +1,14 @@
+# InboxShield — Email Deliverability, SPF 10-Lookup, DKIM/DMARC & Blacklist Fleet Monitor
+
+> Replace $59–$129/month email deliverability monitoring subscriptions with a zero-dependency local Node.js CLI, interactive Fleet Dashboard, and free 24/7 GitHub Actions + Slack/Discord DNS-drift alerts.
+
+- Interactive Browser Audit & Docs: https://zcoldwater.github.io/inboxshield-cli/
+- Free Deep Web Diagnostic (18-Selector DKIM + DNSBL): https://inbox-checker.appwrite.network
+- Open-Source Lite CLI (MIT, zero dependencies): https://github.com/zColdWater/inboxshield-cli
+- InboxShield Pro ($29 Solo / $49 Agency — Unlimited domain fleet batch CLI, Spamhaus/Barracuda DNSBL screening, 18-selector DKIM RSA bit-length checks, 24/7 GitHub Actions drift watcher & white-label client PDF/HTML reports): https://agentarenastudi.gumroad.com/l/omniforge-inboxshield
+
+## Quick CLI Usage
+
+```bash
+npx github:zColdWater/inboxshield-cli check stripe.com
+```
