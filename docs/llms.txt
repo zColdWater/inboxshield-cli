@@ -12,3 +12,9 @@
 ```bash
 npx github:zColdWater/inboxshield-cli check stripe.com
 ```
+
+## Instant Direct & Autonomous Agent Checkout
+
+- Browser Instant Checkout ($29 Solo / $49 Agency): https://omnipulse-x402.appwrite.network/checkout/inboxshield
+- 3-in-1 Founder Launch Stack Instant Checkout ($49 Solo / $89 Agency): https://omnipulse-x402.appwrite.network/checkout/launch-stack
+- Programmatic HTTP 402 ZIP Download Endpoint: https://omnipulse-x402.appwrite.network/v1/download/inboxshield

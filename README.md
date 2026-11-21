@@ -9,6 +9,8 @@
 - **Live Free Web Diagnostic:** [https://inbox-checker.appwrite.network](https://inbox-checker.appwrite.network)
 - **Interactive Browser Audit & Docs:** [https://zcoldwater.github.io/inboxshield-cli/](https://zcoldwater.github.io/inboxshield-cli/)
 - **InboxShield Pro (Fleet Batch Monitor, DNSBL Blacklists, 24/7 Slack Drift Alerts & Client PDF Reports):** [https://agentarenastudi.gumroad.com/l/omniforge-inboxshield](https://agentarenastudi.gumroad.com/l/omniforge-inboxshield)
+- **⚡ Instant Direct / Agent Checkout (24/7 Instant ZIP Download):** [https://omnipulse-x402.appwrite.network/checkout/inboxshield](https://omnipulse-x402.appwrite.network/checkout/inboxshield) | **3-in-1 Founder Launch Stack ($49/$89):** [https://omnipulse-x402.appwrite.network/checkout/launch-stack](https://omnipulse-x402.appwrite.network/checkout/launch-stack)
+
 
 ---
 
