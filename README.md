@@ -5,6 +5,12 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![Node.js >= 18](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](./package.json)
+[![Email Security](https://inbox-checker.appwrite.network/badge/inbox/stripe.com.svg)](https://inbox-checker.appwrite.network/?domain=stripe.com)
+[![AI CiteReady](https://citeready-checker.appwrite.network/badge/citeready/zcoldwater.github.io.svg)](https://citeready-checker.appwrite.network/?url=https://zcoldwater.github.io/inboxshield-cli/)
+[![BrandShield](https://brand-checker.appwrite.network/badge/brand/InboxShield.svg)](https://brand-checker.appwrite.network/report/InboxShield)
+
+> **Add a live Email Security badge to your own README or footer:**
+> `[![Email Security](https://inbox-checker.appwrite.network/badge/inbox/yourdomain.com.svg)](https://inbox-checker.appwrite.network/?domain=yourdomain.com)` — [Customize badge styles →](https://inbox-checker.appwrite.network/badge)
 
 - **Live Free Web Diagnostic:** [https://inbox-checker.appwrite.network](https://inbox-checker.appwrite.network)
 - **Interactive Browser Audit & Docs:** [https://zcoldwater.github.io/inboxshield-cli/](https://zcoldwater.github.io/inboxshield-cli/)
