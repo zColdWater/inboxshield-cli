@@ -1,0 +1,23 @@
+name: Self-Test InboxShield Action
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run InboxShield Composite Action
+        id: check
+        uses: ./
+        with:
+          domain: stripe.com
+          min-score: "70"
+      - name: Print Outputs
+        run: echo "Score=${{ steps.check.outputs.score }} Grade=${{ steps.check.outputs.grade }} SPF=${{ steps.check.outputs.spf-lookups }}/10 DMARC=${{ steps.check.outputs.dmarc-policy }}"

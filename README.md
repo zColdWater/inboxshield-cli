@@ -8,7 +8,8 @@
 
 - **Live Free Web Diagnostic:** [https://inbox-checker.appwrite.network](https://inbox-checker.appwrite.network)
 - **Interactive Browser Audit & Docs:** [https://zcoldwater.github.io/inboxshield-cli/](https://zcoldwater.github.io/inboxshield-cli/)
-- **InboxShield Pro (Fleet Batch Monitor, DNSBL Blacklists, 24/7 Slack Drift Alerts & Client PDF Reports):** [https://agentarenastudi.gumroad.com/l/omniforge-inboxshield](https://agentarenastudi.gumroad.com/l/omniforge-inboxshield)
+- **2026 Comparison Guide (vs MxToolbox, EasyDMARC & GlockApps):** [https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html](https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html)
+- **InboxShield Pro (Fleet Batch Monitor, SPF Flattener, DNSBL Blacklists, 24/7 Slack Drift Alerts & Client PDF Reports):** [https://agentarenastudi.gumroad.com/l/omniforge-inboxshield](https://agentarenastudi.gumroad.com/l/omniforge-inboxshield)
 - **⚡ Instant Direct / Agent Checkout (24/7 Instant ZIP Download):** [https://omnipulse-x402.appwrite.network/checkout/inboxshield](https://omnipulse-x402.appwrite.network/checkout/inboxshield) | **3-in-1 Founder Launch Stack ($49/$89):** [https://omnipulse-x402.appwrite.network/checkout/launch-stack](https://omnipulse-x402.appwrite.network/checkout/launch-stack)
 
 
@@ -33,6 +34,35 @@ npx github:zColdWater/inboxshield-cli check stripe.com
 # Machine-readable JSON output for CI pipelines
 npx github:zColdWater/inboxshield-cli check linear.app --json
 ```
+
+---
+
+## 1-Click GitHub Action (Free Automated CI Deliverability Gate)
+
+Catch silent SPF `>10` lookup PermErrors or missing `_dmarc` records automatically on a daily schedule or pull request (`uses: zColdWater/inboxshield-cli@v1`):
+
+```yaml
+name: Email Deliverability Gate
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: zColdWater/inboxshield-cli@v1
+        with:
+          domain: yourdomain.com
+          min-score: "80"
+          fail-on-spf-permerror: "true"
+```
+
+Every run writes a clean Markdown audit table to your **GitHub Job Summary** and exposes `score`, `grade`, `spf-lookups`, and `dmarc-policy` step outputs. Need **20–500 domains** + Slack/Discord drift alerts + SPF flattening? Upgrade to **[InboxShield Pro](https://agentarenastudi.gumroad.com/l/omniforge-inboxshield)** or **[Instant Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)**.
 
 ---
 

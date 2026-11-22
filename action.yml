@@ -1,0 +1,98 @@
+name: "InboxShield Email Deliverability Audit"
+description: "Audit recursive SPF 10-lookup limits (RFC 7208), DMARC enforcement, DKIM selectors, MX, MTA-STS & BIMI in CI."
+author: "OmniForge Studio"
+branding:
+  icon: "shield"
+  color: "green"
+
+inputs:
+  domain:
+    description: "Sending domain to audit (e.g. yourdomain.com)"
+    required: true
+  min-score:
+    description: "Minimum health score (0-100) required to pass the CI check"
+    required: false
+    default: "70"
+  fail-on-spf-permerror:
+    description: "Fail the workflow if recursive SPF DNS lookups exceed RFC 7208 limit (>10)"
+    required: false
+    default: "true"
+  fail-on-missing-dmarc:
+    description: "Fail the workflow if _dmarc TXT record is missing"
+    required: false
+    default: "true"
+
+outputs:
+  score:
+    description: "Deliverability health score (0-100)"
+    value: ${{ steps.audit.outputs.score }}
+  grade:
+    description: "Deliverability letter grade (A+ to F)"
+    value: ${{ steps.audit.outputs.grade }}
+  spf-lookups:
+    description: "Recursive SPF DNS lookup count"
+    value: ${{ steps.audit.outputs.spf_lookups }}
+  dmarc-policy:
+    description: "Detected DMARC policy (reject, quarantine, none, missing)"
+    value: ${{ steps.audit.outputs.dmarc_policy }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run InboxShield DNS Deliverability Audit
+      id: audit
+      shell: bash
+      env:
+        INPUT_DOMAIN: ${{ inputs.domain }}
+        INPUT_MIN_SCORE: ${{ inputs.min-score }}
+        INPUT_FAIL_SPF: ${{ inputs.fail-on-spf-permerror }}
+        INPUT_FAIL_DMARC: ${{ inputs.fail-on-missing-dmarc }}
+      run: |
+        node -e '
+        import { execFileSync } from "node:child_process";
+        import fs from "node:fs";
+
+        const domain = process.env.INPUT_DOMAIN.trim();
+        const minScore = Number(process.env.INPUT_MIN_SCORE || 70);
+        const failSpf = process.env.INPUT_FAIL_SPF !== "false";
+        const failDmarc = process.env.INPUT_FAIL_DMARC !== "false";
+
+        const raw = execFileSync(process.execPath, [process.env.GITHUB_ACTION_PATH + "/bin/inboxshield.mjs", "check", domain, "--json"], { encoding: "utf8" });
+        const r = JSON.parse(raw);
+
+        const setOut = (k, v) => {
+          if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `${k}=${v}\n`);
+        };
+        setOut("score", r.score);
+        setOut("grade", r.grade);
+        setOut("spf_lookups", r.spf?.lookups ?? 0);
+        setOut("dmarc_policy", r.dmarc?.policy || "missing");
+
+        const summary = [
+          `## InboxShield Deliverability Audit — \`${r.domain}\``,
+          ``,
+          `| Metric | Result |`,
+          `| :--- | :--- |`,
+          `| **Health Score** | **${r.score}/100 (Grade ${r.grade})** |`,
+          `| **MX Servers** | ${r.mxCount} host(s) (${(r.mxHosts || []).join(", ") || "none"}) |`,
+          `| **SPF (RFC 7208)** | ${r.spf?.lookups ?? 0}/10 lookups (${r.spf?.qualifier || "missing"}) |`,
+          `| **DMARC Policy** | \`${r.dmarc?.policy || "missing"}\` |`,
+          `| **DKIM Selectors** | ${(r.dkimSelectorsFound || []).join(", ") || "None detected in quick-8"} |`,
+          `| **MTA-STS / TLS-RPT / BIMI** | ${r.mtaSts ? "Yes" : "No"} / ${r.tlsRpt ? "Yes" : "No"} / ${r.bimi ? "Yes" : "No"} |`,
+          ``,
+          ...(r.issues?.length ? ["### Actionable Findings", ...r.issues.map(i => `- ${i}`), ""] : []),
+          `> Free Web Diagnostic: https://inbox-checker.appwrite.network · Monitoring 5–500 domains + SPF Flattener + DNSBL + Slack Alerts? [InboxShield Pro ($29/$49 one-time)](https://agentarenastudi.gumroad.com/l/omniforge-inboxshield) · [Instant Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)`,
+        ].join("\n") + "\n";
+
+        if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
+        console.log(summary);
+
+        const errors = [];
+        if (r.score < minScore) errors.push(`Score ${r.score} is below min-score ${minScore}`);
+        if (failSpf && (r.spf?.lookups ?? 0) > 10) errors.push(`SPF PermError: ${r.spf.lookups}/10 DNS lookups exceeds RFC 7208 limit`);
+        if (failDmarc && !r.dmarc?.record) errors.push("Missing _dmarc TXT record");
+        if (errors.length) {
+          console.error("InboxShield CI gate failed:\n" + errors.map(e => "  - " + e).join("\n"));
+          process.exit(1);
+        }
+        '
