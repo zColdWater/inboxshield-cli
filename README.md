@@ -13,6 +13,7 @@
 > `[![Email Security](https://inbox-checker.appwrite.network/badge/inbox/yourdomain.com.svg)](https://inbox-checker.appwrite.network/?domain=yourdomain.com)` — [Customize badge styles →](https://inbox-checker.appwrite.network/badge)
 
 - **Live Free Web Diagnostic:** [https://inbox-checker.appwrite.network](https://inbox-checker.appwrite.network)
+- **Free Online SPF Flattener (Fix >10-Lookup PermError):** [https://inbox-checker.appwrite.network/spf-flattener](https://inbox-checker.appwrite.network/spf-flattener)
 - **Interactive Browser Audit & Docs:** [https://zcoldwater.github.io/inboxshield-cli/](https://zcoldwater.github.io/inboxshield-cli/)
 - **2026 Comparison Guide (vs MxToolbox, EasyDMARC & GlockApps):** [https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html](https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html)
 - **InboxShield Pro (Fleet Batch Monitor, SPF Flattener, DNSBL Blacklists, 24/7 Slack Drift Alerts & Client PDF Reports):** [https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield)
