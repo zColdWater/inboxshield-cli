@@ -15,7 +15,7 @@
 - **Live Free Web Diagnostic:** [https://inbox-checker.appwrite.network](https://inbox-checker.appwrite.network)
 - **Interactive Browser Audit & Docs:** [https://zcoldwater.github.io/inboxshield-cli/](https://zcoldwater.github.io/inboxshield-cli/)
 - **2026 Comparison Guide (vs MxToolbox, EasyDMARC & GlockApps):** [https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html](https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html)
-- **InboxShield Pro (Fleet Batch Monitor, SPF Flattener, DNSBL Blacklists, 24/7 Slack Drift Alerts & Client PDF Reports):** [https://agentarenastudi.gumroad.com/l/omniforge-inboxshield](https://agentarenastudi.gumroad.com/l/omniforge-inboxshield)
+- **InboxShield Pro (Fleet Batch Monitor, SPF Flattener, DNSBL Blacklists, 24/7 Slack Drift Alerts & Client PDF Reports):** [https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield)
 - **⚡ Instant Direct / Agent Checkout (24/7 Instant ZIP Download):** [https://omnipulse-x402.appwrite.network/checkout/inboxshield](https://omnipulse-x402.appwrite.network/checkout/inboxshield) | **3-in-1 Founder Launch Stack ($49/$89):** [https://omnipulse-x402.appwrite.network/checkout/launch-stack](https://omnipulse-x402.appwrite.network/checkout/launch-stack)
 
 
@@ -68,13 +68,13 @@ jobs:
           fail-on-spf-permerror: "true"
 ```
 
-Every run writes a clean Markdown audit table to your **GitHub Job Summary** and exposes `score`, `grade`, `spf-lookups`, and `dmarc-policy` step outputs. Need **20–500 domains** + Slack/Discord drift alerts + SPF flattening? Upgrade to **[InboxShield Pro](https://agentarenastudi.gumroad.com/l/omniforge-inboxshield)** or **[Instant Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)**.
+Every run writes a clean Markdown audit table to your **GitHub Job Summary** and exposes `score`, `grade`, `spf-lookups`, and `dmarc-policy` step outputs. Need **20–500 domains** + Slack/Discord drift alerts + SPF flattening? Upgrade to **[InboxShield Pro](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield)** or **[Instant Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)**.
 
 ---
 
 ## Free Lite CLI vs. InboxShield Pro (`$0/mo` Ongoing)
 
-`inboxshield-cli` (this repo) is our free MIT-licensed **1-domain quick scanner**. To monitor your entire sending fleet for `$0/month` ongoing instead of `$59–$129/mo` SaaS subscriptions, upgrade to **[InboxShield Pro](https://agentarenastudi.gumroad.com/l/omniforge-inboxshield)**:
+`inboxshield-cli` (this repo) is our free MIT-licensed **1-domain quick scanner**. To monitor your entire sending fleet for `$0/month` ongoing instead of `$59–$129/mo` SaaS subscriptions, upgrade to **[InboxShield Pro](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield)**:
 
 | Capability | InboxShield Lite (Free OSS) | InboxShield Pro Solo ($29) | InboxShield Pro Agency ($49) |
 | :--- | :---: | :---: | :---: |
@@ -87,7 +87,7 @@ Every run writes a clean Markdown audit table to your **GitHub Job Summary** and
 | **Local HTML Fleet Dashboard (`:3848`)** | — | **Included** | **Included** |
 | **White-Label Client HTML/PDF Reports** | — | Solo / internal domains | **Commercial 10-seat license + `--brand` / `--client`** |
 
-👉 **[Get InboxShield Pro ($29 Solo / $49 Agency — One-Time Download) on Gumroad](https://agentarenastudi.gumroad.com/l/omniforge-inboxshield)**
+👉 **[Get InboxShield Pro ($29 Solo / $49 Agency — One-Time Download) on Gumroad](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield)**
 
 ## License
 

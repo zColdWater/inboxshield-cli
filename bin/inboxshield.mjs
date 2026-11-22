@@ -8,12 +8,12 @@
  * live Spamhaus/Barracuda DNSBL screening, 24/7 GitHub Actions + Slack drift alerts,
  * and white-label client PDF/HTML reports?
  * Upgrade to InboxShield Pro ($29 Solo / $49 Agency — one-time buy, $0/mo ongoing):
- *   https://agentarenastudi.gumroad.com/l/omniforge-inboxshield
+ *   https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield
  */
 import dns from "node:dns/promises";
 
 const WEB_SCANNER = "https://inbox-checker.appwrite.network";
-const PRO_URL = "https://agentarenastudi.gumroad.com/l/omniforge-inboxshield";
+const PRO_URL = "https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield";
 
 const C = {
   reset: "\x1b[0m",

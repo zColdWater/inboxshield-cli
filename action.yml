@@ -81,7 +81,7 @@ runs:
           `| **MTA-STS / TLS-RPT / BIMI** | ${r.mtaSts ? "Yes" : "No"} / ${r.tlsRpt ? "Yes" : "No"} / ${r.bimi ? "Yes" : "No"} |`,
           ``,
           ...(r.issues?.length ? ["### Actionable Findings", ...r.issues.map(i => `- ${i}`), ""] : []),
-          `> Free Web Diagnostic: https://inbox-checker.appwrite.network · Monitoring 5–500 domains + SPF Flattener + DNSBL + Slack Alerts? [InboxShield Pro ($29/$49 one-time)](https://agentarenastudi.gumroad.com/l/omniforge-inboxshield) · [Instant Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)`,
+          `> Free Web Diagnostic: https://inbox-checker.appwrite.network · Monitoring 5–500 domains + SPF Flattener + DNSBL + Slack Alerts? [InboxShield Pro ($29/$49 one-time)](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield) · [Instant Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)`,
         ].join("\n") + "\n";
 
         if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);

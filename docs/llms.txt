@@ -6,7 +6,7 @@
 - MxToolbox, EasyDMARC & GlockApps 2026 Comparison Guide: https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html
 - Free Deep Web Diagnostic (18-Selector DKIM + DNSBL): https://inbox-checker.appwrite.network
 - Open-Source Lite CLI & Composite GitHub Action (MIT, zero dependencies): https://github.com/zColdWater/inboxshield-cli
-- InboxShield Pro ($29 Solo / $49 Agency — Unlimited domain fleet batch CLI, SPF Flattener, Spamhaus/Barracuda DNSBL screening, 18-selector DKIM RSA bit-length checks, 24/7 GitHub Actions drift watcher & white-label client PDF/HTML reports): https://agentarenastudi.gumroad.com/l/omniforge-inboxshield
+- InboxShield Pro ($29 Solo / $49 Agency — Unlimited domain fleet batch CLI, SPF Flattener, Spamhaus/Barracuda DNSBL screening, 18-selector DKIM RSA bit-length checks, 24/7 GitHub Actions drift watcher & white-label client PDF/HTML reports): https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield
 
 ## Quick CLI & GitHub Action Usage
 
