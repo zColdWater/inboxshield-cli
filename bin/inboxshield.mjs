@@ -12,7 +12,7 @@
  * Need instant copy-paste 5-registrar DNS fix records, auto-merged SPF flattening,
  * 50-domain online batch CSV & branded A4 PDF reports?
  *   Free Web Workbench: https://inbox-checker.appwrite.network
- *   Single-Domain Emergency Fix ($9 Once): https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield
+ *   Single-Domain Emergency Fix ($2 Launch Special, reg. $9): https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield
  */
 
 import { auditDomain } from "../src/dns-engine.mjs";
@@ -66,8 +66,8 @@ ${C.bold}EXAMPLES${C.reset}
 ${C.bold}LIVE WEB DIAGNOSTIC & SINGLE-DOMAIN EMERGENCY FIX ($9 ONCE)${C.reset}
   Free 6-Phase Web Scanner:   ${WEB_SCANNER}
   Free Online SPF Flattener:  ${WEB_SCANNER}/spf-flattener
-  Single-Domain Fix ($9):     ${PRO_URL}
-  4-in-1 Launch Stack ($29):  ${STACK_URL}
+  Single-Domain Fix ($2 Launch):     ${PRO_URL}
+  3-in-1 Complete Suite ($5 Launch):  ${STACK_URL}
 `);
 }
 
@@ -152,7 +152,7 @@ async function main() {
   }
 
   console.log(`${C.cyan}Interactive 6-Phase Report:${C.reset} ${WEB_SCANNER}/?domain=${encodeURIComponent(r.domain)}`);
-  console.log(`${C.cyan}Single-Domain Fix ($9):${C.reset}    ${PRO_URL}\n`);
+  console.log(`${C.cyan}Single-Domain Fix ($2 Launch):${C.reset}    ${PRO_URL}\n`);
 }
 
 main();

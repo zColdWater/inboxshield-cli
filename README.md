@@ -11,9 +11,9 @@
 - **Flagship v7.0 Online Web App (Zero Signup, 6-Phase Real Protocol Trace):** [https://inbox-checker.appwrite.network](https://inbox-checker.appwrite.network)
 - **Free Online SPF Flattener (Collapse `>10`-Lookup PermError -> `1/10`):** [https://inbox-checker.appwrite.network/spf-flattener](https://inbox-checker.appwrite.network/spf-flattener)
 - **NEW — 2026 Indie SaaS Email Deliverability Benchmark (60 Domains Audited):** [Read the Full Study](./docs/email-deliverability-benchmark-2026.md)
-- **EasyDMARC ($432/yr) vs. InboxShield ($9 Once) Comparison:** [https://zcoldwater.github.io/launch-audit-reports/compare/easydmarc-vs-inboxshield.html](https://zcoldwater.github.io/launch-audit-reports/compare/easydmarc-vs-inboxshield.html)
-- **Single-Domain Emergency Fix ($9 One-Time — Instant In-Browser Unlock, 14-Day Refund):** [Gumroad Checkout](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield) · [Direct Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)
-- **4-in-1 OmniForge Suite ($29 One-Time — Unlocks VibeShield + InboxShield + CiteReady):** [Gumroad Bundle](https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack) · [Direct Checkout](https://omnipulse-x402.appwrite.network/checkout/launch-stack)
+- **EasyDMARC ($432/yr) vs. InboxShield ($2 Launch Special) Comparison:** [https://zcoldwater.github.io/launch-audit-reports/compare/easydmarc-vs-inboxshield.html](https://zcoldwater.github.io/launch-audit-reports/compare/easydmarc-vs-inboxshield.html)
+- **Single-Domain Emergency Fix ($2 Launch Special, reg. $9 — One-Time — Instant In-Browser Unlock, 14-Day Refund):** [Gumroad Checkout](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield) · [Direct Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)
+- **OmniForge Complete Suite ($5 Launch Special, reg. $29 — One-Time — Unlocks VibeShield + InboxShield + CiteReady):** [Gumroad Bundle](https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack) · [Direct Checkout](https://omnipulse-x402.appwrite.network/checkout/launch-stack)
 
 ---
 
@@ -37,17 +37,17 @@ In our passive DNS audit of **60 recently active GitHub indie SaaS & AI custom d
 
 ---
 
-## Free Online Web App vs. Single-Domain Emergency Fix (`$9` One-Time)
+## Free Online Web App vs. Single-Domain Emergency Fix (`$2` Launch Special, `~~$9~~` One-Time)
 
-| Capability | Free Online Scanner & OSS CLI | Single-Domain Emergency Fix ($9 Once) | 4-in-1 OmniForge Suite ($29 Once) |
+| Capability | Free Online Scanner & OSS CLI | Single-Domain Emergency Fix ($2 Launch, ~~$9~~) | OmniForge Complete Suite ($5 Launch, ~~$29~~) |
 | :--- | :---: | :---: | :---: |
 | **6-Phase Deep DNS Protocol Diagnostics** | Unlimited 1-by-1 | **Included + 50-Domain Batch CSV** | **All Web Suites Unlocked** |
-| **Online SPF Flattener (RFC 7208)** | Free online | **Auto-Merged & Flattened 1-TXT Output** | **InboxShield v7.0 ($9)** |
-| **5 Copy-Paste DNS Fix Records** | Root-cause diagnosis | **Unmasked SPF, DMARC, DKIM, MTA-STS & TLS-RPT for Cloudflare, GoDaddy, Namecheap, Aliyun & DNSPod** | **+ VibeShield v7.0 ($9)** |
-| **Printable A4 Client Deliverability PDF** | Summary only | **Branded A4 PDF Export (`@media print`)** | **+ CiteReady AI Search ($12)** |
+| **Online SPF Flattener (RFC 7208)** | Free online | **Auto-Merged & Flattened 1-TXT Output** | **InboxShield v7.0 ($2 Launch)** |
+| **5 Copy-Paste DNS Fix Records** | Root-cause diagnosis | **Unmasked SPF, DMARC, DKIM, MTA-STS & TLS-RPT for Cloudflare, GoDaddy, Namecheap, Aliyun & DNSPod** | **+ VibeShield v7.0 ($2 Launch)** |
+| **Printable A4 Client Deliverability PDF** | Summary only | **Branded A4 PDF Export (`@media print`)** | **+ CiteReady v6.0 ($2 Launch)** |
 | **Companion Free Domain Tool** | [BrandShield v6.2 (100% Free)](https://brand-checker.appwrite.network) | **78 TLDs + 17 Aftermarket Marketplaces Free** | **Included Free Forever** |
 
-> **Honest Scope:** InboxShield is an on-demand live DNS diagnostic & copy-paste remediation workbench (`$9` one-time vs. `$432+/yr` hosted DMARC SaaS platforms). It does not operate a hosted 24/7 inbound DMARC XML mailbox server (no CNAME lock-in, no subscriptions).
+> **Honest Scope:** InboxShield is an on-demand live DNS diagnostic & copy-paste remediation workbench (`$2` Launch Special, reg. `$9`, vs. `$432+/yr` hosted DMARC SaaS platforms). It does not operate a hosted 24/7 inbound DMARC XML mailbox server (no CNAME lock-in, no subscriptions).
 
 ---
 

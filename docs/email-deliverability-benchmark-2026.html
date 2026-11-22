@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2026 Indie SaaS Email Deliverability Benchmark (60 Domains Audited) | InboxShield v7.0</title>
+  <meta name="description" content="Passive public DNS benchmark of 60 recently active indie SaaS &amp; AI custom domains: 71.7% lack enforced DMARC, 33.3% lack SPF, 45.0% lack DKIM, average score 60.3/100. Free 6-phase audit + $2 Launch Special DNS fix." />
+  <link rel="canonical" href="https://zcoldwater.github.io/inboxshield-cli/email-deliverability-benchmark-2026.html" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "2026 Indie SaaS Email Deliverability Benchmark (60 Custom Domains Audited)",
+    "datePublished": "2026-11-22",
+    "dateModified": "2026-11-22",
+    "author": { "@type": "Organization", "name": "OmniForge · Agent Arena Studio" },
+    "description": "Passive public DNS audit of 60 recently launched indie SaaS custom domains using InboxShield v7.0: 71.7% lack enforced DMARC, 33.3% lack SPF, 45.0% lack active DKIM selectors."
+  }
+  </script>
+  <style>
+    :root { --bg:#0d0f0d; --card:#131714; --border:#232c25; --text:#f3f7f4; --muted:#97a69b; --mint:#4ade80; --amber:#fbbf24; --red:#f87171; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.62; }
+    a { color:var(--mint); text-decoration:none; }
+    .wrap { max-width:960px; margin:0 auto; padding:0 20px; }
+    header { border-bottom:1px solid var(--border); background:#0f120f; }
+    .nav { display:flex; align-items:center; justify-content:space-between; height:60px; gap:12px; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; padding:9px 16px; border-radius:8px; font-weight:700; font-size:0.9rem; border:1px solid transparent; cursor:pointer; }
+    .btn-mint { background:var(--mint); color:#052e16; }
+    .btn-out { background:var(--card); color:var(--text); border-color:var(--border); }
+    .hero { padding:48px 0 28px; }
+    h1 { font-size:clamp(1.85rem,4vw,2.7rem); line-height:1.15; margin:0 0 12px; }
+    .sub { color:var(--muted); max-width:740px; margin:0 0 22px; }
+    .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin:24px 0; }
+    .kpi { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; }
+    .kpi .num { font-size:1.9rem; font-weight:800; line-height:1.1; margin-bottom:4px; }
+    .kpi .lbl { color:var(--muted); font-size:0.86rem; }
+    table { width:100%; border-collapse:collapse; margin:18px 0 32px; background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+    th, td { text-align:left; padding:11px 14px; border-bottom:1px solid var(--border); font-size:0.92rem; }
+    th { color:var(--muted); font-weight:600; background:#101411; }
+    .scan-box { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px; margin:24px 0; }
+    .scan-row { display:flex; gap:10px; flex-wrap:wrap; }
+    input { flex:1; min-width:200px; padding:11px 14px; border-radius:8px; border:1px solid var(--border); background:#080a08; color:#fff; font-size:0.95rem; }
+    .strike { text-decoration:line-through; opacity:0.65; margin-right:4px; }
+    footer { border-top:1px solid var(--border); padding:26px 0 40px; color:var(--muted); font-size:0.86rem; text-align:center; margin-top:36px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a href="./index.html" style="font-weight:800;color:#fff;">InboxShield v7.0</a>
+      <div style="display:flex;gap:14px;align-items:center;font-size:0.9rem;">
+        <a href="https://inbox-checker.appwrite.network/" target="_blank" rel="noopener">Free Live Audit</a>
+        <a href="https://inbox-checker.appwrite.network/spf-flattener" target="_blank" rel="noopener">SPF Flattener</a>
+        <a class="btn btn-mint" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener">Fix Pack $2 <span class="strike">$9</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div style="color:var(--mint);font-size:0.82rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:8px;">2026 Passive Public DNS Research · N = 60 Indie SaaS Custom Domains</div>
+      <h1>71.7% of Newly Launched Indie SaaS Domains Fail Enforced DMARC</h1>
+      <p class="sub">
+        We ran strictly passive public DNS queries via InboxShield v7.0 across 60 recently active public GitHub indie SaaS &amp; AI project custom domains (zero HTTP probing, anonymized aggregate results). Average deliverability health score: <strong>60.3 / 100</strong>.
+      </p>
+
+      <div class="kpi-grid">
+        <div class="kpi"><div class="num" style="color:var(--red);">71.7%</div><div class="lbl">No Enforced DMARC (35.0% missing, 36.7% p=none)</div></div>
+        <div class="kpi"><div class="num" style="color:var(--amber);">33.3%</div><div class="lbl">Missing SPF (v=spf1) Record Entirely</div></div>
+        <div class="kpi"><div class="num" style="color:var(--amber);">45.0%</div><div class="lbl">No Active DKIM Across 24 Standard Selectors</div></div>
+        <div class="kpi"><div class="num" style="color:var(--mint);">60.3</div><div class="lbl">Average Deliverability Score (/100)</div></div>
+      </div>
+
+      <div class="scan-box">
+        <div style="font-weight:700;margin-bottom:10px;">Test Your Own Sending Domain Free (6-Phase Real Protocol Audit)</div>
+        <form id="domForm" class="scan-row">
+          <input id="domInput" type="text" placeholder="yourdomain.com" required />
+          <button type="submit" class="btn btn-mint">Audit Domain Free</button>
+          <a class="btn btn-out" href="https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack" target="_blank" rel="noopener">3-in-1 Suite $5 <span class="strike">$29</span></a>
+        </form>
+      </div>
+
+      <h2>Protocol Failure Breakdown (N = 60)</h2>
+      <table>
+        <thead><tr><th>DNS Protocol Check</th><th>Affected</th><th>Share</th><th>Impact</th></tr></thead>
+        <tbody>
+          <tr><td>Score Below 70 / 100</td><td>32 / 60</td><td>53.3%</td><td>High risk of Gmail/Yahoo spam placement</td></tr>
+          <tr><td>No Enforced DMARC (missing or p=none)</td><td>43 / 60</td><td>71.7%</td><td>Spoofable sender domain; fails 2024–2026 bulk-sender policy</td></tr>
+          <tr><td>Missing v=spf1 Record</td><td>20 / 60</td><td>33.3%</td><td>Password resets &amp; receipts lack IP authorization</td></tr>
+          <tr><td>No Active DKIM (24 standard selectors)</td><td>27 / 60</td><td>45.0%</td><td>Cryptographic message signature missing</td></tr>
+          <tr><td>No MX Record Configured</td><td>18 / 60</td><td>30.0%</td><td>Customer replies to your domain bounce silently</td></tr>
+          <tr><td>Duplicate SPF or DMARC RFC 7489 Syntax Error</td><td>2 / 60</td><td>3.3%</td><td>Triggers silent PermError or policy ignore</td></tr>
+          <tr><td>Missing MTA-STS &amp; TLS-RPT</td><td>60 / 60</td><td>100.0%</td><td>No enforced SMTP TLS downgrade protection</td></tr>
+          <tr><td>Missing BIMI Brand Logo Record</td><td>59 / 60</td><td>98.3%</td><td>No verified inbox logo trust badge</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Detected Mail Provider Distribution</h2>
+      <table>
+        <thead><tr><th>Mail Provider / MX Setup</th><th>Domains</th><th>Share</th></tr></thead>
+        <tbody>
+          <tr><td>No MX Configured</td><td>18</td><td>30.0%</td></tr>
+          <tr><td>Cloudflare Email Routing</td><td>13</td><td>21.7%</td></tr>
+          <tr><td>Google Workspace</td><td>12</td><td>20.0%</td></tr>
+          <tr><td>Custom / Self-Hosted Mail</td><td>11</td><td>18.3%</td></tr>
+          <tr><td>Zoho Mail / Microsoft 365 / Tencent / Feishu</td><td>6</td><td>10.0%</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Fix Your Domain in 3 Minutes ($2 Launch Special)</h2>
+      <p style="color:var(--muted);">
+        Run a free 6-phase audit at <a href="https://inbox-checker.appwrite.network/">inbox-checker.appwrite.network</a>, collapse &gt;10-lookup SPF records free with the <a href="https://inbox-checker.appwrite.network/spf-flattener">SPF Flattener</a>, or unlock all 5 copy-paste DNS fix records (SPF, DMARC, DKIM, MTA-STS, TLS-RPT for Cloudflare, GoDaddy, Namecheap, Aliyun &amp; DNSPod) for <strong>$2 Launch Special</strong> (<span class="strike">$9</span>, one-time, $0/mo vs. $432/yr EasyDMARC).
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>
+        <a href="https://inbox-checker.appwrite.network/">InboxShield v7.0 ($2)</a> ·
+        <a href="https://vibe-checker.appwrite.network/">VibeShield v7.0 ($2)</a> ·
+        <a href="https://brand-checker.appwrite.network/">BrandShield v6.2 (100% Free)</a> ·
+        <a href="https://citeready-checker.appwrite.network/">CiteReady v6.0 ($2)</a> ·
+        <a href="https://github.com/zColdWater/inboxshield-cli">GitHub CLI (@v7)</a>
+      </p>
+      <p>OmniForge · Agent Arena Studio · agentarenastudio@proton.me · @agentarenastudi</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("domForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var d = document.getElementById("domInput").value.trim().replace(/^https?:\/\//i, "").replace(/\/.*$/, "");
+      if (!d) return;
+      window.open("https://inbox-checker.appwrite.network/?domain=" + encodeURIComponent(d), "_blank", "noopener");
+    });
+  </script>
+</body>
+</html>

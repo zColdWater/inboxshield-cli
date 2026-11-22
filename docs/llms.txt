@@ -1,24 +1,12 @@
-# InboxShield — Online Email Deliverability, SPF Flattener & DMARC Auditor (v5.0)
+# InboxShield v7.0 — 6-Phase Email Deliverability, SPF Flattener & DMARC RFC 7489 Linter
 
-> Instant 2-second online audit for SPF 10-lookup limits (RFC 7208), 24 DKIM selectors, DMARC policy, MX/ESP detection, and 5 DNSBL blacklists — zero install, zero subscriptions, zero CNAME delegation — plus MIT CLI & GitHub Action (`uses: zColdWater/inboxshield-cli@v1`).
+> Real 6-phase email DNS protocol auditor: Authoritative NS/SOA consistency, MX multi-node IPv4 redundancy, recursive SPF per-layer CIDR expansion (RFC 7208), 24-selector DKIM, strict RFC 7489 DMARC tag linter, MTA-STS, TLS-RPT, BIMI & 5 DNSBL blacklists.
 
-- Flagship v5.0 Live Web App: https://inbox-checker.appwrite.network
-- Free Online SPF Flattener (Collapse >10-Lookup PermError -> 1/10): https://inbox-checker.appwrite.network/spf-flattener
-- Landing Page & Docs: https://zcoldwater.github.io/inboxshield-cli/
-- Comparison Guide (InboxShield vs. EasyDMARC & MxToolbox): https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html
-- Open-Source CLI & GitHub Action (MIT, zero dependencies): https://github.com/zColdWater/inboxshield-cli
-- InboxShield Web Pro ($15 One-Time — Instant in-page unlock, 5-registrar DNS fix wizard for Cloudflare/GoDaddy/Namecheap/Aliyun/DNSPod, 50-domain online batch CSV, printable A4 PDF, 14-day refund): https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield
-- Direct Multi-Chain Checkout ($15): https://omnipulse-x402.appwrite.network/checkout/inboxshield
-
-## OmniForge v5.0 Pre-Launch Web Pro Suite ($29 4-in-1 — Save $19)
-
-- VibeShield v5.0 ($9 Once): https://vibe-checker.appwrite.network | https://omnipulse-x402.appwrite.network/go/gumroad/vibeshield
-- BrandShield v5.0 ($12 Once): https://brand-checker.appwrite.network | https://omnipulse-x402.appwrite.network/go/gumroad/brandshield
-- CiteReady v5.0 ($12 Once): https://citeready-checker.appwrite.network | https://omnipulse-x402.appwrite.network/go/gumroad/citeready
-- InboxShield v5.0 ($15 Once): https://inbox-checker.appwrite.network | https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield
-- 4-in-1 Launch Stack ($29 Once — Unlocks Web Pro across all 4 apps): https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack | https://omnipulse-x402.appwrite.network/checkout/launch-stack
-
-## Support & Official Contact
-
-- OmniForge · Agent Arena Studio — agentarenastudio@proton.me | https://x.com/agentarenastudi
-- Support & 14-Day Refund Policy: https://omnipulse-x402.appwrite.network/support | https://omnipulse-x402.appwrite.network/refund-policy
+- Free 6-Phase Online Web App: https://inbox-checker.appwrite.network/
+- Free Online SPF Flattener: https://inbox-checker.appwrite.network/spf-flattener
+- 2026 Indie SaaS Email Deliverability Benchmark (60 Domains Audited): https://zcoldwater.github.io/inboxshield-cli/email-deliverability-benchmark-2026.html
+- EasyDMARC & MxToolbox Alternative: https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html
+- Open-Source MIT CLI & GitHub Action (`uses: zColdWater/inboxshield-cli@v7`): https://github.com/zColdWater/inboxshield-cli
+- Single-Domain Emergency Fix ($2 Launch Special, regularly $9 — 5 Copy-Paste DNS Records for Cloudflare/GoDaddy/Namecheap/Aliyun/DNSPod, 50-Domain Batch CSV, A4 PDF, 14-Day Refund): https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield
+- OmniForge Complete Suite ($5 Launch Special, regularly $29 — Unlocks InboxShield + VibeShield + CiteReady): https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack
+- Companion Free Domain Tool — BrandShield v6.2 (100% Free Forever): https://brand-checker.appwrite.network/

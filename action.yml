@@ -81,7 +81,7 @@ runs:
           `| **MTA-STS / TLS-RPT / BIMI** | ${r.mtaSts ? "Yes" : "No"} / ${r.tlsRpt ? "Yes" : "No"} / ${r.bimi ? "Yes" : "No"} |`,
           ``,
           ...(r.issues?.length ? ["### Actionable Findings", ...r.issues.map(i => `- ${i}`), ""] : []),
-          `> Free 6-Phase Web Diagnostic: https://inbox-checker.appwrite.network/?domain=${encodeURIComponent(r.domain)} · Need exact copy-paste 5-registrar DNS fixes + merged SPF flattening? [Single-Domain Emergency Fix ($9 Once)](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield)`,
+          `> Free 6-Phase Web Diagnostic: https://inbox-checker.appwrite.network/?domain=${encodeURIComponent(r.domain)} · Need exact copy-paste 5-registrar DNS fixes + merged SPF flattening? [Single-Domain Emergency Fix ($2 Launch Special, reg. $9)](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield)`,
         ].join("\n") + "\n";
 
         if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
