@@ -1,56 +1,62 @@
-# InboxShield — Online Email Deliverability, SPF Flattener & DMARC Auditor (`v5.0` Web App + OSS CLI & GitHub Action)
+# InboxShield v7.0 — 6-Phase Email Deliverability, SPF Flattener & DMARC Linter (Web App + OSS CLI & GitHub Action)
 
-**Audit SPF 10-lookup limits (RFC 7208), 24 DKIM selectors, DMARC enforcement, MX/ESP detection, MTA-STS, BIMI, and 5 DNSBL blacklists in under 2 seconds — directly in your browser with zero install, or in CI via `zColdWater/inboxshield-cli@v1`.**
+**Audit Authoritative NS/SOA consistency, MX IPv4 redundancy, recursive SPF per-layer CIDR expansion (RFC 7208), 24 DKIM selectors, strict RFC 7489 DMARC tag syntax, MTA-STS, TLS-RPT, BIMI, and 5 DNSBL blacklists — directly in your browser with zero install, or locally in CI via `zColdWater/inboxshield-cli@v7`.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Node.js >= 18](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org)
+[![Node.js >= 20](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](./package.json)
 [![Email Security](https://inbox-checker.appwrite.network/badge/inbox/stripe.com.svg)](https://inbox-checker.appwrite.network/?domain=stripe.com)
-[![AI CiteReady](https://citeready-checker.appwrite.network/badge/citeready/zcoldwater.github.io.svg)](https://citeready-checker.appwrite.network/?url=https://zcoldwater.github.io/inboxshield-cli/)
-[![BrandShield](https://brand-checker.appwrite.network/badge/brand/InboxShield.svg)](https://brand-checker.appwrite.network/report/InboxShield)
+[![Audited by VibeShield](https://vibe-checker.appwrite.network/api/badge.svg?domain=inbox-checker&score=95&grade=A%2B)](https://vibe-checker.appwrite.network/)
 
-- **Flagship v5.0 Online Web App (Zero Signup, 2-Second Audit):** [https://inbox-checker.appwrite.network](https://inbox-checker.appwrite.network)
+- **Flagship v7.0 Online Web App (Zero Signup, 6-Phase Real Protocol Trace):** [https://inbox-checker.appwrite.network](https://inbox-checker.appwrite.network)
 - **Free Online SPF Flattener (Collapse `>10`-Lookup PermError -> `1/10`):** [https://inbox-checker.appwrite.network/spf-flattener](https://inbox-checker.appwrite.network/spf-flattener)
-- **Docs & EasyDMARC / MxToolbox Comparison:** [https://zcoldwater.github.io/inboxshield-cli/](https://zcoldwater.github.io/inboxshield-cli/) · [Comparison Guide](https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html)
-- **InboxShield Web Pro ($15 One-Time — Instant In-Browser Unlock, 14-Day Refund):** [Gumroad Checkout](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield) · [Direct 7-Chain Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)
-- **4-in-1 OmniForge Web Pro Suite ($29 One-Time — Unlocks VibeShield + BrandShield + CiteReady + InboxShield, Save $19):** [Gumroad Bundle](https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack) · [Direct Checkout](https://omnipulse-x402.appwrite.network/checkout/launch-stack)
+- **NEW — 2026 Indie SaaS Email Deliverability Benchmark (60 Domains Audited):** [Read the Full Study](./docs/email-deliverability-benchmark-2026.md)
+- **EasyDMARC ($432/yr) vs. InboxShield ($9 Once) Comparison:** [https://zcoldwater.github.io/launch-audit-reports/compare/easydmarc-vs-inboxshield.html](https://zcoldwater.github.io/launch-audit-reports/compare/easydmarc-vs-inboxshield.html)
+- **Single-Domain Emergency Fix ($9 One-Time — Instant In-Browser Unlock, 14-Day Refund):** [Gumroad Checkout](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield) · [Direct Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)
+- **4-in-1 OmniForge Suite ($29 One-Time — Unlocks VibeShield + InboxShield + CiteReady):** [Gumroad Bundle](https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack) · [Direct Checkout](https://omnipulse-x402.appwrite.network/checkout/launch-stack)
 
 ---
 
-## Why Sending Domains Silently Drop Into Spam
+## 2026 Indie SaaS Passive DNS Benchmark Highlights (N = 60 Custom Domains)
 
-1. **Silent SPF `>10` Lookup `PermError` (RFC 7208):** Stacking `include:_spf.google.com`, `sendgrid.net`, `spf.protection.outlook.com`, HubSpot, or Zendesk quickly pushes recursive DNS lookups past **10**, causing instant SPF failure.
-2. **Missing or Unenforced DMARC (`p=none`) & Weak DKIM Keys:** Google, Yahoo, and Microsoft bulk-sender requirements reject or spam-folder unaligned mail. InboxShield checks **24 standard DKIM selectors**, RSA bit strength, MX providers (Google Workspace, Microsoft 365, Tencent Exmail, Aliyun, Feishu, Resend, Fastmail), and **5 DNSBL blacklists** live.
-3. **Zero Subscriptions & Zero CNAME Delegation:** InboxShield v5.0 is an on-demand diagnostic and DNS remediation workbench (`$15` one-time vs. `$432+/yr` hosted DMARC SaaS platforms) — no CNAME lock-in, no mandatory accounts.
+In our passive DNS audit of **60 recently active GitHub indie SaaS & AI custom domains** ([full report](./docs/email-deliverability-benchmark-2026.md)):
+- **71.7% (43/60)** have **no enforced DMARC policy** (`35.0%` missing `_dmarc` entirely; `36.7%` stuck on monitor-only `p=none`).
+- **33.3% (20/60)** ship with **no SPF record**, and **45.0% (27/60)** lack an active DKIM selector across 24 standard ESP selectors.
+- **Average Deliverability Score:** **60.3 / 100** (`53.3%` score under `70/100`), with **100%** missing MTA-STS & TLS-RPT.
 
 ---
 
-## Free Online Web App vs. InboxShield Web Pro (`$15` One-Time)
+## What InboxShield v7.0 Audits (6 Real Protocol Phases)
 
-Unlock Web Pro directly inside [inbox-checker.appwrite.network](https://inbox-checker.appwrite.network) with one-time payment (Gumroad or 7-chain USDT/USDC) and a **14-day refund guarantee**:
+1. **Authoritative NS Consistency & SOA Verification:** Native vs. Cloudflare DoH `NS` cross-check, glue IPv4 resolution, `/16` subnet diversity, and SOA primary-in-NS check.
+2. **MX Multi-Node Priority Redundancy & ESP Auto-Detection:** Resolves per-MX IPv4s, detects single-IP false redundancy & RFC 7505 Null MX, and auto-detects Google Workspace, Microsoft 365, Cloudflare Email Routing, Resend, Zoho, Tencent Exmail, Aliyun, and Feishu/Lark.
+3. **SPF Nested Per-Layer IP/CIDR Expansion (RFC 7208):** Counts recursive DNS lookups (`>10` = `PermError`), void lookups (`>2`), exact `ip4`/`ip6` CIDR expansion per layer (`L0/L1/L2`), and duplicate conflicting `v=spf1` records.
+4. **24-Selector DKIM Public Key Audit:** Probes 24 standard ESP DKIM selectors and checks RSA key length.
+5. **Strict RFC 7489 DMARC Tag Syntax Linter:** Validates exact-case `v=DMARC1`, duplicate `_dmarc` conflicts, tag allowlist (`v`, `p`, `sp`, `pct`, `adkim`, `aspf`, `rua`, `fo`, `ri`), and enforcement posture.
+6. **MTA-STS, TLS-RPT, BIMI & 5 DNSBL Blacklists:** Verifies transport encryption policies, brand logo SVG readiness, and IP blacklist health.
 
-| Capability | Free Online Scanner & OSS CLI | InboxShield Web Pro ($15 Once) | 4-in-1 Web Pro Suite ($29 Once) |
+---
+
+## Free Online Web App vs. Single-Domain Emergency Fix (`$9` One-Time)
+
+| Capability | Free Online Scanner & OSS CLI | Single-Domain Emergency Fix ($9 Once) | 4-in-1 OmniForge Suite ($29 Once) |
 | :--- | :---: | :---: | :---: |
-| **Recursive SPF `<=10` Audit + Online Flattener** | Unlimited 1-by-1 | **Unlimited + TXT / BIND / Cloudflare JSON** | **All 4 v5.0 Web Apps Included** |
-| **24-Selector DKIM, DMARC, MX & 5 DNSBLs** | Live scan + score | **Full breakdown & provider detection** | **InboxShield + VibeShield ($9)** |
-| **5-Registrar DNS Fix Wizard** | Step 1 preview | **Unmasked Cloudflare, GoDaddy, Namecheap, Aliyun & DNSPod records** | **+ BrandShield Naming ($12)** |
-| **Online Batch Scanner + Excel/CSV Export** | Preview 3 domains | **Up to 50 domains / batch + UTF-8 CSV** | **+ CiteReady AI Search ($12)** |
-| **Printable A4 Client Deliverability PDF** | Summary only | **Custom-header A4 PDF (`@media print`)** | **Branded A4 PDF on all 4 apps** |
+| **6-Phase Deep DNS Protocol Diagnostics** | Unlimited 1-by-1 | **Included + 50-Domain Batch CSV** | **All Web Suites Unlocked** |
+| **Online SPF Flattener (RFC 7208)** | Free online | **Auto-Merged & Flattened 1-TXT Output** | **InboxShield v7.0 ($9)** |
+| **5 Copy-Paste DNS Fix Records** | Root-cause diagnosis | **Unmasked SPF, DMARC, DKIM, MTA-STS & TLS-RPT for Cloudflare, GoDaddy, Namecheap, Aliyun & DNSPod** | **+ VibeShield v7.0 ($9)** |
+| **Printable A4 Client Deliverability PDF** | Summary only | **Branded A4 PDF Export (`@media print`)** | **+ CiteReady AI Search ($12)** |
+| **Companion Free Domain Tool** | [BrandShield v6.2 (100% Free)](https://brand-checker.appwrite.network) | **78 TLDs + 17 Aftermarket Marketplaces Free** | **Included Free Forever** |
 
-> **Honest Scope:** InboxShield is an on-demand live DNS diagnostic & copy-paste remediation workbench. It does not operate a hosted 24/7 inbound DMARC XML mailbox server (so you never have to delegate DNS or pay `$432+/yr`).
-
-**[Unlock InboxShield Web Pro ($15 Once)](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield)** · **[Unlock 4-in-1 Suite ($29 Once — Save $19)](https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack)** · **[Direct Multi-Chain Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)**
+> **Honest Scope:** InboxShield is an on-demand live DNS diagnostic & copy-paste remediation workbench (`$9` one-time vs. `$432+/yr` hosted DMARC SaaS platforms). It does not operate a hosted 24/7 inbound DMARC XML mailbox server (no CNAME lock-in, no subscriptions).
 
 ---
 
-## Optional Open-Source CLI & GitHub Action (`uses: zColdWater/inboxshield-cli@v1`)
-
-Requires **Node.js 18+** (uses native `node:dns/promises`, zero external packages):
+## Quick Start (`npx` — Zero Install, Runs Locally)
 
 ```bash
-# Audit any sending domain in ~1.5 seconds
+# Audit any sending domain locally (Node.js 20+, zero dependencies)
 npx github:zColdWater/inboxshield-cli check stripe.com
-npx github:zColdWater/inboxshield-cli check linear.app --json
+npx github:zColdWater/inboxshield-cli check github.com --json
 ```
 
 ```yaml
@@ -67,7 +73,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - uses: zColdWater/inboxshield-cli@v1
+      - uses: zColdWater/inboxshield-cli@v7
         with:
           domain: yourdomain.com
           min-score: "80"
@@ -86,4 +92,4 @@ OmniForge · Agent Arena Studio — `agentarenastudio@proton.me` · [@agentarena
 
 ## License
 
-MIT © OmniForge · Agent Arena Studio
+MIT (c) OmniForge · Agent Arena Studio

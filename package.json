@@ -1,34 +1,45 @@
 {
   "name": "inboxshield-cli",
-  "version": "1.1.0",
-  "description": "Zero-dependency email deliverability CLI — audit recursive SPF 10-lookup limits (RFC 7208), DMARC enforcement, DKIM selectors, MX, MTA-STS, TLS-RPT, and BIMI in one command.",
+  "version": "7.0.0",
+  "description": "Zero-dependency 6-phase email deliverability CLI & GitHub Action — NS/SOA consistency, MX IPv4 redundancy, recursive SPF per-layer CIDR expansion (RFC 7208), 24-selector DKIM, strict RFC 7489 DMARC tag linter, MTA-STS, TLS-RPT, BIMI & 5 DNSBLs.",
   "type": "module",
   "bin": {
     "inboxshield": "./bin/inboxshield.mjs"
   },
+  "files": [
+    "bin",
+    "src",
+    "action.yml",
+    "docs",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "start": "node ./bin/inboxshield.mjs",
-    "test": "node ./bin/inboxshield.mjs check stripe.com"
+    "test": "node ./bin/inboxshield.mjs --version && node --check ./src/dns-engine.mjs && node --check ./bin/inboxshield.mjs"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "keywords": [
     "email-deliverability",
     "spf",
+    "spf-flattening",
     "dkim",
     "dmarc",
+    "rfc7489",
+    "rfc7208",
     "mta-sts",
     "bimi",
     "dnsbl",
     "cold-email",
     "devops",
     "dns",
-    "rfc7208",
+    "github-action",
     "cli",
     "saas"
   ],
-  "homepage": "https://zcoldwater.github.io/inboxshield-cli/",
+  "homepage": "https://inbox-checker.appwrite.network/",
   "repository": {
     "type": "git",
     "url": "https://github.com/zColdWater/inboxshield-cli.git"
