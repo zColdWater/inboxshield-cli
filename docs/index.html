@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>InboxShield — Free SPF 10-Lookup, DMARC, DKIM &amp; Email Deliverability Fleet Checker</title>
-  <meta name="description" content="Audit recursive SPF 10-DNS-lookup limits (RFC 7208), DMARC enforcement, DKIM selectors, MX, MTA-STS, and BIMI in seconds. Replace $59–$129/mo email deliverability SaaS with InboxShield Pro ($29 one-time CLI, Fleet Dashboard &amp; 24/7 Slack drift alerts)." />
-  <meta name="keywords" content="SPF 10 lookup checker, DMARC checker CLI, DKIM validator, email deliverability audit tool, cold email domain health monitor, Google Yahoo bulk sender compliance, DNSBL blacklist monitor, white label deliverability report" />
+  <title>InboxShield v5.0 — Online Email Deliverability, SPF Flattener &amp; DMARC Auditor</title>
+  <meta name="description" content="Audit recursive SPF 10-DNS-lookup limits (RFC 7208), 24 DKIM selectors, DMARC policy, MX/ESP detection, and 5 DNSBL blacklists in 2 seconds directly in your browser. Unlock InboxShield Web Pro ($15 one-time, zero subscriptions)." />
+  <meta name="keywords" content="SPF 10 lookup checker, SPF flattener online, DMARC checker, DKIM validator, email deliverability audit tool, Google Yahoo bulk sender compliance, DNSBL blacklist checker" />
   <link rel="canonical" href="https://zcoldwater.github.io/inboxshield-cli/" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="InboxShield — Catch Silent SPF PermErrors, DMARC Gaps &amp; Blacklists for $0/mo" />
-  <meta property="og:description" content="Instant recursive SPF 10-lookup counter, DMARC/DKIM auditor &amp; 24/7 GitHub Actions + Slack DNS drift monitor for founders and outbound agencies." />
+  <meta property="og:title" content="InboxShield v5.0 — Instant Online SPF Flattener, DKIM, DMARC &amp; DNSBL Auditor" />
+  <meta property="og:description" content="Zero-install 2-second online audit: recursive SPF flattener, 24 DKIM selectors, 5-registrar DNS fix guides, 50-domain batch CSV &amp; A4 PDF ($15 one-time)." />
   <meta property="og:url" content="https://zcoldwater.github.io/inboxshield-cli/" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="InboxShield — SPF/DKIM/DMARC &amp; Blacklist Fleet Monitor" />
-  <meta name="twitter:description" content="Stop paying $59–$129/month to watch your sending domains. Audit recursive SPF lookups, DMARC, DKIM &amp; blacklists locally." />
+  <meta name="twitter:title" content="InboxShield v5.0 — Online SPF/DKIM/DMARC &amp; DNSBL Auditor" />
+  <meta name="twitter:description" content="Fix SPF >10 PermErrors and DMARC gaps online with 5-registrar DNS wizards, 50-domain CSV &amp; A4 PDF — $15 one-time Web Pro." />
 
   <script type="application/ld+json">
   {
@@ -22,28 +22,35 @@
     "@graph": [
       {
         "@type": "SoftwareApplication",
-        "name": "InboxShield Pro — Email Deliverability, SPF/DKIM/DMARC & Blacklist Fleet Monitor",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "macOS, Windows, Linux (Node.js 18+)",
-        "url": "https://zcoldwater.github.io/inboxshield-cli/",
-        "downloadUrl": "https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield",
-        "description": "Zero-dependency local Node.js CLI, interactive Fleet Dashboard, and 24/7 GitHub Actions + Slack/Discord drift monitor for SPF 10-lookup limits, 18-selector DKIM RSA bit-length checks, DMARC enforcement, and live Spamhaus/Barracuda DNSBL screening.",
+        "name": "InboxShield v5.0 — Online Email Deliverability, SPF Flattener & DMARC Auditor",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "url": "https://inbox-checker.appwrite.network/",
+        "description": "Zero-install online email deliverability diagnostic and DNS fix workbench: recursive SPF 10-lookup flattener, 24-selector DKIM audit, DMARC enforcement, 5-registrar fix wizard, 50-domain batch CSV, and printable A4 PDF reports.",
         "offers": [
           {
             "@type": "Offer",
-            "name": "InboxShield Pro — Solo Founder Edition",
-            "price": "29.00",
+            "name": "Free Online Scanner & MIT CLI",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://inbox-checker.appwrite.network/"
+          },
+          {
+            "@type": "Offer",
+            "name": "InboxShield Web Pro (One-Time In-Browser Unlock)",
+            "price": "15.00",
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
             "url": "https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield"
           },
           {
             "@type": "Offer",
-            "name": "InboxShield Pro — Agency & Outbound Fleet Edition",
-            "price": "49.00",
+            "name": "OmniForge 4-in-1 Launch Stack Web Pro",
+            "price": "29.00",
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
-            "url": "https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield"
+            "url": "https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack"
           }
         ]
       },
@@ -60,10 +67,10 @@
           },
           {
             "@type": "Question",
-            "name": "How does InboxShield Pro monitor domains 24/7 without a monthly subscription?",
+            "name": "What does InboxShield Web Pro ($15 one-time) unlock?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "InboxShield Pro includes a ready-to-use GitHub Actions cron workflow that runs every 6 hours on GitHub's free tier, diffs your fleet's SPF, DKIM, DMARC, and DNSBL status against a baseline, and alerts Slack or Discord immediately on any drift."
+              "text": "InboxShield Web Pro ($15 one-time, zero monthly subscriptions, 14-day refund) unlocks directly in your browser: interactive 5-registrar DNS fix guides (Cloudflare, GoDaddy, Namecheap, Aliyun, DNSPod), TXT/BIND/Cloudflare JSON SPF flattening, 50-domain online batch CSV export, and custom-header printable A4 PDF audit reports."
             }
           }
         ]
@@ -179,38 +186,39 @@
   <header>
     <div class="wrap nav">
       <a class="brand" href="#">
-        <span class="logo-badge">✉</span>
+        <span class="logo-badge">IS</span>
         <span>InboxShield</span>
       </a>
       <nav class="nav-links">
-        <a href="#features">Why Domains Land in Spam</a>
-        <a href="./mxtoolbox-easydmarc-alternative.html">vs MxToolbox / EasyDMARC</a>
-        <a href="#pricing">Pro Fleet Kit ($29)</a>
+        <a href="https://inbox-checker.appwrite.network" target="_blank" rel="noopener">Launch v5.0 Web App</a>
+        <a href="https://inbox-checker.appwrite.network/spf-flattener" target="_blank" rel="noopener">Free SPF Flattener</a>
+        <a href="./mxtoolbox-easydmarc-alternative.html">vs EasyDMARC / MxToolbox</a>
+        <a href="#pricing">Web Pro ($15)</a>
         <a href="https://github.com/zColdWater/inboxshield-cli" target="_blank" rel="noopener">GitHub CLI &amp; Action</a>
-        <a class="btn btn-cta" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener">Get InboxShield Pro →</a>
+        <a class="btn btn-cta" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener">Unlock Web Pro ($15) &rarr;</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap">
     <section class="hero">
-      <span class="eyebrow">RFC 7208 SPF 10-Lookup Walker · Google/Yahoo Bulk-Sender Grader · $0/mo Monitoring</span>
-      <h1>Stop Paying $99/Month to Watch Your Sending Domains</h1>
+      <span class="eyebrow">InboxShield v5.0 Online Web App &middot; RFC 7208 SPF Flattener &middot; 24-Selector DKIM &amp; 5 DNSBLs</span>
+      <h1>Audit &amp; Fix SPF, DKIM &amp; DMARC in 2 Seconds — Zero Subscriptions</h1>
       <p class="sub">
-        Catch silent SPF <code>&gt;10</code> lookup PermErrors, unenforced <code>p=none</code> DMARC, weak DKIM keys, and DNSBL blacklists across 1 to 200+ domains—locally and via free GitHub Actions alerts.
+        Catch silent SPF <code>&gt;10</code> lookup PermErrors, unenforced <code>p=none</code> DMARC, weak DKIM keys, and DNSBL blacklists directly in your browser with interactive 5-registrar fix guides and 50-domain batch CSV export.
       </p>
 
       <div class="scanner-box">
         <form id="auditForm" class="scan-row">
           <input id="domainInput" class="scan-input" type="text" placeholder="Enter sending domain (e.g. stripe.com or yourcompany.com)" maxlength="80" required />
           <button type="submit" class="btn btn-cta" id="auditBtn">Audit Domain Free</button>
-          <a class="btn btn-outline" id="deepScannerLink" href="https://inbox-checker.appwrite.network" target="_blank" rel="noopener">Deep 18-DKIM &amp; DNSBL Scan ↗</a>
+          <a class="btn btn-outline" id="deepScannerLink" href="https://inbox-checker.appwrite.network" target="_blank" rel="noopener">Open v5.0 Web App &rarr;</a>
         </form>
         <div class="presets">
           <span>Instant live DNS demo:</span>
           <button type="button" class="pill" onclick="runDomain('stripe.com')">stripe.com</button>
           <button type="button" class="pill" onclick="runDomain('linear.app')">linear.app</button>
-          <button type="button" class="pill" onclick="runDomain('example.com')">example.com</button>
+          <button type="button" class="pill" onclick="runDomain('github.com')">github.com</button>
         </div>
 
         <div id="auditResult">
@@ -219,102 +227,90 @@
           <div id="auditNotes" style="margin-top:10px; font-size:0.85rem; color:var(--muted);"></div>
           <div class="upsell-strip">
             <div>
-              <strong>Managing 5–200+ sending or client domains?</strong>
-              <div style="font-size:0.86rem; color:var(--muted);">Get Spamhaus/Barracuda DNSBL screening, 18-selector DKIM RSA bit-length checks, copy-paste Cloudflare TXT fixes, 24/7 Slack drift alerts &amp; White-Label PDF reports.</div>
+              <strong>Fixing DNS across Cloudflare, GoDaddy, Namecheap, Aliyun or DNSPod?</strong>
+              <div style="font-size:0.86rem; color:var(--muted);">Unlock InboxShield Web Pro ($15 one-time): 5-registrar copy-paste DNS fix wizard, TXT/BIND/Cloudflare SPF flattener, 50-domain batch CSV &amp; A4 PDF reports.</div>
             </div>
-            <a class="btn btn-cta" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener">Get InboxShield Pro ($29) →</a>
+            <a class="btn btn-cta" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener">Unlock Web Pro ($15 Once) &rarr;</a>
           </div>
         </div>
       </div>
 
       <div class="cli-bar">
-        <span>$ npx github:zColdWater/inboxshield-cli check stripe.com</span>
+        <span>Free Web App: https://inbox-checker.appwrite.network &nbsp;|&nbsp; Optional CLI: npx github:zColdWater/inboxshield-cli check stripe.com</span>
       </div>
     </section>
 
     <section id="features">
-      <h2>Three Silent Bugs That Tank Reply &amp; Onboarding Rates</h2>
-      <p class="sec-sub">When transactional signups or outbound sequences suddenly hit Spam, spreadsheets don't tell you which DNS change broke authentication.</p>
+      <h2>Three Silent DNS Bugs That Tank Email Deliverability</h2>
+      <p class="sec-sub">When transactional signups or outbound emails suddenly hit Spam, InboxShield pinpoints the exact DNS failure and outputs copy-paste fixes for your registrar.</p>
       <div class="grid-3">
         <div class="card">
           <h3>1. Recursive SPF &gt;10 Lookup Bomb</h3>
-          <p style="color:var(--muted);">Adding one new marketing or support tool pushes nested <code>include:</code> queries past RFC 7208's strict 10-lookup ceiling—triggering immediate <code>PermError</code> failures at Gmail and Microsoft 365.</p>
+          <p style="color:var(--muted);">Adding one new marketing or support tool pushes nested <code>include:</code> queries past RFC 7208's strict 10-lookup ceiling — triggering immediate <code>PermError</code> failures. Flatten them cleanly at <a href="https://inbox-checker.appwrite.network/spf-flattener" target="_blank" rel="noopener">/spf-flattener</a>.</p>
         </div>
         <div class="card">
-          <h3>2. Broken DKIM &amp; Weak RSA Keys</h3>
-          <p style="color:var(--muted);">InboxShield Pro probes 18+ provider selectors (Google, M365, Resend, Postmark, SendGrid, Mailgun) and flags revoked keys or legacy <code>&lt;1024-bit</code> RSA keys rejected by modern filters.</p>
+          <h3>2. 24-Selector DKIM &amp; ESP Detection</h3>
+          <p style="color:var(--muted);">InboxShield probes 24 provider selectors (Google, M365, Resend, Postmark, SendGrid, Tencent Exmail, Aliyun, Feishu) and flags weak RSA keys alongside 5 live DNSBL blacklists.</p>
         </div>
         <div class="card">
-          <h3>3. Zero-Subscription 24/7 Drift Alerts</h3>
-          <p style="color:var(--muted);">Drop our pre-built GitHub Actions workflow into any private repo to diff your entire domain fleet every 6 hours for $0/month and ping Slack or Discord the instant DNS drifts or hits a blacklist.</p>
+          <h3>3. 5-Registrar Fix Wizard + 50-Domain Batch CSV</h3>
+          <p style="color:var(--muted);">Copy exact Host &amp; TXT values for Cloudflare, GoDaddy, Namecheap, Aliyun, and DNSPod, audit up to 50 domains in one browser table, and export UTF-8 Excel CSV or A4 PDF reports — zero CNAME delegation.</p>
         </div>
       </div>
     </section>
 
     <section id="pricing">
-      <h2>Replace Monthly Deliverability SaaS With One Download</h2>
-      <p class="sec-sub">100% local zero-dependency Node.js source kit. No recurring fees, no per-domain seat taxes, no sharing client domain lists with third parties.</p>
+      <h2>One-Time In-Browser Unlock. Zero Monthly Subscriptions.</h2>
+      <p class="sec-sub">On-demand DNS diagnostic &amp; fix workbench — no CNAME lock-in, no `$432+/yr` hosted mailbox subscriptions. Backed by a 14-day refund guarantee.</p>
 
       <div class="pricing-grid">
         <div class="price-card">
           <div>
-            <h3>InboxShield Lite CLI</h3>
+            <h3>Free Web App &amp; MIT CLI</h3>
             <div class="price-num">$0</div>
-            <div class="price-note">Open-source MIT · Single-domain quick check</div>
+            <div class="price-note">Zero signup &middot; Unlimited single-domain audits</div>
             <ul class="feat">
-              <li>✔ 1 domain per run</li>
-              <li>✔ Recursive SPF 10-lookup counter</li>
-              <li>✔ DMARC policy &amp; MX check</li>
-              <li>✔ 8 common DKIM selectors</li>
-              <li style="color:var(--muted);">— No Spamhaus / Barracuda DNSBL scan</li>
-              <li style="color:var(--muted);">— No 24/7 Slack/Discord drift alerts</li>
+              <li>&#10003; Recursive SPF 10-lookup counter &amp; online flattener</li>
+              <li>&#10003; 24-selector DKIM, DMARC, MX &amp; 5 DNSBLs</li>
+              <li>&#10003; Preview 3-domain online batch scanner</li>
+              <li>&#10003; Open-source MIT CLI &amp; GitHub Action</li>
             </ul>
           </div>
-          <a class="btn btn-outline" href="https://inbox-checker.appwrite.network" target="_blank" rel="noopener">Open Free Web Diagnostic ↗</a>
+          <a class="btn btn-outline" href="https://inbox-checker.appwrite.network" target="_blank" rel="noopener">Launch Free v5.0 Web App &rarr;</a>
         </div>
 
         <div class="price-card featured">
-          <span class="badge-top">Best Value · $0/mo Ongoing</span>
+          <span class="badge-top">Most Popular &middot; Standalone</span>
           <div>
-            <h3>InboxShield Pro — Solo</h3>
-            <div class="price-num">$29</div>
-            <div class="price-note">One-time payment · Unlimited own sending domains</div>
+            <h3>InboxShield Web Pro</h3>
+            <div class="price-num">$15</div>
+            <div class="price-note">One-time payment &middot; Instant in-page unlock &middot; 14-day refund</div>
             <ul class="feat">
-              <li>✔ <strong>Unlimited domain fleet batch CLI</strong> (CSV/TXT/JSON)</li>
-              <li>✔ <strong>18-selector DKIM RSA bit-length</strong> &amp; revocation audit</li>
-              <li>✔ <strong>Live DNSBL Blacklist scan</strong> (Spamhaus, Barracuda, SpamCop, SURBL)</li>
-              <li>✔ <strong>Copy-paste Cloudflare / Route53 TXT fixes</strong></li>
-              <li>✔ <strong>24/7 GitHub Actions + Slack/Discord</strong> drift watcher</li>
-              <li>✔ <strong>Local Interactive Fleet Dashboard</strong> (<code>:3848</code>)</li>
+              <li>&#10003; <strong>5-registrar DNS fix wizard</strong> (Cloudflare, GoDaddy, Namecheap, Aliyun, DNSPod)</li>
+              <li>&#10003; <strong>SPF Flattener</strong> with TXT, BIND &amp; Cloudflare JSON export</li>
+              <li>&#10003; <strong>50-domain online batch scanner</strong> + UTF-8 Excel/CSV export</li>
+              <li>&#10003; <strong>Custom-header printable A4 PDF</strong> client reports</li>
+              <li>&#10003; Zero installs, zero CNAME lock-in, perpetual access</li>
             </ul>
           </div>
-          <div style="display:flex;flex-direction:column;gap:8px;"><a class="btn btn-cta" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener">Buy Solo Edition ($29) →</a><a class="btn btn-outline" style="font-size:0.84rem;padding:8px 14px;" href="https://omnipulse-x402.appwrite.network/checkout/inboxshield?tier=solo" target="_blank" rel="noopener">⚡ Instant Direct / Agent Checkout ($29) →</a></div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><a class="btn btn-cta" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener">Unlock InboxShield Web Pro ($15) &rarr;</a><a class="btn btn-outline" style="font-size:0.84rem;padding:8px 14px;" href="https://omnipulse-x402.appwrite.network/checkout/inboxshield" target="_blank" rel="noopener">Direct Multi-Chain Checkout ($15) &rarr;</a></div>
         </div>
 
         <div class="price-card">
           <div>
-            <h3>InboxShield Pro — Agency</h3>
-            <div class="price-num">$49</div>
-            <div class="price-note">One-time payment · Outbound agencies, MSPs &amp; consultants</div>
+            <h3>4-in-1 Launch Stack Suite</h3>
+            <div class="price-num">$29</div>
+            <div class="price-note">One-time payment &middot; Save $19 across all 4 v5.0 apps</div>
             <ul class="feat">
-              <li>✔ Everything in InboxShield Pro Solo</li>
-              <li>✔ <strong>White-Label HTML &amp; PDF Client Audit Reports</strong></li>
-              <li>✔ Custom agency logo &amp; client branding (<code>--brand</code> / <code>--client</code>)</li>
-              <li>✔ Commercial license for up to 10 team seats &amp; unlimited clients</li>
-              <li>✔ Client-ready DNS remediation handoff sheets</li>
-              <li>✔ Lifetime v1.x updates included</li>
+              <li>&#10003; <strong>VibeShield Web Pro ($9)</strong> — JS secrets &amp; Supabase RLS</li>
+              <li>&#10003; <strong>BrandShield Web Pro ($12)</strong> — RDAP, USPTO &amp; Namer</li>
+              <li>&#10003; <strong>CiteReady Web Pro ($12)</strong> — 10 AI bots, Schema &amp; /llms.txt</li>
+              <li>&#10003; <strong>InboxShield Web Pro ($15)</strong> — SPF Flattener, DKIM &amp; DMARC</li>
+              <li>&#10003; One license key unlocks all 4 apps in-page (14-day refund)</li>
             </ul>
           </div>
-          <div style="display:flex;flex-direction:column;gap:8px;"><a class="btn btn-outline" style="border-color:var(--cta); color:var(--cta);" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener">Buy Agency Edition ($49) →</a><a class="btn btn-outline" style="font-size:0.84rem;padding:8px 14px;" href="https://omnipulse-x402.appwrite.network/checkout/inboxshield?tier=agency" target="_blank" rel="noopener">⚡ Instant Direct / Agent Checkout ($49) →</a></div>
+          <div style="display:flex;flex-direction:column;gap:8px;"><a class="btn btn-outline" style="border-color:var(--cta); color:var(--cta);" href="https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack" target="_blank" rel="noopener">Unlock All 4 Apps ($29 Once) &rarr;</a><a class="btn btn-outline" style="font-size:0.84rem;padding:8px 14px;" href="https://omnipulse-x402.appwrite.network/checkout/launch-stack" target="_blank" rel="noopener">Direct Multi-Chain Checkout ($29) &rarr;</a></div>
         </div>
-      </div>
-
-      <div class="upsell-strip" style="margin-top:26px;">
-        <div>
-          <strong>🔥 Want All 3 Pro Toolkits? Save up to $38 with the OmniForge Founder Launch Stack</strong>
-          <div style="font-size:0.88rem; color:var(--muted);">Includes <strong>BrandShield Pro</strong> (500-name RDAP &amp; USPTO kit) + <strong>InboxShield Pro</strong> (SPF/DKIM/DMARC &amp; DNSBL fleet monitor) + <strong>CiteReady Pro</strong> (sitemap-to-llms.txt &amp; JSON-LD GEO kit).</div>
-        </div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;"><a class="btn btn-cta" href="https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack" target="_blank" rel="noopener">Get 3-in-1 Launch Stack ($49 Solo / $89 Agency) →</a><a class="btn btn-outline" href="https://omnipulse-x402.appwrite.network/checkout/launch-stack" target="_blank" rel="noopener">⚡ Instant Direct Checkout ($49 / $89) →</a></div>
       </div>
     </section>
   </main>
@@ -322,12 +318,16 @@
   <footer>
     <div class="wrap">
       <p>
-        <a href="https://inbox-checker.appwrite.network">Free Live Web Diagnostic</a> ·
-        <a href="https://github.com/zColdWater/inboxshield-cli">Open-Source GitHub CLI</a> ·
-        <a href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield">InboxShield Pro on Gumroad</a> ·
+        <a href="https://inbox-checker.appwrite.network">InboxShield v5.0 Web App</a> &middot;
+        <a href="https://inbox-checker.appwrite.network/spf-flattener">Free SPF Flattener</a> &middot;
+        <a href="./mxtoolbox-easydmarc-alternative.html">vs EasyDMARC &amp; MxToolbox</a> &middot;
+        <a href="https://vibe-checker.appwrite.network">VibeShield ($9)</a> &middot;
+        <a href="https://brand-checker.appwrite.network">BrandShield ($12)</a> &middot;
+        <a href="https://citeready-checker.appwrite.network">CiteReady ($12)</a> &middot;
+        <a href="https://omnipulse-x402.appwrite.network/support">Support</a> &middot;
         <a href="./llms.txt">llms.txt</a>
       </p>
-      <p>© 2026 OmniForge Studio · MIT Open-Source Lite CLI</p>
+      <p>&copy; 2026 OmniForge &middot; Agent Arena Studio &middot; <a href="mailto:agentarenastudio@proton.me">agentarenastudio@proton.me</a> &middot; <a href="https://x.com/agentarenastudi">@agentarenastudi</a></p>
     </div>
   </footer>
 
@@ -422,7 +422,7 @@
         },
         {
           label: "MTA-STS & BIMI",
-          val: (mtaSts.length ? "MTA-STS ✔" : "No MTA-STS") + " · " + (bimi.length ? "BIMI ✔" : "No BIMI"),
+          val: (mtaSts.length ? "MTA-STS Live" : "No MTA-STS") + " · " + (bimi.length ? "BIMI Live" : "No BIMI"),
           cls: mtaSts.length ? "ok" : "unk"
         }
       ];
