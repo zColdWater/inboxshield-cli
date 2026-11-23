@@ -6,7 +6,8 @@
 [![Node.js >= 20](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](./package.json)
 [![Email Security](https://inbox-checker.appwrite.network/badge/inbox/stripe.com.svg)](https://inbox-checker.appwrite.network/?domain=stripe.com)
-[![Audited by VibeShield](https://vibe-checker.appwrite.network/api/badge.svg?domain=inbox-checker&score=95&grade=A%2B)](https://vibe-checker.appwrite.network/)
+[![Live VibeShield Score](https://vibe-checker.appwrite.network/api/badge.svg?url=zcoldwater.github.io)](https://vibe-checker.appwrite.network/?url=https://zcoldwater.github.io/inboxshield-cli/)
+[![AI Search Readiness](https://citeready-checker.appwrite.network/api/badge?url=zcoldwater.github.io/inboxshield-cli)](https://citeready-checker.appwrite.network/?url=https://zcoldwater.github.io/inboxshield-cli/)
 
 - **Flagship v7.0 Online Web App (Zero Signup, 6-Phase Real Protocol Trace):** [https://inbox-checker.appwrite.network](https://inbox-checker.appwrite.network)
 - **Free Online SPF Flattener (Collapse `>10`-Lookup PermError -> `1/10`):** [https://inbox-checker.appwrite.network/spf-flattener](https://inbox-checker.appwrite.network/spf-flattener)
