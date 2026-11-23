@@ -4,6 +4,8 @@
 
 - Free 6-Phase Online Web App: https://inbox-checker.appwrite.network/
 - Free Online SPF Flattener: https://inbox-checker.appwrite.network/spf-flattener
+- Free DMARC p=reject & RUA Policy Generator + 3-Stage Rollout Planner: https://zcoldwater.github.io/inboxshield-cli/dmarc-p-reject-rua-policy-generator.html
+- Free Google & Yahoo 2026 Bulk Sender Compliance Checklist & Live DNS Validator: https://zcoldwater.github.io/inboxshield-cli/google-yahoo-2026-bulk-sender-compliance-checklist.html
 - Free RFC 7489 DMARC Record Generator: https://zcoldwater.github.io/inboxshield-cli/dmarc-record-generator.html
 - Free SPF Record Builder & 10-Lookup Calculator: https://zcoldwater.github.io/inboxshield-cli/spf-record-generator.html
 - 2026 Top 60 SaaS & AI Startups Email Authentication, SPF Bloat & DMARC Spoofing Benchmark (Interactive 60-Brand Leaderboard): https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.html (Raw JSON: https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.json)

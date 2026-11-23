@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Google &amp; Yahoo 2026 Bulk Sender Compliance Checklist &amp; Live DNS Validator | InboxShield</title>
+  <meta name="description" content="Free interactive Google &amp; Yahoo 2026 bulk-sender compliance checklist with 1-click live SPF, DKIM, DMARC, MX, and DNSBL verification plus RFC 8058 One-Click Unsubscribe header snippets." />
+  <link rel="canonical" href="https://zcoldwater.github.io/inboxshield-cli/google-yahoo-2026-bulk-sender-compliance-checklist.html" />
+  <link rel="icon" type="image/svg+xml" href="https://inbox-checker.appwrite.network/favicon.svg?v=6" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Google &amp; Yahoo 2026 Bulk Sender Compliance Checklist &amp; Live Validator | InboxShield" />
+  <meta property="og:description" content="Auto-check your domain against all 8 Google &amp; Yahoo 2026 bulk sender mandates in 2 seconds — live SPF, DKIM, DMARC, DNSBL, and RFC 8058 One-Click Unsubscribe snippets." />
+  <meta property="og:url" content="https://zcoldwater.github.io/inboxshield-cli/google-yahoo-2026-bulk-sender-compliance-checklist.html" />
+  <meta property="og:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="720" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Google &amp; Yahoo 2026 Bulk Sender Compliance Checklist" />
+  <meta name="twitter:description" content="1-click live DNS compliance validator for Gmail &amp; Yahoo bulk sender requirements." />
+  <meta name="twitter:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Google & Yahoo 2026 Bulk Sender Compliance Checklist & Live Validator",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "url": "https://zcoldwater.github.io/inboxshield-cli/google-yahoo-2026-bulk-sender-compliance-checklist.html",
+        "image": "https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png",
+        "offers": [
+          { "@type": "Offer", "name": "Free Interactive Checklist & Live DNS Validator", "price": "0", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "InboxShield Single-Domain Fix Unlock (Launch Special, Reg. $9)", "price": "2.00", "priceCurrency": "USD", "url": "https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "InboxShield Tools", "item": "https://zcoldwater.github.io/inboxshield-cli/" },
+          { "@type": "ListItem", "position": 2, "name": "Google & Yahoo 2026 Bulk Sender Compliance Checklist", "item": "https://zcoldwater.github.io/inboxshield-cli/google-yahoo-2026-bulk-sender-compliance-checklist.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What happens if a domain fails Google and Yahoo bulk sender requirements?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Gmail and Yahoo reject unauthenticated messages with SMTP 550 5.7.26 errors or route legitimate invoices, password resets, and marketing campaigns directly to Spam."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do senders under 5,000 emails per day still need SPF, DKIM, and DMARC?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Google requires SPF or DKIM for all senders regardless of volume, and enforces strict SPF + DKIM + DMARC + RFC 8058 One-Click Unsubscribe + <0.3% spam rate for bulk senders over 5,000 messages/day."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --bg:#ffffff; --surface:#f8fafc; --border:#e2e8f0; --ink:#0f172a; --muted:#475569; --subtle:#64748b;
+      --emerald:#059669; --emerald-bg:#ecfdf5; --emerald-bd:#a7f3d0;
+      --blue:#2563eb; --blue-bg:#eff6ff; --blue-bd:#bfdbfe;
+      --amber:#b45309; --amber-bg:#fffbeb; --amber-bd:#fde68a;
+      --red:#dc2626; --red-bg:#fef2f2; --red-bd:#fecaca;
+    }
+    * { box-sizing:border-box; }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif; line-height:1.58; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
+    .topbar { border-bottom:1px solid var(--border); background:rgba(255,255,255,0.96); position:sticky; top:0; z-index:20; backdrop-filter:blur(8px); }
+    .topbar-in { max-width:1080px; margin:0 auto; padding:11px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .brand { display:inline-flex; align-items:center; gap:9px; font-weight:800; color:var(--ink); font-size:0.96rem; letter-spacing:-0.02em; }
+    .brand-dot { width:10px; height:10px; border-radius:50%; background:var(--emerald); }
+    .nav-links { display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:0.84rem; font-weight:600; }
+    .nav-links a { color:var(--muted); }
+    .nav-links a.nav-cta { background:var(--ink); color:#fff; padding:7px 13px; border-radius:7px; }
+    .nav-links a.nav-cta:hover { text-decoration:none; opacity:0.92; }
+    .lang-pill { display:inline-flex; border:1px solid var(--border); border-radius:99px; background:var(--surface); padding:2px; }
+    .lang-btn { border:0; background:transparent; color:var(--muted); font:700 11.5px/1 inherit; padding:5px 9px; border-radius:99px; cursor:pointer; }
+    .lang-btn.active { background:#fff; color:var(--ink); box-shadow:0 1px 2px rgba(15,23,42,0.08); }
+    .wrap { max-width:1080px; margin:0 auto; padding:30px 20px 72px; }
+    .eyebrow { display:inline-block; font-size:0.74rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--emerald); background:var(--emerald-bg); border:1px solid var(--emerald-bd); padding:4px 10px; border-radius:99px; margin-bottom:12px; }
+    h1 { font-size:clamp(1.65rem,3.4vw,2.35rem); line-height:1.15; letter-spacing:-0.03em; margin:0 0 10px; }
+    .lead { color:var(--muted); max-width:800px; margin:0 0 22px; font-size:0.98rem; }
+    .scan-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px 20px; margin-bottom:20px; }
+    .scan-row { display:flex; gap:10px; flex-wrap:wrap; }
+    .scan-row input { flex:1 1 240px; padding:11px 14px; border:1.5px solid var(--border); border-radius:9px; font-size:0.95rem; background:#fff; color:var(--ink); }
+    .scan-row input:focus { outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(37,99,235,0.14); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:10px 16px; border-radius:9px; font-weight:700; font-size:0.86rem; cursor:pointer; border:1px solid transparent; font-family:inherit; text-decoration:none; }
+    .btn:hover { text-decoration:none; opacity:0.94; }
+    .btn-blue { background:var(--blue); color:#fff; }
+    .btn-dark { background:var(--ink); color:#fff; }
+    .btn-emerald { background:#10b981; color:#022c22; }
+    .btn-out { background:#fff; color:var(--ink); border-color:var(--border); }
+    .btn-sm { padding:6px 11px; font-size:0.78rem; border-radius:7px; }
+    .chips { display:flex; gap:7px; flex-wrap:wrap; align-items:center; margin-top:10px; font-size:0.8rem; color:var(--subtle); }
+    .chip { background:#fff; border:1px solid var(--border); border-radius:99px; padding:3px 10px; font-size:0.78rem; font-weight:600; color:var(--ink); cursor:pointer; }
+    .chip:hover { border-color:var(--blue); color:var(--blue); }
+    .summary-bar { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; padding:16px 20px; border-radius:13px; border:1.5px solid var(--blue-bd); background:linear-gradient(135deg,#eff6ff 0%,#ecfdf5 100%); margin-bottom:20px; }
+    .summary-bar.is-bad { border-color:var(--red-bd); background:linear-gradient(135deg,#fef2f2 0%,#eff6ff 100%); }
+    .meter-track { height:9px; background:#e2e8f0; border-radius:99px; overflow:hidden; margin-top:8px; width:240px; max-width:100%; }
+    .meter-fill { height:100%; background:var(--emerald); transition:width 0.25s ease; }
+    .check-grid { display:grid; gap:11px; margin-bottom:22px; }
+    .chk-row { display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:start; padding:14px 16px; border:1px solid var(--border); border-radius:12px; background:#fff; }
+    @media (max-width:640px) { .chk-row { grid-template-columns:1fr; } }
+    .chk-num { width:26px; height:26px; border-radius:7px; background:var(--surface); border:1px solid var(--border); display:grid; place-items:center; font-size:0.76rem; font-weight:800; color:var(--muted); flex-shrink:0; }
+    .chk-title { font-weight:800; font-size:0.93rem; color:var(--ink); margin-bottom:3px; }
+    .chk-desc { font-size:0.83rem; color:var(--muted); }
+    .chk-live { font-size:0.8rem; margin-top:6px; padding:6px 10px; border-radius:8px; background:var(--surface); border:1px solid var(--border); color:var(--ink); word-break:break-word; }
+    .pill { display:inline-block; padding:3px 10px; border-radius:99px; font-size:0.74rem; font-weight:700; border:1px solid transparent; white-space:nowrap; }
+    .p-pass { background:var(--emerald-bg); color:var(--emerald); border-color:var(--emerald-bd); }
+    .p-warn { background:var(--amber-bg); color:var(--amber); border-color:var(--amber-bd); }
+    .p-fail { background:var(--red-bg); color:var(--red); border-color:var(--red-bd); }
+    .p-wait { background:var(--surface); color:var(--subtle); border-color:var(--border); }
+    .snippet-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+    @media (max-width:820px) { .snippet-grid { grid-template-columns:1fr; } }
+    .card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px; }
+    .code-box { background:#0b1220; color:#d1fae5; border:1px solid #1e293b; border-radius:9px; padding:12px 14px; font-size:0.8rem; line-height:1.55; white-space:pre-wrap; word-break:break-all; margin:10px 0; }
+    .manual-toggle { display:inline-flex; align-items:center; gap:7px; font-size:0.8rem; font-weight:700; color:var(--ink); cursor:pointer; }
+    .manual-toggle input { width:16px; height:16px; accent-color:var(--emerald); cursor:pointer; }
+    footer { border-top:1px solid var(--border); margin-top:42px; padding-top:20px; font-size:0.83rem; color:var(--subtle); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-in">
+      <a class="brand" href="./index.html"><span class="brand-dot"></span><span>InboxShield v7.2 Tools</span></a>
+      <nav class="nav-links">
+        <a href="./dmarc-p-reject-rua-policy-generator.html" data-t="nav_dmarc">DMARC p=reject Builder</a>
+        <a href="./spf-record-generator.html" data-t="nav_spf">SPF Builder</a>
+        <a href="./top-60-saas-email-authentication-benchmark-2026.html" data-t="nav_bench">Top 60 Benchmark</a>
+        <a href="https://inbox-checker.appwrite.network/?ref=gy-checklist-nav" target="_blank" rel="noopener" data-t="nav_app">Full 6-Phase Audit</a>
+        <div class="lang-pill" role="group" aria-label="Language">
+          <button type="button" class="lang-btn active" id="btnEn" onclick="setLang('en',true)">EN</button>
+          <button type="button" class="lang-btn" id="btnZh" onclick="setLang('zh',true)">中文</button>
+        </div>
+        <a class="nav-cta" id="navUnlockLink" href="https://omnipulse-x402.appwrite.network/checkout/inboxshield" target="_blank" rel="noopener" data-t="nav_cta">Unlock 5-Record Fix $2</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="eyebrow" data-t="eyebrow">GOOGLE &amp; YAHOO 2026 SENDER MANDATES · LIVE DNS AUTO-CHECK · ZERO SIGNUP</div>
+    <h1 data-t="h1">Google &amp; Yahoo 2026 Bulk Sender Compliance Checklist</h1>
+    <p class="lead" data-t="lead">Enter any sending domain to auto-verify 6 live DNS authentication &amp; blacklist mandates in 2 seconds, check off your RFC 8058 One-Click Unsubscribe and Postmaster spam-rate controls, and unlock conflict-free copy-paste DNS fixes for $2 Launch Special (reg. $9).</p>
+
+    <section class="scan-card">
+      <form id="checkForm" class="scan-row" autocomplete="off">
+        <input id="domInput" class="mono" type="text" placeholder="Enter sending domain (e.g. stripe.com, github.com, yourdomain.com)" required />
+        <button id="runBtn" class="btn btn-blue" type="submit" data-t="btn_run">Auto-Check Live DNS</button>
+      </form>
+      <div class="chips">
+        <span data-t="try_lbl">Test live:</span>
+        <button type="button" class="chip mono" onclick="runLive('stripe.com')">stripe.com</button>
+        <button type="button" class="chip mono" onclick="runLive('github.com')">github.com</button>
+        <button type="button" class="chip mono" onclick="runLive('cnn.com')">cnn.com</button>
+        <button type="button" class="chip mono" onclick="runLive('binance.info')">binance.info</button>
+        <span id="scanStatus" style="margin-left:auto;font-weight:600;color:var(--blue)"></span>
+      </div>
+    </section>
+
+    <section id="summaryBar" class="summary-bar">
+      <div style="flex:1 1 320px;min-width:0">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span class="pill p-wait" id="sumPill" data-t="sum_ready">Ready for Live Check</span>
+          <strong class="mono" id="sumCount" style="font-size:0.9rem">0 / 8 Passed</strong>
+        </div>
+        <div id="sumHeadline" style="font-weight:800;font-size:1.03rem;margin-top:5px" data-t="sum_h">Run a live domain scan above to auto-fill Requirements 1–6 instantly.</div>
+        <div class="meter-track"><div id="sumFill" class="meter-fill" style="width:0%"></div></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a id="fixCtaLink" class="btn btn-blue" href="https://omnipulse-x402.appwrite.network/checkout/inboxshield" target="_blank" rel="noopener" data-t="btn_fix">Unlock Conflict-Free Fix — $2 (was $9)</a>
+        <a id="fullAuditLink" class="btn btn-out" href="https://inbox-checker.appwrite.network/?ref=gy-checklist" target="_blank" rel="noopener" data-t="btn_full">Open Full 6-Phase Audit</a>
+        <button type="button" class="btn btn-out" id="copyReportBtn" onclick="copyChecklistMd()" data-t="btn_copy_md">Copy Markdown Report</button>
+      </div>
+    </section>
+
+    <section class="check-grid" aria-label="8 Bulk Sender Compliance Checks">
+      <div class="chk-row" id="r1">
+        <div class="chk-num">1</div>
+        <div>
+          <div class="chk-title" data-t="r1_t">SPF Record Published &amp; Within RFC 7208 10-DNS-Lookup Limit</div>
+          <div class="chk-desc" data-t="r1_d">Single authoritative v=spf1 TXT record with &lt;=10 recursive lookups, &lt;=2 void lookups, and ~all or -all qualifier.</div>
+          <div class="chk-live mono" id="r1_live">Waiting for domain scan...</div>
+        </div>
+        <span class="pill p-wait" id="r1_pill">Pending</span>
+      </div>
+
+      <div class="chk-row" id="r2">
+        <div class="chk-num">2</div>
+        <div>
+          <div class="chk-title" data-t="r2_t">DKIM Digital Signature Published (2048-bit RSA Recommended)</div>
+          <div class="chk-desc" data-t="r2_d">Active _domainkey TXT/CNAME record authenticating message integrity across 24 common global &amp; enterprise selectors.</div>
+          <div class="chk-live mono" id="r2_live">Waiting for domain scan...</div>
+        </div>
+        <span class="pill p-wait" id="r2_pill">Pending</span>
+      </div>
+
+      <div class="chk-row" id="r3">
+        <div class="chk-num">3</div>
+        <div>
+          <div class="chk-title" data-t="r3_t">Valid RFC 7489 DMARC Record Published at _dmarc</div>
+          <div class="chk-desc" data-t="r3_d">Mandatory for all bulk senders (&gt;=5,000/day): exact-case v=DMARC1 first tag, zero duplicate _dmarc records, valid p= tag.</div>
+          <div class="chk-live mono" id="r3_live">Waiting for domain scan...</div>
+        </div>
+        <span class="pill p-wait" id="r3_pill">Pending</span>
+      </div>
+
+      <div class="chk-row" id="r4">
+        <div class="chk-num">4</div>
+        <div>
+          <div class="chk-title" data-t="r4_t">DMARC Enforcement (p=quarantine / p=reject) &amp; RUA Visibility</div>
+          <div class="chk-desc" data-t="r4_d">Move beyond p=none monitor-only and publish a valid rua=mailto: address to catch spoofing and broken third-party ESPs.</div>
+          <div class="chk-live mono" id="r4_live">Waiting for domain scan...</div>
+        </div>
+        <span class="pill p-wait" id="r4_pill">Pending</span>
+      </div>
+
+      <div class="chk-row" id="r5">
+        <div class="chk-num">5</div>
+        <div>
+          <div class="chk-title" data-t="r5_t">Healthy MX Redundancy &amp; Authoritative NS/SOA Delegation</div>
+          <div class="chk-desc" data-t="r5_d">Resolvable MX hosts to receive bounce/reply mail plus &gt;=2 consistent authoritative nameservers with valid glue IPv4s.</div>
+          <div class="chk-live mono" id="r5_live">Waiting for domain scan...</div>
+        </div>
+        <span class="pill p-wait" id="r5_pill">Pending</span>
+      </div>
+
+      <div class="chk-row" id="r6">
+        <div class="chk-num">6</div>
+        <div>
+          <div class="chk-title" data-t="r6_t">Clean Reputation Across 5 Major DNSBL Blacklists</div>
+          <div class="chk-desc" data-t="r6_d">Domain and MX sending IPv4s clear of Spamhaus DBL, SURBL Multi, Barracuda BRBL, SpamCop, and SORBS.</div>
+          <div class="chk-live mono" id="r6_live">Waiting for domain scan...</div>
+        </div>
+        <span class="pill p-wait" id="r6_pill">Pending</span>
+      </div>
+
+      <div class="chk-row" id="r7">
+        <div class="chk-num">7</div>
+        <div>
+          <div class="chk-title" data-t="r7_t">RFC 8058 One-Click Unsubscribe Headers (Marketing &amp; Newsletters)</div>
+          <div class="chk-desc" data-t="r7_d">Mandatory for commercial/promotional mail: include both List-Unsubscribe (HTTPS + mailto) and List-Unsubscribe-Post headers; honor opt-outs within 48 hours.</div>
+          <div style="margin-top:8px">
+            <label class="manual-toggle"><input type="checkbox" id="chkUnsub" onchange="recomputeSummary()" /> <span data-t="r7_chk">Verified in our outbound SMTP / ESP headers (copy exact RFC 8058 snippet below)</span></label>
+          </div>
+        </div>
+        <span class="pill p-warn" id="r7_pill">Self-Check</span>
+      </div>
+
+      <div class="chk-row" id="r8">
+        <div class="chk-num">8</div>
+        <div>
+          <div class="chk-title" data-t="r8_t">Spam Complaint Rate Below 0.10% (Hard 0.30% Ceiling in Google Postmaster)</div>
+          <div class="chk-desc" data-t="r8_d">Monitor daily user-reported spam rates in Google Postmaster Tools and Yahoo Sender Hub; keep sustained rates under 0.10% and never exceed 0.30%.</div>
+          <div style="margin-top:8px">
+            <label class="manual-toggle"><input type="checkbox" id="chkSpam" onchange="recomputeSummary()" /> <span data-t="r8_chk">Domain verified in Google Postmaster Tools &amp; spam rate confirmed &lt; 0.10%</span></label>
+          </div>
+        </div>
+        <span class="pill p-warn" id="r8_pill">Self-Check</span>
+      </div>
+    </section>
+
+    <section class="snippet-grid">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+          <strong data-t="sn1_t">RFC 8058 One-Click Unsubscribe SMTP Headers</strong>
+          <button type="button" class="btn btn-out btn-sm" onclick="copyBox('unsubSnippet',this)" data-t="btn_copy">Copy</button>
+        </div>
+        <pre id="unsubSnippet" class="code-box mono">List-Unsubscribe: &lt;https://yourdomain.com/unsubscribe?id={{token}}&gt;, &lt;mailto:unsubscribe@yourdomain.com?subject=unsubscribe&gt;
+List-Unsubscribe-Post: List-Unsubscribe=One-Click</pre>
+        <div style="font-size:0.8rem;color:var(--muted)" data-t="sn1_n">Your HTTPS endpoint must accept unauthenticated HTTP POST requests containing List-Unsubscribe=One-Click and process opt-outs within 2 days.</div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+          <strong data-t="sn2_t">Need Conflict-Free Merged SPF + DKIM + DMARC Values?</strong>
+          <span class="pill p-pass" data-t="sn2_tag">$2 Launch Special (was $9)</span>
+        </div>
+        <p style="font-size:0.85rem;color:var(--muted);margin:10px 0 12px" data-t="sn2_p">InboxShield v7.2 resolves your live MX provider, merges duplicate SPF conflicts, flattens &gt;10 lookup PermErrors, verifies RFC 7489 DMARC syntax, and outputs exact copy-paste records for Cloudflare, GoDaddy, Namecheap, Aliyun, and DNSPod plus a printable A4 PDF.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <a id="cardFixLink" class="btn btn-emerald" href="https://omnipulse-x402.appwrite.network/checkout/inboxshield" target="_blank" rel="noopener" data-t="btn_fix">Unlock Conflict-Free Fix — $2 (was $9)</a>
+          <a class="btn btn-out" href="./dmarc-p-reject-rua-policy-generator.html" data-t="sn2_dmarc">Open DMARC p=reject Planner</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div><strong style="color:var(--ink)">InboxShield · OmniForge · Agent Arena Studio</strong></div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="https://inbox-checker.appwrite.network/" target="_blank" rel="noopener">InboxShield Web App</a>
+        <a href="https://inbox-checker.appwrite.network/spf-flattener" target="_blank" rel="noopener">Free SPF Flattener</a>
+        <a href="./dmarc-p-reject-rua-policy-generator.html">DMARC p=reject Planner</a>
+        <a href="https://omnipulse-x402.appwrite.network/go/gumroad/suite" target="_blank" rel="noopener">Complete Suite ($5, reg. $29)</a>
+        <a href="https://omnipulse-x402.appwrite.network/support" target="_blank" rel="noopener">Support &amp; 14-Day Refund</a>
+      </div>
+    </footer>
+  </main>
+
+<script>
+(()=>{let E="https://omnipulse-x402.appwrite.network/v1/telemetry",d=document,de=d.documentElement,w=window,n=navigator,l=location,M=Math,N=Date.now,on=(x,e,f,o)=>x.addEventListener(e,f,o),a=0,v=d.hidden?0:N(),sc=0,c={scan:0,outbound:0,paywall:0},ll=0,tz="",id="is_"+N().toString(36)+M.random().toString(36).slice(2,9);try{id=sessionStorage.of_sid_is||(sessionStorage.of_sid_is=id);}catch{}try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";}catch{}let u=()=>{let h=de.scrollHeight-innerHeight;if(h>0)sc=M.max(sc,M.min(100,M.round(scrollY/h*100)));},t=ev=>{u();let b=JSON.stringify({site:"inboxshield",sid:id,event:ev,path:l.pathname.slice(0,160),webdriver:!!n.webdriver,screen:screen.width+"x"+screen.height,dwellSec:M.round((a+(v?N()-v:0))/1e3),scrollPct:sc,scansRun:c.scan,outboundClicks:c.outbound,paywallClicks:c.paywall,referrer:d.referrer.slice(0,128),tz,lang:de.lang||"en"});if(!n.sendBeacon?.(E,b))fetch(E,{method:"POST",body:b,keepalive:1}).catch(()=>{});},lv=()=>{if(v){a+=N()-v;v=0;}if(N()-ll>1e3){ll=N();t("leave");}};w.__ofTrack=ev=>{if(ev in c)c[ev]++;t(ev);};on(w,"scroll",u,{passive:1});on(d,"click",e=>{let g=e.target?.closest?.("a[href]"),h=g?.href||"";if(/gumroad|\/checkout\//i.test(h))__ofTrack("paywall");else if(/^https?:/i.test(h)&&g.hostname!==l.hostname)__ofTrack("outbound");},1);on(d,"visibilitychange",()=>d.hidden?lv():!v&&(v=N()));on(w,"pagehide",lv);setInterval(()=>!d.hidden&&t("heartbeat"),15e3);on(d,"DOMContentLoaded",()=>t("pageview"));})();
+</script>
+<script>
+const DICT = {
+  en: {
+    nav_dmarc: "DMARC p=reject Builder", nav_spf: "SPF Builder", nav_bench: "Top 60 Benchmark", nav_app: "Full 6-Phase Audit", nav_cta: "Unlock 5-Record Fix $2",
+    eyebrow: "GOOGLE & YAHOO 2026 SENDER MANDATES · LIVE DNS AUTO-CHECK · ZERO SIGNUP",
+    h1: "Google & Yahoo 2026 Bulk Sender Compliance Checklist",
+    lead: "Enter any sending domain to auto-verify 6 live DNS authentication & blacklist mandates in 2 seconds, check off your RFC 8058 One-Click Unsubscribe and Postmaster spam-rate controls, and unlock conflict-free copy-paste DNS fixes for $2 Launch Special (reg. $9).",
+    btn_run: "Auto-Check Live DNS", try_lbl: "Test live:",
+    sum_ready: "Ready for Live Check", sum_h: "Run a live domain scan above to auto-fill Requirements 1–6 instantly.",
+    btn_fix: "Unlock Conflict-Free Fix — $2 (was $9)", btn_full: "Open Full 6-Phase Audit", btn_copy_md: "Copy Markdown Report",
+    r1_t: "SPF Record Published & Within RFC 7208 10-DNS-Lookup Limit",
+    r1_d: "Single authoritative v=spf1 TXT record with <=10 recursive lookups, <=2 void lookups, and ~all or -all qualifier.",
+    r2_t: "DKIM Digital Signature Published (2048-bit RSA Recommended)",
+    r2_d: "Active _domainkey TXT/CNAME record authenticating message integrity across 24 common global & enterprise selectors.",
+    r3_t: "Valid RFC 7489 DMARC Record Published at _dmarc",
+    r3_d: "Mandatory for all bulk senders (>=5,000/day): exact-case v=DMARC1 first tag, zero duplicate _dmarc records, valid p= tag.",
+    r4_t: "DMARC Enforcement (p=quarantine / p=reject) & RUA Visibility",
+    r4_d: "Move beyond p=none monitor-only and publish a valid rua=mailto: address to catch spoofing and broken third-party ESPs.",
+    r5_t: "Healthy MX Redundancy & Authoritative NS/SOA Delegation",
+    r5_d: "Resolvable MX hosts to receive bounce/reply mail plus >=2 consistent authoritative nameservers with valid glue IPv4s.",
+    r6_t: "Clean Reputation Across 5 Major DNSBL Blacklists",
+    r6_d: "Domain and MX sending IPv4s clear of Spamhaus DBL, SURBL Multi, Barracuda BRBL, SpamCop, and SORBS.",
+    r7_t: "RFC 8058 One-Click Unsubscribe Headers (Marketing & Newsletters)",
+    r7_d: "Mandatory for commercial/promotional mail: include both List-Unsubscribe (HTTPS + mailto) and List-Unsubscribe-Post headers; honor opt-outs within 48 hours.",
+    r7_chk: "Verified in our outbound SMTP / ESP headers (copy exact RFC 8058 snippet below)",
+    r8_t: "Spam Complaint Rate Below 0.10% (Hard 0.30% Ceiling in Google Postmaster)",
+    r8_d: "Monitor daily user-reported spam rates in Google Postmaster Tools and Yahoo Sender Hub; keep sustained rates under 0.10% and never exceed 0.30%.",
+    r8_chk: "Domain verified in Google Postmaster Tools & spam rate confirmed < 0.10%",
+    sn1_t: "RFC 8058 One-Click Unsubscribe SMTP Headers", btn_copy: "Copy",
+    sn1_n: "Your HTTPS endpoint must accept unauthenticated HTTP POST requests containing List-Unsubscribe=One-Click and process opt-outs within 2 days.",
+    sn2_t: "Need Conflict-Free Merged SPF + DKIM + DMARC Values?", sn2_tag: "$2 Launch Special (was $9)",
+    sn2_p: "InboxShield v7.2 resolves your live MX provider, merges duplicate SPF conflicts, flattens >10 lookup PermErrors, verifies RFC 7489 DMARC syntax, and outputs exact copy-paste records for Cloudflare, GoDaddy, Namecheap, Aliyun, and DNSPod plus a printable A4 PDF.",
+    sn2_dmarc: "Open DMARC p=reject Planner"
+  },
+  zh: {
+    nav_dmarc: "DMARC 策略生成器", nav_spf: "SPF 生成器", nav_bench: "60 强基准报告", nav_app: "全量 6 阶段体检", nav_cta: "破冰解锁修复 $2",
+    eyebrow: "GOOGLE & YAHOO 2026 群发合规标准 · 实时 DNS 自动查验 · 免注册",
+    h1: "Google / Yahoo 2026 群发合规自查清单与实时检测器",
+    lead: "输入发信域名 2 秒自动核验 6 项实时 DNS 鉴权与黑名单硬指标，勾选 RFC 8058 一键退订头与 Postmaster 投诉率项，并可以 $2 破冰特惠（原价 $9）解锁无冲突复制修复记录。",
+    btn_run: "实时自动核验 DNS", try_lbl: "点击实测：",
+    sum_ready: "等待实时检测", sum_h: "在上方输入域名一键自动填满第 1–6 项实时 DNS 合规项。",
+    btn_fix: "破冰解锁无冲突修复 — $2（原价 $9）", btn_full: "打开完整 6 阶段体检", btn_copy_md: "复制 Markdown 清单报告",
+    r1_t: "已配置唯一 SPF 记录且不超过 RFC 7208 的 10 次查询上限",
+    r1_d: "仅保留 1 条 v=spf1 记录，递归查询 <=10 次、空查询 <=2 次，结尾采用 ~all 或 -all。",
+    r2_t: "已发布有效 DKIM 数字签名公钥（推荐 2048 位 RSA）",
+    r2_d: "并行探测 24 个常见海内外企业邮选择器，核验 _domainkey 签名有效性。",
+    r3_t: "已在 _dmarc 发布严格符合 RFC 7489 语法的 DMARC 记录",
+    r3_d: "群发域必备：首位精确大写 v=DMARC1，无重复 _dmarc 冲突，p= 策略语法合法。",
+    r4_t: "开启 DMARC 拦截（p=quarantine / p=reject）与 RUA 报表",
+    r4_d: "尽快脱离 p=none 纯观察态并配置 mailto: 聚合报表邮箱，防止域名被冒用。",
+    r5_t: "MX 多节点收信冗余与权威 NS/SOA 一致性",
+    r5_d: "确保 MX 可解析接收退信通知，且具备 >=2 台一致在线的权威 NS 服务器。",
+    r6_t: "5 大国际反垃圾黑名单声誉全部清白",
+    r6_d: "发信域名与 MX IP 均未命中 Spamhaus DBL、SURBL、Barracuda、SpamCop 与 SORBS。",
+    r7_t: "RFC 8058 一键退订邮件头（营销与通讯邮件强制要求）",
+    r7_d: "商业邮件必须同时包含 List-Unsubscribe 与 List-Unsubscribe-Post 头，并在 48 小时内生效退订。",
+    r7_chk: "已确认发信系统/ESP 注入 RFC 8058 退订头（下方可直接复制标准代码）",
+    r8_t: "垃圾邮件投诉率低于 0.10%（Google Postmaster 硬红线 0.30%）",
+    r8_d: "在 Google Postmaster Tools 与 Yahoo Sender Hub 监控每日投诉率，严守 0.10% 安全线。",
+    r8_chk: "已在 Google Postmaster 验证域名且确认投诉率 < 0.10%",
+    sn1_t: "RFC 8058 一键退订标准 SMTP 邮件头代码", btn_copy: "复制",
+    sn1_n: "您的 HTTPS 退订接口必须接受免登录 HTTP POST（含 List-Unsubscribe=One-Click）并在 2 天内处理退订。",
+    sn2_t: "需要无冲突合并展平后的 SPF + DKIM + DMARC 精确值？", sn2_tag: "$2 破冰特惠（原价 $9）",
+    sn2_p: "InboxShield v7.2 自动识别您的企业邮箱与解析商，合并重复 SPF、展平超限查询、严审 DMARC 语法，生成五大解析商复制值与无水印 A4 PDF。",
+    sn2_dmarc: "打开 DMARC p=reject 升级规划器"
+  }
+};
+let lang = "en";
+let lastAudit = null;
+const liveStates = { r1: "wait", r2: "wait", r3: "wait", r4: "wait", r5: "wait", r6: "wait" };
+
+function setLang(code, persist) {
+  lang = code === "zh" ? "zh" : "en";
+  document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
+  document.getElementById("btnEn").classList.toggle("active", lang === "en");
+  document.getElementById("btnZh").classList.toggle("active", lang === "zh");
+  document.querySelectorAll("[data-t]").forEach(el => {
+    const k = el.getAttribute("data-t");
+    if (DICT[lang][k]) el.textContent = DICT[lang][k];
+  });
+  if (persist) try { localStorage.setItem("of_lang_v5", lang); } catch {}
+  recomputeSummary();
+}
+
+function setRow(id, state, liveText) {
+  liveStates[id] = state;
+  const p = document.getElementById(id + "_pill");
+  const l = document.getElementById(id + "_live");
+  if (l && liveText != null) l.textContent = liveText;
+  if (p) {
+    p.className = "pill " + (state === "pass" ? "p-pass" : state === "warn" ? "p-warn" : state === "fail" ? "p-fail" : "p-wait");
+    p.textContent = state === "pass" ? (lang === "zh" ? "通过" : "PASS") : state === "warn" ? (lang === "zh" ? "警告" : "WARN") : state === "fail" ? (lang === "zh" ? "不达标" : "FAIL") : (lang === "zh" ? "待检" : "Pending");
+  }
+}
+
+function recomputeSummary() {
+  const unsub = document.getElementById("chkUnsub").checked;
+  const spam = document.getElementById("chkSpam").checked;
+  const r7p = document.getElementById("r7_pill");
+  const r8p = document.getElementById("r8_pill");
+  r7p.className = "pill " + (unsub ? "p-pass" : "p-warn");
+  r7p.textContent = unsub ? (lang === "zh" ? "已确认" : "PASS") : (lang === "zh" ? "待自查" : "Self-Check");
+  r8p.className = "pill " + (spam ? "p-pass" : "p-warn");
+  r8p.textContent = spam ? (lang === "zh" ? "已确认" : "PASS") : (lang === "zh" ? "待自查" : "Self-Check");
+
+  const vals = [liveStates.r1, liveStates.r2, liveStates.r3, liveStates.r4, liveStates.r5, liveStates.r6, unsub ? "pass" : "warn", spam ? "pass" : "warn"];
+  const passed = vals.filter(v => v === "pass").length;
+  const failed = vals.filter(v => v === "fail").length;
+  document.getElementById("sumCount").textContent = passed + " / 8 " + (lang === "zh" ? "项通过" : "Passed");
+  document.getElementById("sumFill").style.width = Math.round((passed / 8) * 100) + "%";
+  const bar = document.getElementById("summaryBar");
+  const pill = document.getElementById("sumPill");
+  const h = document.getElementById("sumHeadline");
+  bar.classList.toggle("is-bad", failed > 0);
+  if (!lastAudit) return;
+  const dom = lastAudit.domain;
+  if (failed > 0) {
+    pill.className = "pill p-fail";
+    pill.textContent = lang === "zh" ? ("发现 " + failed + " 项不达标硬故障") : (failed + " Compliance Blocker(s) Found");
+    h.textContent = lang === "zh" ? (dom + " 尚未满足 Google/Yahoo 2026 群发规范（综合得分 " + lastAudit.assessment.score + "/100）") : (dom + " fails Google/Yahoo 2026 bulk-sender checks (Score " + lastAudit.assessment.score + "/100)");
+  } else if (passed === 8) {
+    pill.className = "pill p-pass";
+    pill.textContent = lang === "zh" ? "8/8 全面达标" : "8/8 Fully Compliant";
+    h.textContent = lang === "zh" ? (dom + " 已满足全部 Google/Yahoo 2026 群发要求（" + lastAudit.assessment.score + "/100）") : (dom + " meets all 8 Google/Yahoo 2026 sender mandates (" + lastAudit.assessment.score + "/100)");
+  } else {
+    pill.className = "pill p-warn";
+    pill.textContent = lang === "zh" ? "需补齐剩余项" : "Partial Compliance";
+    h.textContent = lang === "zh" ? (dom + " 已通过 " + passed + "/8 项（综合得分 " + lastAudit.assessment.score + "/100），请补齐警告或自查项。") : (dom + " passes " + passed + "/8 checks (Score " + lastAudit.assessment.score + "/100). Complete remaining items below.");
+  }
+}
+
+async function runLive(domOverride) {
+  const inp = document.getElementById("domInput");
+  if (domOverride) inp.value = domOverride;
+  const raw = String(inp.value || "").trim().toLowerCase().replace(/^https?:\/\//, "").split(/[/?#]/)[0];
+  if (!raw) return;
+  if (window.__ofTrack) window.__ofTrack("scan");
+  const st = document.getElementById("scanStatus");
+  const btn = document.getElementById("runBtn");
+  btn.disabled = true;
+  st.textContent = lang === "zh" ? ("正在实时查询 " + raw + "...") : ("Probing live DNS for " + raw + "...");
+  try {
+    const resp = await fetch("https://inbox-checker.appwrite.network/api/free-audit?domain=" + encodeURIComponent(raw));
+    const d = await resp.json();
+    if (!resp.ok || !d.ok) {
+      st.textContent = d.error || "Invalid domain";
+      return;
+    }
+    lastAudit = d;
+    const spf = d.spf || {}, dkim = d.dkim || {}, dmarc = d.dmarc || {}, mx = d.mx || {}, bl = d.blacklists || {}, nsH = (d.dnsMeta && d.dnsMeta.nsHealth) || {};
+    setRow("r1", spf.status === "pass" ? "pass" : spf.status === "warn" ? "warn" : "fail",
+      spf.record ? ("Lookups: " + spf.lookups + "/10 · Void: " + (spf.voidLookups || 0) + "/2 · Qualifier: " + (spf.qualifier || "none") + " · CIDRs: " + (spf.totalCidrs || 0)) : "No v=spf1 TXT record published.");
+    const dkimCnt = (dkim.found || []).length;
+    setRow("r2", dkimCnt > 0 ? ((dkim.issues || []).length ? "warn" : "pass") : "warn",
+      dkimCnt > 0 ? (dkimCnt + " active DKIM key(s): " + dkim.found.map(k => k.selector + " (" + (k.bits || "OK") + "-bit)").join(", ")) : "No public DKIM key found across 24 common selectors (verify custom selector).");
+    setRow("r3", dmarc.record && !(dmarc.syntaxErrors || []).length ? "pass" : "fail",
+      dmarc.record ? ("_dmarc TXT found · " + (dmarc.syntaxChecks || []).length + " RFC 7489 rules · " + (dmarc.syntaxErrors || []).length + " syntax error(s)") : "No _dmarc TXT record published.");
+    setRow("r4", (dmarc.policy === "reject" || dmarc.policy === "quarantine") && dmarc.rua ? "pass" : dmarc.record ? "warn" : "fail",
+      dmarc.record ? ("Policy: p=" + (dmarc.policy || "invalid") + " · RUA: " + (dmarc.rua || "missing")) : "Missing DMARC enforcement and RUA reporting.");
+    const mxOk = (mx.records || []).length > 0 && (!mx.redundancy || mx.redundancy.status !== "fail");
+    const nsOk = !nsH.status || nsH.status !== "fail";
+    setRow("r5", (mxOk && nsOk) ? ((mx.redundancy && mx.redundancy.status === "warn") || nsH.status === "warn" ? "warn" : "pass") : "fail",
+      "MX: " + (mx.records || []).length + " node(s) (" + (mx.provider || "None") + ") · NS: " + (nsH.resolvedCount || 0) + "/" + (nsH.count || 0) + " resolved");
+    const hits = (bl.hits || []).length;
+    setRow("r6", hits === 0 ? "pass" : "fail",
+      hits === 0 ? "0/5 DNSBL hits (Spamhaus DBL, SURBL, Barracuda, SpamCop, SORBS clean)" : (hits + " blacklist hit(s): " + bl.hits.map(h => h.list).join(", ")));
+
+    document.getElementById("unsubSnippet").textContent =
+      "List-Unsubscribe: <https://" + d.domain + "/unsubscribe?id={{token}}>, <mailto:unsubscribe@" + d.domain + "?subject=unsubscribe>\nList-Unsubscribe-Post: List-Unsubscribe=One-Click";
+
+    const issueCnt = ((d.assessment && d.assessment.blockers || []).length) + ((d.assessment && d.assessment.warnings || []).length);
+    const checkoutUrl = "https://omnipulse-x402.appwrite.network/checkout/inboxshield?domain=" + encodeURIComponent(d.domain) + "&score=" + encodeURIComponent(String(d.assessment.score)) + "&issues=" + encodeURIComponent(String(issueCnt));
+    const fullUrl = "https://inbox-checker.appwrite.network/?domain=" + encodeURIComponent(d.domain) + "&ref=gy-checklist";
+    document.getElementById("fixCtaLink").href = checkoutUrl;
+    document.getElementById("cardFixLink").href = checkoutUrl;
+    document.getElementById("navUnlockLink").href = checkoutUrl;
+    document.getElementById("fullAuditLink").href = fullUrl;
+
+    st.textContent = (lang === "zh" ? "实时查验完成 (" : "Live check complete (") + (d.elapsedMs || 0) + "ms)";
+    recomputeSummary();
+  } catch (err) {
+    st.textContent = lang === "zh" ? "网络查询失败，请重试。" : "Live lookup failed, please retry.";
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function copyBox(id, btn) {
+  const txt = document.getElementById(id).textContent || "";
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
+  const old = btn.textContent;
+  btn.textContent = lang === "zh" ? "已复制" : "Copied";
+  setTimeout(() => { btn.textContent = old; }, 1400);
+}
+
+function copyChecklistMd() {
+  const dom = (lastAudit && lastAudit.domain) || "yourdomain.com";
+  const lines = [
+    "### Google & Yahoo 2026 Bulk Sender Compliance Checklist: `" + dom + "`",
+    "- **Overall Status**: " + document.getElementById("sumCount").textContent + (lastAudit ? (" (InboxShield Score " + lastAudit.assessment.score + "/100)") : ""),
+    "- 1. SPF <=10 Lookups: `" + liveStates.r1.toUpperCase() + "` — " + document.getElementById("r1_live").textContent,
+    "- 2. DKIM 2048-bit: `" + liveStates.r2.toUpperCase() + "` — " + document.getElementById("r2_live").textContent,
+    "- 3. DMARC RFC 7489: `" + liveStates.r3.toUpperCase() + "` — " + document.getElementById("r3_live").textContent,
+    "- 4. DMARC Enforcement & RUA: `" + liveStates.r4.toUpperCase() + "` — " + document.getElementById("r4_live").textContent,
+    "- 5. MX & NS/SOA Health: `" + liveStates.r5.toUpperCase() + "` — " + document.getElementById("r5_live").textContent,
+    "- 6. 5 DNSBL Blacklists: `" + liveStates.r6.toUpperCase() + "` — " + document.getElementById("r6_live").textContent,
+    "- 7. RFC 8058 One-Click Unsubscribe: `" + (document.getElementById("chkUnsub").checked ? "PASS" : "PENDING") + "`",
+    "- 8. Postmaster Spam Rate <0.10%: `" + (document.getElementById("chkSpam").checked ? "PASS" : "PENDING") + "`",
+    "- Live Verification: https://inbox-checker.appwrite.network/?domain=" + encodeURIComponent(dom)
+  ];
+  const btn = document.getElementById("copyReportBtn");
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(lines.join("\n")).catch(() => {});
+  const old = btn.textContent;
+  btn.textContent = lang === "zh" ? "已复制报告" : "Copied Report";
+  setTimeout(() => { btn.textContent = old; }, 1500);
+}
+
+document.getElementById("checkForm").addEventListener("submit", e => { e.preventDefault(); runLive(); });
+(function init() {
+  const qs = new URLSearchParams(location.search);
+  const ql = (qs.get("lang") || "").toLowerCase();
+  let sv = "";
+  try { sv = localStorage.getItem("of_lang_v5") || ""; } catch {}
+  setLang(ql === "zh" || ql === "en" ? ql : (sv === "zh" || sv === "en" ? sv : "en"), false);
+  const d = qs.get("domain") || qs.get("d");
+  if (d) runLive(d);
+})();
+</script>
+</body>
+</html>

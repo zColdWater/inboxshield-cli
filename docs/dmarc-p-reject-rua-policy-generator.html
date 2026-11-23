@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DMARC p=reject &amp; RUA Policy Generator + 3-Stage Rollout Planner | InboxShield</title>
+  <meta name="description" content="Free interactive RFC 7489 DMARC p=reject and RUA policy generator with 3-stage safe rollout schedule (Day 1 p=none -> Day 7 p=quarantine -> Day 14 p=reject), live DNS lookup, and Cloudflare/GoDaddy/Route 53/Terraform exports." />
+  <link rel="canonical" href="https://zcoldwater.github.io/inboxshield-cli/dmarc-p-reject-rua-policy-generator.html" />
+  <link rel="icon" type="image/svg+xml" href="https://inbox-checker.appwrite.network/favicon.svg?v=6" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DMARC p=reject &amp; RUA Policy Generator + Safe Rollout Planner | InboxShield" />
+  <meta property="og:description" content="Build strict RFC 7489 DMARC p=reject records, inspect live DNS before editing, and export Registrar TXT, BIND Zone, or Cloudflare Terraform." />
+  <meta property="og:url" content="https://zcoldwater.github.io/inboxshield-cli/dmarc-p-reject-rua-policy-generator.html" />
+  <meta property="og:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="720" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DMARC p=reject &amp; RUA Policy Generator" />
+  <meta name="twitter:description" content="Generate RFC 7489 DMARC p=reject policies with 3-stage safe rollout and live DNS validation." />
+  <meta name="twitter:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "InboxShield DMARC p=reject & RUA Policy Generator",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Web",
+        "url": "https://zcoldwater.github.io/inboxshield-cli/dmarc-p-reject-rua-policy-generator.html",
+        "image": "https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png",
+        "offers": [
+          { "@type": "Offer", "name": "Free Interactive DMARC p=reject Generator", "price": "0", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "InboxShield Single-Domain Fix Unlock (Launch Special, Reg. $9)", "price": "2.00", "priceCurrency": "USD", "url": "https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "InboxShield Tools", "item": "https://zcoldwater.github.io/inboxshield-cli/" },
+          { "@type": "ListItem", "position": 2, "name": "DMARC p=reject & RUA Policy Generator", "item": "https://zcoldwater.github.io/inboxshield-cli/dmarc-p-reject-rua-policy-generator.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do I safely upgrade from DMARC p=none to p=reject without breaking invoices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Follow a 3-stage rollout: Day 1 publish p=none with rua=mailto: and verify all SPF/DKIM senders pass; Day 7 switch to p=quarantine (pct=25 then pct=100); Day 14 graduate to p=reject; sp=reject; pct=100."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I send DMARC RUA reports to an external domain email address?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, but RFC 7489 Section 7.1 requires the receiving external domain to publish a verification TXT record at <your-domain>._report._dmarc.<external-domain> with value v=DMARC1."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --bg:#ffffff; --surface:#f8fafc; --border:#e2e8f0; --ink:#0f172a; --muted:#475569; --subtle:#64748b;
+      --emerald:#059669; --emerald-bg:#ecfdf5; --emerald-bd:#a7f3d0;
+      --blue:#2563eb; --blue-bg:#eff6ff; --blue-bd:#bfdbfe;
+      --amber:#b45309; --amber-bg:#fffbeb; --amber-bd:#fde68a;
+      --red:#dc2626; --red-bg:#fef2f2; --red-bd:#fecaca;
+    }
+    * { box-sizing:border-box; }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif; line-height:1.58; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
+    .topbar { border-bottom:1px solid var(--border); background:rgba(255,255,255,0.96); position:sticky; top:0; z-index:20; backdrop-filter:blur(8px); }
+    .topbar-in { max-width:1080px; margin:0 auto; padding:11px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .brand { display:inline-flex; align-items:center; gap:9px; font-weight:800; color:var(--ink); font-size:0.96rem; letter-spacing:-0.02em; }
+    .brand-dot { width:10px; height:10px; border-radius:50%; background:var(--emerald); }
+    .nav-links { display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:0.84rem; font-weight:600; }
+    .nav-links a { color:var(--muted); }
+    .nav-links a.nav-cta { background:var(--ink); color:#fff; padding:7px 13px; border-radius:7px; }
+    .nav-links a.nav-cta:hover { text-decoration:none; opacity:0.92; }
+    .lang-pill { display:inline-flex; border:1px solid var(--border); border-radius:99px; background:var(--surface); padding:2px; }
+    .lang-btn { border:0; background:transparent; color:var(--muted); font:700 11.5px/1 inherit; padding:5px 9px; border-radius:99px; cursor:pointer; }
+    .lang-btn.active { background:#fff; color:var(--ink); box-shadow:0 1px 2px rgba(15,23,42,0.08); }
+    .wrap { max-width:1080px; margin:0 auto; padding:30px 20px 72px; }
+    .eyebrow { display:inline-block; font-size:0.74rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--blue); background:var(--blue-bg); border:1px solid var(--blue-bd); padding:4px 10px; border-radius:99px; margin-bottom:12px; }
+    h1 { font-size:clamp(1.65rem,3.4vw,2.35rem); line-height:1.15; letter-spacing:-0.03em; margin:0 0 10px; }
+    .lead { color:var(--muted); max-width:800px; margin:0 0 22px; font-size:0.98rem; }
+    .stage-bar { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-bottom:20px; }
+    @media (max-width:720px) { .stage-bar { grid-template-columns:1fr; } }
+    .stage-btn { text-align:left; padding:13px 15px; border-radius:11px; border:1.5px solid var(--border); background:#fff; cursor:pointer; font-family:inherit; transition:border-color 0.15s; }
+    .stage-btn:hover { border-color:var(--blue); }
+    .stage-btn.active { border-color:var(--blue); background:var(--blue-bg); }
+    .stage-btn strong { display:block; font-size:0.9rem; color:var(--ink); }
+    .stage-btn span { display:block; font-size:0.78rem; color:var(--muted); margin-top:3px; }
+    .grid-2 { display:grid; grid-template-columns:1.05fr 0.95fr; gap:20px; align-items:start; }
+    @media (max-width:860px) { .grid-2 { grid-template-columns:1fr; } }
+    .card { background:#fff; border:1px solid var(--border); border-radius:13px; padding:20px; }
+    .card-dark { background:#0f172a; color:#f8fafc; border-radius:13px; padding:20px; }
+    .field { margin-bottom:13px; }
+    .field label { display:block; font-size:0.81rem; font-weight:700; color:var(--ink); margin-bottom:4px; }
+    .field input, .field select { width:100%; padding:9px 11px; border:1.5px solid var(--border); border-radius:8px; font-size:0.88rem; color:var(--ink); background:#fff; }
+    .field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media (max-width:520px) { .field-row { grid-template-columns:1fr; } }
+    .inline-row { display:flex; gap:8px; flex-wrap:wrap; }
+    .inline-row input { flex:1 1 180px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:9px 15px; border-radius:8px; font-weight:700; font-size:0.84rem; cursor:pointer; border:1px solid transparent; font-family:inherit; text-decoration:none; }
+    .btn:hover { text-decoration:none; opacity:0.94; }
+    .btn-blue { background:var(--blue); color:#fff; }
+    .btn-emerald { background:#10b981; color:#022c22; }
+    .btn-out { background:#fff; color:var(--ink); border-color:var(--border); }
+    .btn-ghost { background:transparent; color:#e2e8f0; border-color:#475569; }
+    .btn-sm { padding:6px 10px; font-size:0.78rem; }
+    .pill { display:inline-block; padding:3px 9px; border-radius:99px; font-size:0.74rem; font-weight:700; border:1px solid transparent; }
+    .p-pass { background:var(--emerald-bg); color:var(--emerald); border-color:var(--emerald-bd); }
+    .p-warn { background:var(--amber-bg); color:var(--amber); border-color:var(--amber-bd); }
+    .p-fail { background:var(--red-bg); color:var(--red); border-color:var(--red-bd); }
+    .export-tabs { display:flex; gap:6px; flex-wrap:wrap; margin:12px 0 8px; }
+    .exp-tab { border:1px solid #334155; background:transparent; color:#cbd5e1; padding:6px 11px; border-radius:7px; font:700 12px/1 inherit; cursor:pointer; }
+    .exp-tab.active { background:#2563eb; border-color:#2563eb; color:#fff; }
+    .code-box { background:#020617; color:#d1fae5; border:1px solid #1e293b; border-radius:10px; padding:14px; font-size:0.82rem; line-height:1.58; white-space:pre-wrap; word-break:break-all; margin:0 0 12px; }
+    .lint-list { display:grid; gap:6px; margin-top:12px; font-size:0.8rem; }
+    .lint-item { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:6px 10px; border-radius:8px; background:rgba(255,255,255,0.05); border:1px solid rgba(148,163,184,0.18); }
+    .live-box { display:none; margin-bottom:14px; padding:11px 13px; border-radius:9px; background:var(--surface); border:1px solid var(--border); font-size:0.81rem; }
+    .ext-warn { display:none; margin-top:8px; padding:9px 11px; border-radius:8px; background:var(--amber-bg); border:1px solid var(--amber-bd); color:var(--amber); font-size:0.78rem; }
+    .upsell-box { margin-top:16px; padding:14px; border-radius:10px; background:rgba(37,99,235,0.16); border:1px solid rgba(96,165,250,0.35); }
+    footer { border-top:1px solid var(--border); margin-top:42px; padding-top:20px; font-size:0.83rem; color:var(--subtle); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-in">
+      <a class="brand" href="./index.html"><span class="brand-dot"></span><span>InboxShield v7.2 Tools</span></a>
+      <nav class="nav-links">
+        <a href="./google-yahoo-2026-bulk-sender-compliance-checklist.html" data-t="nav_gy">2026 Compliance Checklist</a>
+        <a href="./spf-record-generator.html" data-t="nav_spf">SPF Builder</a>
+        <a href="./top-60-saas-email-authentication-benchmark-2026.html" data-t="nav_bench">Top 60 Benchmark</a>
+        <a href="https://inbox-checker.appwrite.network/?ref=dmarc-reject-nav" target="_blank" rel="noopener" data-t="nav_app">Full 6-Phase Audit</a>
+        <div class="lang-pill" role="group" aria-label="Language">
+          <button type="button" class="lang-btn active" id="btnEn" onclick="setLang('en',true)">EN</button>
+          <button type="button" class="lang-btn" id="btnZh" onclick="setLang('zh',true)">中文</button>
+        </div>
+        <a class="nav-cta" id="navUnlockLink" href="https://omnipulse-x402.appwrite.network/checkout/inboxshield" target="_blank" rel="noopener" data-t="nav_cta">Unlock 5-Record Fix $2</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="eyebrow" data-t="eyebrow">RFC 7489 STRICT POLICY GENERATOR · 3-STAGE SAFE ROLLOUT · LIVE DNS FETCH</div>
+    <h1 data-t="h1">DMARC <code>p=reject</code> &amp; RUA Policy Generator</h1>
+    <p class="lead" data-t="lead">Safely graduate from <code>p=none</code> to full anti-spoofing <code>p=reject</code> without breaking legitimate transactional emails. Fetch your live DNS record first, verify RFC 7489 tag rules, and export clean Registrar TXT, BIND Zone, or Cloudflare Terraform snippets.</p>
+
+    <div class="stage-bar" role="group" aria-label="DMARC Rollout Presets">
+      <button type="button" class="stage-btn" id="st1" onclick="applyStage(1)">
+        <strong data-t="st1_t">Stage 1 · Day 1: Monitor (p=none)</strong>
+        <span data-t="st1_d">Collect RUA XML reports for 7 days to map every active ESP without blocking mail.</span>
+      </button>
+      <button type="button" class="stage-btn" id="st2" onclick="applyStage(2)">
+        <strong data-t="st2_t">Stage 2 · Day 7: Quarantine (p=quarantine)</strong>
+        <span data-t="st2_d">Send unauthenticated spoofs to Spam at pct=50 -> 100 while verifying SPF/DKIM alignment.</span>
+      </button>
+      <button type="button" class="stage-btn active" id="st3" onclick="applyStage(3)">
+        <strong data-t="st3_t">Stage 3 · Day 14: Full Block (p=reject)</strong>
+        <span data-t="st3_d">Maximum brand protection + BIMI logo eligibility: hard-reject spoofed phishing at SMTP.</span>
+      </button>
+    </div>
+
+    <div class="grid-2">
+      <section class="card">
+        <h2 style="margin:0 0 12px;font-size:1.05rem" data-t="cfg_h">1. Policy &amp; RUA Parameters</h2>
+        <div class="field">
+          <label for="domEl" data-t="lbl_dom">Sending Domain (or Fetch Live DNS)</label>
+          <div class="inline-row">
+            <input id="domEl" class="mono" type="text" value="yoursaas.com" placeholder="yoursaas.com" />
+            <button type="button" class="btn btn-blue btn-sm" id="fetchBtn" onclick="fetchLiveDns()" data-t="btn_fetch">Load Live DNS</button>
+          </div>
+        </div>
+        <div id="liveBox" class="live-box"></div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="pEl" data-t="lbl_p">Main Policy (p=)</label>
+            <select id="pEl">
+              <option value="reject" selected>p=reject (Hard Block)</option>
+              <option value="quarantine">p=quarantine (Spam Folder)</option>
+              <option value="none">p=none (Monitor Only)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="spEl" data-t="lbl_sp">Subdomain Policy (sp=)</label>
+            <select id="spEl">
+              <option value="reject" selected>sp=reject (Block Subdomain Spoofs)</option>
+              <option value="quarantine">sp=quarantine</option>
+              <option value="none">sp=none</option>
+              <option value="">Inherit p= (omit sp)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="adkimEl">DKIM Alignment (adkim=)</label>
+            <select id="adkimEl">
+              <option value="r" selected>r (Relaxed · Subdomains OK)</option>
+              <option value="s">s (Strict · Exact Domain)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="aspfEl">SPF Alignment (aspf=)</label>
+            <select id="aspfEl">
+              <option value="r" selected>r (Relaxed · Recommended)</option>
+              <option value="s">s (Strict · Exact Domain)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="pctEl"><span data-t="lbl_pct">Enforcement Percentage (pct=)</span>: <strong id="pctVal" class="mono">100%</strong></label>
+            <input id="pctEl" type="range" min="10" max="100" step="5" value="100" />
+          </div>
+          <div class="field">
+            <label for="foEl" data-t="lbl_fo">Failure Reporting Option (fo=)</label>
+            <select id="foEl">
+              <option value="1" selected>1 (SPF or DKIM fails · Recommended)</option>
+              <option value="0">0 (Both SPF and DKIM fail)</option>
+              <option value="d">d (DKIM failure only)</option>
+              <option value="s">s (SPF failure only)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="ruaEl" data-t="lbl_rua">Primary Aggregate Report Email (rua=mailto:)</label>
+          <input id="ruaEl" class="mono" type="email" value="dmarc@yoursaas.com" placeholder="dmarc@yoursaas.com" />
+        </div>
+        <div class="field">
+          <label for="rua2El" data-t="lbl_rua2">Optional Secondary RUA Address (comma-appended)</label>
+          <input id="rua2El" class="mono" type="email" value="" placeholder="secops@partner-domain.com (optional)" />
+          <div id="extWarn" class="ext-warn"></div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="rufEl" data-t="lbl_ruf">Optional Forensic RUF Email (ruf=)</label>
+            <input id="rufEl" class="mono" type="email" value="" placeholder="Optional forensic mailbox" />
+          </div>
+          <div class="field">
+            <label for="regEl" data-t="lbl_reg">Target DNS Registrar</label>
+            <select id="regEl">
+              <option value="cloudflare" selected>Cloudflare DNS (Host: _dmarc · TTL Auto)</option>
+              <option value="godaddy">GoDaddy DNS (Host: _dmarc · TTL 1/2 Hr)</option>
+              <option value="namecheap">Namecheap DNS (Host: _dmarc · Automatic)</option>
+              <option value="route53">AWS Route 53 (Name: _dmarc.domain · 300s)</option>
+              <option value="aliyun">Alibaba Cloud DNS (Host: _dmarc · 600s)</option>
+              <option value="dnspod">Tencent DNSPod (Host: _dmarc · 600s)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="card-dark">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+          <strong style="font-size:1.02rem" data-t="out_h">2. Generated RFC 7489 Record &amp; Export</strong>
+          <span class="pill p-pass" id="outBadge">RFC 7489 Valid</span>
+        </div>
+
+        <div class="export-tabs" role="tablist">
+          <button type="button" class="exp-tab active" data-exp="txt" onclick="setExp('txt')">Registrar TXT</button>
+          <button type="button" class="exp-tab" data-exp="bind" onclick="setExp('bind')">BIND Zone</button>
+          <button type="button" class="exp-tab" data-exp="tf" onclick="setExp('tf')">Terraform (CF)</button>
+          <button type="button" class="exp-tab" data-exp="plan" onclick="setExp('plan')">3-Stage Rollout</button>
+        </div>
+
+        <pre id="outPre" class="code-box mono"></pre>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button type="button" class="btn btn-emerald" id="copyBtn" onclick="copyOut()" data-t="btn_copy">Copy Output</button>
+          <a id="verifyBtn" class="btn btn-ghost" href="https://inbox-checker.appwrite.network/?ref=dmarc-reject-gen" target="_blank" rel="noopener" data-t="btn_verify">Verify Live DNS -&gt;</a>
+        </div>
+
+        <div class="lint-list" id="lintList"></div>
+
+        <div class="upsell-box">
+          <div style="font-weight:800;font-size:0.9rem;color:#fff" data-t="up_t">Need Conflict-Free Merged SPF + DKIM + DMARC for Your Real Domain?</div>
+          <div style="font-size:0.79rem;color:#cbd5e1;margin:5px 0 10px" data-t="up_d">InboxShield v7.2 auto-merges duplicate SPF conflicts, flattens &gt;10 lookup PermErrors, verifies 24 DKIM keys, and generates exact 5-registrar copy-paste records + A4 PDF for $2 Launch Special (was $9).</div>
+          <a id="checkoutBtn" class="btn btn-blue btn-sm" href="https://omnipulse-x402.appwrite.network/checkout/inboxshield" target="_blank" rel="noopener" data-t="up_cta">Unlock Full 5-Record Fix — $2 (was $9)</a>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div><strong style="color:var(--ink)">InboxShield · OmniForge · Agent Arena Studio</strong></div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="https://inbox-checker.appwrite.network/" target="_blank" rel="noopener">InboxShield Web App</a>
+        <a href="./google-yahoo-2026-bulk-sender-compliance-checklist.html">2026 Compliance Checklist</a>
+        <a href="https://inbox-checker.appwrite.network/spf-flattener" target="_blank" rel="noopener">Free SPF Flattener</a>
+        <a href="https://omnipulse-x402.appwrite.network/go/gumroad/suite" target="_blank" rel="noopener">Complete Suite ($5, reg. $29)</a>
+        <a href="https://omnipulse-x402.appwrite.network/support" target="_blank" rel="noopener">Support &amp; 14-Day Refund</a>
+      </div>
+    </footer>
+  </main>
+
+<script>
+(()=>{let E="https://omnipulse-x402.appwrite.network/v1/telemetry",d=document,de=d.documentElement,w=window,n=navigator,l=location,M=Math,N=Date.now,on=(x,e,f,o)=>x.addEventListener(e,f,o),a=0,v=d.hidden?0:N(),sc=0,c={scan:0,outbound:0,paywall:0},ll=0,tz="",id="is_"+N().toString(36)+M.random().toString(36).slice(2,9);try{id=sessionStorage.of_sid_is||(sessionStorage.of_sid_is=id);}catch{}try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";}catch{}let u=()=>{let h=de.scrollHeight-innerHeight;if(h>0)sc=M.max(sc,M.min(100,M.round(scrollY/h*100)));},t=ev=>{u();let b=JSON.stringify({site:"inboxshield",sid:id,event:ev,path:l.pathname.slice(0,160),webdriver:!!n.webdriver,screen:screen.width+"x"+screen.height,dwellSec:M.round((a+(v?N()-v:0))/1e3),scrollPct:sc,scansRun:c.scan,outboundClicks:c.outbound,paywallClicks:c.paywall,referrer:d.referrer.slice(0,128),tz,lang:de.lang||"en"});if(!n.sendBeacon?.(E,b))fetch(E,{method:"POST",body:b,keepalive:1}).catch(()=>{});},lv=()=>{if(v){a+=N()-v;v=0;}if(N()-ll>1e3){ll=N();t("leave");}};w.__ofTrack=ev=>{if(ev in c)c[ev]++;t(ev);};on(w,"scroll",u,{passive:1});on(d,"click",e=>{let g=e.target?.closest?.("a[href]"),h=g?.href||"";if(/gumroad|\/checkout\//i.test(h))__ofTrack("paywall");else if(/^https?:/i.test(h)&&g.hostname!==l.hostname)__ofTrack("outbound");},1);on(d,"visibilitychange",()=>d.hidden?lv():!v&&(v=N()));on(w,"pagehide",lv);setInterval(()=>!d.hidden&&t("heartbeat"),15e3);on(d,"DOMContentLoaded",()=>t("pageview"));})();
+</script>
+<script>
+const DICT = {
+  en: {
+    nav_gy: "2026 Compliance Checklist", nav_spf: "SPF Builder", nav_bench: "Top 60 Benchmark", nav_app: "Full 6-Phase Audit", nav_cta: "Unlock 5-Record Fix $2",
+    eyebrow: "RFC 7489 STRICT POLICY GENERATOR · 3-STAGE SAFE ROLLOUT · LIVE DNS FETCH",
+    h1: "DMARC p=reject & RUA Policy Generator",
+    lead: "Safely graduate from p=none to full anti-spoofing p=reject without breaking legitimate transactional emails. Fetch your live DNS record first, verify RFC 7489 tag rules, and export clean Registrar TXT, BIND Zone, or Cloudflare Terraform snippets.",
+    st1_t: "Stage 1 · Day 1: Monitor (p=none)", st1_d: "Collect RUA XML reports for 7 days to map every active ESP without blocking mail.",
+    st2_t: "Stage 2 · Day 7: Quarantine (p=quarantine)", st2_d: "Send unauthenticated spoofs to Spam at pct=50 -> 100 while verifying SPF/DKIM alignment.",
+    st3_t: "Stage 3 · Day 14: Full Block (p=reject)", st3_d: "Maximum brand protection + BIMI logo eligibility: hard-reject spoofed phishing at SMTP.",
+    cfg_h: "1. Policy & RUA Parameters", lbl_dom: "Sending Domain (or Fetch Live DNS)", btn_fetch: "Load Live DNS",
+    lbl_p: "Main Policy (p=)", lbl_sp: "Subdomain Policy (sp=)", lbl_pct: "Enforcement Percentage (pct=)", lbl_fo: "Failure Reporting Option (fo=)",
+    lbl_rua: "Primary Aggregate Report Email (rua=mailto:)", lbl_rua2: "Optional Secondary RUA Address (comma-appended)",
+    lbl_ruf: "Optional Forensic RUF Email (ruf=)", lbl_reg: "Target DNS Registrar",
+    out_h: "2. Generated RFC 7489 Record & Export", btn_copy: "Copy Output", btn_verify: "Verify Live DNS ->",
+    up_t: "Need Conflict-Free Merged SPF + DKIM + DMARC for Your Real Domain?",
+    up_d: "InboxShield v7.2 auto-merges duplicate SPF conflicts, flattens >10 lookup PermErrors, verifies 24 DKIM keys, and generates exact 5-registrar copy-paste records + A4 PDF for $2 Launch Special (was $9).",
+    up_cta: "Unlock Full 5-Record Fix — $2 (was $9)"
+  },
+  zh: {
+    nav_gy: "2026 群发合规清单", nav_spf: "SPF 生成器", nav_bench: "60 强基准报告", nav_app: "全量 6 阶段体检", nav_cta: "破冰解锁修复 $2",
+    eyebrow: "RFC 7489 严格策略生成器 · 三阶段安全平滑升级 · 实时拉取现有 DNS",
+    h1: "DMARC p=reject 与 RUA 策略生成器",
+    lead: "安全平滑地从 p=none 过渡到 p=reject 防伪造全拦截，绝不误伤正常业务账单邮件。先一键拉取域名现有 DNS，严审 RFC 7489 标签规则，并导出解析商 TXT、BIND 或 Cloudflare Terraform 代码。",
+    st1_t: "第 1 阶段 · 第 1 天：仅观察 (p=none)", st1_d: "先收集 7 天 RUA 报表盘点所有合法发信源，零风险不拦截。",
+    st2_t: "第 2 阶段 · 第 7 天：隔离 (p=quarantine)", st2_d: "将未对齐邮件按 pct=50 -> 100 隔离至垃圾箱，验证 SPF/DKIM 对齐。",
+    st3_t: "第 3 阶段 · 第 14 天：严格拒收 (p=reject)", st3_d: "最高防伪保护 + 具备 BIMI 品牌标资格：SMTP 网关直接拒收钓鱼邮件。",
+    cfg_h: "1. DMARC 策略与 RUA 参数配置", lbl_dom: "发信域名（可先拉取实时 DNS）", btn_fetch: "拉取实时 DNS",
+    lbl_p: "主域策略 (p=)", lbl_sp: "子域策略 (sp=)", lbl_pct: "生效比例 (pct=)", lbl_fo: "失败报告触发条件 (fo=)",
+    lbl_rua: "主聚合报表接收邮箱 (rua=mailto:)", lbl_rua2: "可选第二个 RUA 邮箱（逗号追加）",
+    lbl_ruf: "可选逐封失败报告邮箱 (ruf=)", lbl_reg: "目标 DNS 解析商",
+    out_h: "2. RFC 7489 策略输出与多格式导出", btn_copy: "一键复制输出", btn_verify: "去实时复测 DNS ->",
+    up_t: "需要针对您真实域名的无冲突合并 SPF + DKIM + DMARC？",
+    up_d: "InboxShield v7.2 自动合并重复 SPF 冲突、展平超 10 次查询、检测 24 个 DKIM 并生成五大解析商精确值与 A4 PDF，$2 破冰特惠（原价 $9）。",
+    up_cta: "破冰解锁完整 5 记录修复 — $2（原价 $9）"
+  }
+};
+let lang = "en";
+let expMode = "txt";
+let lastScore = null;
+let lastIssues = null;
+
+function setLang(code, persist) {
+  lang = code === "zh" ? "zh" : "en";
+  document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
+  document.getElementById("btnEn").classList.toggle("active", lang === "en");
+  document.getElementById("btnZh").classList.toggle("active", lang === "zh");
+  document.querySelectorAll("[data-t]").forEach(el => {
+    const k = el.getAttribute("data-t");
+    if (DICT[lang][k]) el.textContent = DICT[lang][k];
+  });
+  if (persist) try { localStorage.setItem("of_lang_v5", lang); } catch {}
+  render();
+}
+
+function cleanDom(raw) {
+  return String(raw || "").trim().toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").split(/[/?#\s]/)[0] || "yoursaas.com";
+}
+
+function applyStage(n) {
+  [1, 2, 3].forEach(i => document.getElementById("st" + i).classList.toggle("active", i === n));
+  if (n === 1) {
+    document.getElementById("pEl").value = "none";
+    document.getElementById("spEl").value = "none";
+    document.getElementById("pctEl").value = "100";
+  } else if (n === 2) {
+    document.getElementById("pEl").value = "quarantine";
+    document.getElementById("spEl").value = "quarantine";
+    document.getElementById("pctEl").value = "50";
+  } else {
+    document.getElementById("pEl").value = "reject";
+    document.getElementById("spEl").value = "reject";
+    document.getElementById("pctEl").value = "100";
+  }
+  render();
+}
+
+function setExp(mode) {
+  expMode = mode;
+  document.querySelectorAll(".exp-tab").forEach(b => b.classList.toggle("active", b.getAttribute("data-exp") === mode));
+  render();
+}
+
+function buildRecord(dom, p, sp, pct, adkim, aspf, ruaList, ruf, fo) {
+  const parts = ["v=DMARC1", "p=" + p];
+  if (sp) parts.push("sp=" + sp);
+  if (Number(pct) < 100) parts.push("pct=" + pct);
+  parts.push("adkim=" + adkim, "aspf=" + aspf);
+  if (ruaList.length) parts.push("rua=" + ruaList.map(e => "mailto:" + e).join(","));
+  if (ruf) parts.push("ruf=mailto:" + ruf);
+  parts.push("fo=" + fo, "ri=86400");
+  return parts.join("; ");
+}
+
+function render() {
+  const dom = cleanDom(document.getElementById("domEl").value);
+  const p = document.getElementById("pEl").value;
+  const sp = document.getElementById("spEl").value;
+  const pct = Number(document.getElementById("pctEl").value || 100);
+  const adkim = document.getElementById("adkimEl").value;
+  const aspf = document.getElementById("aspfEl").value;
+  const fo = document.getElementById("foEl").value;
+  const reg = document.getElementById("regEl").value;
+  document.getElementById("pctVal").textContent = pct + "%";
+
+  const r1 = String(document.getElementById("ruaEl").value || "").trim().replace(/^mailto:/i, "");
+  const r2 = String(document.getElementById("rua2El").value || "").trim().replace(/^mailto:/i, "");
+  const ruf = String(document.getElementById("rufEl").value || "").trim().replace(/^mailto:/i, "");
+  const ruaList = [r1, r2].filter(Boolean);
+
+  // External RUA RFC 7489 Section 7.1 check
+  const extEmails = ruaList.filter(e => e.includes("@") && e.split("@")[1].toLowerCase() !== dom.toLowerCase());
+  const extBox = document.getElementById("extWarn");
+  if (extEmails.length) {
+    const extDom = extEmails[0].split("@")[1].toLowerCase();
+    extBox.style.display = "block";
+    extBox.textContent = (lang === "zh"
+      ? ("RFC 7489 跨域名 RUA 授权提示：外部域名 " + extDom + " 需发布 TXT 记录 " + dom + "._report._dmarc." + extDom + " = \"v=DMARC1\" 才会接收您的报表。")
+      : ("RFC 7489 Section 7.1 External RUA Note: " + extDom + " must publish TXT " + dom + "._report._dmarc." + extDom + " = \"v=DMARC1\" to authorize cross-domain reports."));
+  } else {
+    extBox.style.display = "none";
+  }
+
+  const rec = buildRecord(dom, p, sp, pct, adkim, aspf, ruaList, ruf, fo);
+  const host = reg === "route53" ? ("_dmarc." + dom) : "_dmarc";
+  const ttl = reg === "cloudflare" ? "Auto" : reg === "route53" ? "300" : reg === "godaddy" ? "1/2 Hour" : "600";
+
+  let out = "";
+  if (expMode === "txt") {
+    out = "Type:  TXT\nHost:  " + host + "\nTTL:   " + ttl + "\nValue: " + rec;
+  } else if (expMode === "bind") {
+    out = "_dmarc." + dom + ". 300 IN TXT \"" + rec + "\"";
+  } else if (expMode === "tf") {
+    out = 'resource "cloudflare_record" "dmarc_' + dom.replace(/[^a-z0-9]/g, "_") + '" {\n  zone_id = var.cloudflare_zone_id\n  name    = "_dmarc"\n  type    = "TXT"\n  content = "' + rec + '"\n  ttl     = 1\n}';
+  } else {
+    const s1 = buildRecord(dom, "none", "none", 100, "r", "r", ruaList.length ? ruaList : ["dmarc@" + dom], "", "1");
+    const s2 = buildRecord(dom, "quarantine", "quarantine", 50, "r", "r", ruaList.length ? ruaList : ["dmarc@" + dom], "", "1");
+    const s3 = buildRecord(dom, "reject", "reject", 100, adkim, aspf, ruaList.length ? ruaList : ["dmarc@" + dom], ruf, fo);
+    out = "# 3-Stage Safe DMARC Rollout Plan for " + dom + "\n\n" +
+      "## Stage 1 (Days 1-7: Monitor Only)\nHost: _dmarc\nTXT:  " + s1 + "\n\n" +
+      "## Stage 2 (Days 7-14: Quarantine 50% -> 100%)\nHost: _dmarc\nTXT:  " + s2 + "\n\n" +
+      "## Stage 3 (Day 14+: Full p=reject Enforcement + BIMI Ready)\nHost: _dmarc\nTXT:  " + s3;
+  }
+  document.getElementById("outPre").textContent = out;
+
+  const ruaValid = ruaList.length > 0 && ruaList.every(e => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
+  const b = document.getElementById("outBadge");
+  if (!ruaValid) {
+    b.className = "pill p-warn";
+    b.textContent = lang === "zh" ? "建议填写有效 RUA 邮箱" : "Add Valid RUA Email";
+  } else if (p === "reject") {
+    b.className = "pill p-pass";
+    b.textContent = lang === "zh" ? "RFC 7489 通过 · p=reject 满防" : "RFC 7489 Valid · Full p=reject";
+  } else if (p === "quarantine") {
+    b.className = "pill p-pass";
+    b.textContent = lang === "zh" ? "RFC 7489 通过 · p=quarantine" : "RFC 7489 Valid · Enforced";
+  } else {
+    b.className = "pill p-warn";
+    b.textContent = lang === "zh" ? "仅监控观察 (p=none)" : "Monitor Only (p=none)";
+  }
+
+  const checks = [
+    { k: "v=DMARC1", ok: true, v: "First tag exact-case" },
+    { k: "p=" + p, ok: p !== "none", v: p === "reject" ? "Hard-blocks spoofing + BIMI eligible" : p === "quarantine" ? "Routes spoofs to Spam" : "Monitor-only (no spoofing block)" },
+    { k: "rua=", ok: ruaValid, v: ruaValid ? (ruaList.length + " valid mailto: target(s)") : "Missing or invalid email format" },
+    { k: "Alignment", ok: true, v: "adkim=" + adkim + " · aspf=" + aspf + " · pct=" + pct + "%" }
+  ];
+  document.getElementById("lintList").innerHTML = checks.map(c =>
+    '<div class="lint-item"><span class="mono"><strong>' + c.k + '</strong> · ' + c.v + '</span><span class="pill ' + (c.ok ? "p-pass" : "p-warn") + '">' + (c.ok ? "PASS" : "WARN") + '</span></div>'
+  ).join("");
+
+  document.getElementById("verifyBtn").href = "https://inbox-checker.appwrite.network/?domain=" + encodeURIComponent(dom) + "&ref=dmarc-reject-gen";
+  const ctxQ = "?domain=" + encodeURIComponent(dom) + (lastScore != null ? ("&score=" + encodeURIComponent(String(lastScore)) + "&issues=" + encodeURIComponent(String(lastIssues || 0))) : "");
+  document.getElementById("checkoutBtn").href = "https://omnipulse-x402.appwrite.network/checkout/inboxshield" + ctxQ;
+  document.getElementById("navUnlockLink").href = "https://omnipulse-x402.appwrite.network/checkout/inboxshield" + ctxQ;
+}
+
+async function fetchLiveDns() {
+  const dom = cleanDom(document.getElementById("domEl").value);
+  if (!dom) return;
+  if (window.__ofTrack) window.__ofTrack("scan");
+  const btn = document.getElementById("fetchBtn");
+  const box = document.getElementById("liveBox");
+  btn.disabled = true;
+  box.style.display = "block";
+  box.textContent = lang === "zh" ? ("正在实时读取 " + dom + " 的 DNS 记录...") : ("Reading live DNS records for " + dom + "...");
+  try {
+    const resp = await fetch("https://inbox-checker.appwrite.network/api/free-audit?domain=" + encodeURIComponent(dom));
+    const d = await resp.json();
+    if (!resp.ok || !d.ok) {
+      box.textContent = d.error || "Lookup failed";
+      return;
+    }
+    lastScore = d.assessment && d.assessment.score;
+    lastIssues = ((d.assessment && d.assessment.blockers || []).length) + ((d.assessment && d.assessment.warnings || []).length);
+    const dm = d.dmarc || {}, spf = d.spf || {}, dkimCnt = (d.dkim && d.dkim.found || []).length;
+    document.getElementById("ruaEl").value = (dm.rua && dm.rua.replace(/^mailto:/i, "").split(",")[0]) || ("dmarc@" + d.domain);
+    const recStage = !dm.record ? 1 : dm.policy === "none" ? 2 : 3;
+    applyStage(recStage);
+    box.innerHTML =
+      "<strong>Live DNS (" + d.domain + " · Score " + lastScore + "/100):</strong> " +
+      "Current DMARC = <code class=\"mono\">" + (dm.policy ? "p=" + dm.policy : "MISSING") + "</code> · SPF = <code class=\"mono\">" + (spf.lookups || 0) + "/10</code> · DKIM = <code class=\"mono\">" + dkimCnt + " key(s)</code>. " +
+      (recStage === 1 ? "Recommended: start with Stage 1 (p=none) or Stage 2 (p=quarantine)." : recStage === 2 ? "Recommended: upgrade from p=none to Stage 2 (p=quarantine)." : "SPF/DKIM/DMARC active — ready for Stage 3 (p=reject).");
+  } catch (e) {
+    box.textContent = lang === "zh" ? "查询失败，请重试。" : "Live lookup failed, please retry.";
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function copyOut() {
+  const txt = document.getElementById("outPre").textContent || "";
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(() => {});
+  const btn = document.getElementById("copyBtn");
+  const old = btn.textContent;
+  btn.textContent = lang === "zh" ? "已复制" : "Copied";
+  setTimeout(() => { btn.textContent = old; }, 1400);
+}
+
+["domEl", "pEl", "spEl", "pctEl", "adkimEl", "aspfEl", "foEl", "ruaEl", "rua2El", "rufEl", "regEl"].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener("input", render);
+  el.addEventListener("change", render);
+});
+document.getElementById("domEl").addEventListener("blur", () => {
+  const dom = cleanDom(document.getElementById("domEl").value);
+  const r = document.getElementById("ruaEl");
+  if (!r.value || r.value === "dmarc@yoursaas.com") r.value = "dmarc@" + dom;
+  render();
+});
+
+(function init() {
+  const qs = new URLSearchParams(location.search);
+  const ql = (qs.get("lang") || "").toLowerCase();
+  let sv = "";
+  try { sv = localStorage.getItem("of_lang_v5") || ""; } catch {}
+  setLang(ql === "zh" || ql === "en" ? ql : (sv === "zh" || sv === "en" ? sv : "en"), false);
+  const d = qs.get("domain") || qs.get("d");
+  if (d) {
+    document.getElementById("domEl").value = d;
+    fetchLiveDns();
+  } else {
+    render();
+  }
+})();
+</script>
+</body>
+</html>
