@@ -4,6 +4,7 @@
 
 - Free 6-Phase Online Web App: https://inbox-checker.appwrite.network/
 - Free Online SPF Flattener: https://inbox-checker.appwrite.network/spf-flattener
+- 2026 Top 60 SaaS & AI Startups Email Authentication, SPF Bloat & DMARC Spoofing Benchmark (Interactive 60-Brand Leaderboard): https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.html (Raw JSON: https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.json)
 - 2026 Indie SaaS Email Deliverability Benchmark (60 Domains Audited): https://zcoldwater.github.io/inboxshield-cli/email-deliverability-benchmark-2026.html
 - EasyDMARC & MxToolbox Alternative: https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html
 - Open-Source MIT CLI & GitHub Action (`uses: zColdWater/inboxshield-cli@v7`): https://github.com/zColdWater/inboxshield-cli

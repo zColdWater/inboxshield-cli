@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2026 Top 60 SaaS &amp; AI Startups Email Authentication, SPF Bloat &amp; DMARC Spoofing Benchmark</title>
+  <meta name="description" content="Passive public DNS benchmark of 60 iconic SaaS &amp; AI startup domains (Nov 2026): 55% enforce DMARC p=reject, 4 remain spoofable (v0.dev, bolt.new, huggingface.co, gumroad.com), 15% sit at 8-10/10 SPF redline (vercel.com, posthog.com at 10/10), 41.7% deploy BIMI, and 91.7% lack MTA-STS." />
+  <link rel="canonical" href="https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.html" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a'/%3E%3Cpath d='M16 5l9 4v7c0 6-3.8 10.6-9 12.5C10.8 26.6 7 22 7 16V9l9-4z' fill='%23059669'/%3E%3C/svg%3E" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="2026 Top 60 SaaS &amp; AI Startups Email Authentication, SPF Bloat &amp; DMARC Spoofing Benchmark" />
+  <meta property="og:description" content="Real passive DNS audit of 60 top SaaS &amp; AI brands: 4 spoofable (p=none/missing), 9 at SPF 8-10/10 redline, 41.7% BIMI, 91.7% missing MTA-STS." />
+  <meta property="og:url" content="https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.html" />
+  <meta property="og:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="2026 Top 60 SaaS &amp; AI Startups Email Auth &amp; SPF Bloat Benchmark" />
+  <meta name="twitter:description" content="4 iconic brands spoofable, 9 at SPF 8-10/10 redline, 91.7% missing MTA-STS. Test your own domain free." />
+  <meta name="twitter:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "2026 Top 60 SaaS & AI Startups Email Authentication, SPF Bloat & DMARC Spoofing Benchmark",
+      "description": "Passive public DNS audit of 60 leading SaaS and AI startup domains on 2026-11-23: mean score 91.1/100, 55% enforce DMARC p=reject, 4 iconic brands remain spoofable (p=none or missing), 15% sit at or near the RFC 7208 10-lookup SPF redline, 41.7% deploy BIMI (30% with VMC), and 91.7% lack MTA-STS.",
+      "datePublished": "2026-11-23",
+      "dateModified": "2026-11-23",
+      "author": {
+        "@type": "Organization",
+        "name": "OmniForge · Agent Arena Studio",
+        "url": "https://github.com/zColdWater"
+      },
+      "image": "https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png",
+      "mainEntityOfPage": "https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.html"
+    },
+    {
+      "@type": "Dataset",
+      "name": "OmniForge 2026 Top 60 SaaS & AI Startups Email DNS Dataset",
+      "description": "Strictly passive public DNS audit of 60 iconic SaaS & AI startup apex domains across 6 categories (10 each) on 2026-11-23. Checks authoritative NS/SOA, MX redundancy, recursive SPF include expansion (RFC 7208), 24 standard DKIM selectors, strict RFC 7489 DMARC policy, BIMI, MTA-STS, TLS-RPT, CAA, and 5 DNSBLs. Zero intrusive traffic.",
+      "license": "https://opensource.org/licenses/MIT",
+      "distribution": [
+        {
+          "@type": "DataDownload",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.json"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which top SaaS and AI domains remain exposed to DMARC spoofing in November 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Out of 60 audited SaaS and AI leaders, 4 (6.7%) lack enforced DMARC (bolt.new: none, gumroad.com: none, huggingface.co: none, v0.dev: missing), and 27 (45%) still fall short of strict p=reject enforcement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which top SaaS domains are hitting the RFC 7208 10-DNS-lookup SPF limit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "9 of 60 (15%) domains sit at 8 to 10 recursive SPF lookups (posthog.com 10/10, vercel.com 10/10, datadoghq.com 9/10, airtable.com 8/10, mailgun.com 8/10, perplexity.ai 8/10, retool.com 8/10, amplitude.com 8/10, appwrite.io 8/10), leaving little or zero headroom before triggering SPF PermError."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --border: #e2e8f0;
+      --ink: #0f172a;
+      --muted: #475569;
+      --subtle: #64748b;
+      --emerald: #059669;
+      --emerald-bg: #ecfdf5;
+      --emerald-bd: #a7f3d0;
+      --blue: #2563eb;
+      --blue-bg: #eff6ff;
+      --blue-bd: #bfdbfe;
+      --amber: #b45309;
+      --amber-bg: #fffbeb;
+      --amber-bd: #fde68a;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --red-bd: #fecaca;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; line-height: 1.58; -webkit-font-smoothing: antialiased; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.84rem; }
+    .muted { color: var(--subtle); }
+    .topbar { border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.95); position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px); }
+    .topbar-in { max-width: 1120px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .brand { display: inline-flex; align-items: center; gap: 9px; font-weight: 800; color: var(--ink); font-size: 0.96rem; letter-spacing: -0.02em; }
+    .brand-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--emerald); }
+    .nav-links { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 0.86rem; font-weight: 600; }
+    .nav-links a { color: var(--muted); }
+    .nav-links a.nav-cta { background: var(--ink); color: #fff; padding: 7px 13px; border-radius: 7px; }
+    .nav-links a.nav-cta:hover { text-decoration: none; opacity: 0.9; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 34px 20px 72px; }
+    .eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--emerald); background: var(--emerald-bg); border: 1px solid var(--emerald-bd); padding: 4px 10px; border-radius: 99px; margin-bottom: 14px; }
+    h1 { font-size: clamp(1.75rem, 3.6vw, 2.55rem); line-height: 1.14; letter-spacing: -0.03em; margin: 0 0 12px; max-width: 900px; }
+    .lead { color: var(--muted); font-size: 1.03rem; max-width: 820px; margin: 0 0 24px; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 24px; }
+    .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+    .kpi-num { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+    .kpi-lbl { font-size: 0.84rem; font-weight: 600; color: var(--ink); margin-top: 6px; }
+    .kpi-sub { font-size: 0.78rem; color: var(--subtle); margin-top: 3px; }
+    .audit-hero { background: var(--ink); color: #fff; border-radius: 14px; padding: 22px 24px; margin-bottom: 30px; }
+    .audit-hero h2 { margin: 0 0 6px; font-size: 1.15rem; color: #fff; }
+    .audit-hero p { margin: 0 0 14px; font-size: 0.89rem; color: #cbd5e1; }
+    .audit-form { display: flex; gap: 10px; flex-wrap: wrap; }
+    .audit-form input { flex: 1; min-width: 220px; padding: 11px 14px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: #fff; font-size: 0.94rem; }
+    .audit-form input::placeholder { color: #94a3b8; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer; border: 1px solid transparent; }
+    .btn-emerald { background: #10b981; color: #022c22; }
+    .btn-emerald:hover { background: #34d399; text-decoration: none; }
+    .btn-ghost { background: transparent; color: #e2e8f0; border-color: #475569; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); text-decoration: none; }
+    .hero-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .section-title { font-size: 1.32rem; letter-spacing: -0.02em; margin: 34px 0 12px; }
+    .findings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin-bottom: 28px; }
+    .card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+    .card h3 { margin: 0 0 8px; font-size: 1rem; }
+    .card p { margin: 0 0 10px; font-size: 0.88rem; color: var(--muted); }
+    .card p:last-child { margin-bottom: 0; }
+    .contrast-box { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--emerald); border-radius: 10px; padding: 16px 20px; margin-bottom: 28px; font-size: 0.91rem; color: var(--muted); }
+    .contrast-box strong { color: var(--ink); }
+    .cat-table-wrap, .table-wrap { border: 1px solid var(--border); border-radius: 12px; overflow-x: auto; background: #fff; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 780px; }
+    th { text-align: left; background: var(--surface); color: var(--muted); font-weight: 700; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; padding: 11px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+    tr:last-child td { border-bottom: 0; }
+    tr:hover td { background: #f8fafc; }
+    .co-name { font-weight: 700; color: var(--ink); }
+    .co-dom { font-size: 0.78rem; color: var(--subtle); }
+    .cat-tag { display: inline-block; font-size: 0.75rem; font-weight: 600; color: var(--muted); background: #f1f5f9; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+    .pill { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 99px; border: 1px solid transparent; white-space: nowrap; }
+    .pill-green { background: var(--emerald-bg); color: var(--emerald); border-color: var(--emerald-bd); }
+    .pill-blue { background: var(--blue-bg); color: var(--blue); border-color: var(--blue-bd); }
+    .pill-amber { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-bd); }
+    .pill-red { background: var(--red-bg); color: var(--red); border-color: var(--red-bd); }
+    .tiny-warn { font-size: 0.71rem; color: var(--amber); margin-top: 2px; font-weight: 600; }
+    .row-cta { display: inline-block; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.76rem; font-weight: 700; color: var(--ink); background: #fff; white-space: nowrap; }
+    .row-cta:hover { background: var(--ink); color: #fff; text-decoration: none; border-color: var(--ink); }
+    .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-bar button { padding: 6px 11px; border-radius: 99px; border: 1px solid var(--border); background: #fff; color: var(--muted); font-size: 0.78rem; font-weight: 600; cursor: pointer; }
+    .filter-bar button.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .search-sort { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .search-sort input, .search-sort select { padding: 7px 11px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.84rem; background: #fff; color: var(--ink); }
+    .meta-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--subtle); margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+    footer { border-top: 1px solid var(--border); margin-top: 44px; padding-top: 22px; font-size: 0.84rem; color: var(--subtle); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 640px) {
+      .wrap { padding: 22px 14px 52px; }
+      .audit-hero { padding: 18px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-in">
+      <a class="brand" href="./index.html"><span class="brand-dot"></span><span>InboxShield v7.0 Research</span></a>
+      <nav class="nav-links">
+        <a href="https://inbox-checker.appwrite.network/?ref=top60-nav" target="_blank" rel="noopener">Free Live Scanner</a>
+        <a href="https://inbox-checker.appwrite.network/spf-flattener?ref=top60-nav" target="_blank" rel="noopener">Free SPF Flattener</a>
+        <a href="./top-60-saas-email-authentication-benchmark-2026.json">JSON Dataset</a>
+        <a class="nav-cta" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener" data-track="paywall">Unlock DNS Fix $2</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="eyebrow">EMPIRICAL PASSIVE DNS BENCHMARK · NOVEMBER 2026 · N=60 ICONIC BRANDS</div>
+    <h1>2026 Top 60 SaaS &amp; AI Startups Email Authentication, SPF Bloat &amp; DMARC Spoofing Benchmark</h1>
+    <p class="lead">We ran strictly passive public DNS audits across <strong>60 leading SaaS and AI startup apex domains</strong> (OpenAI, Anthropic, Stripe, Vercel, Cursor, Lovable, Bolt, Supabase, PostHog, Linear, and 50 more). Even among category leaders, <strong>45%</strong> fall short of strict DMARC <code>p=reject</code>, <strong>15%</strong> sit on the RFC 7208 10-lookup SPF cliff, and <strong>91.7%</strong> omit MTA-STS SMTP encryption.</p>
+
+    <section class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-num" style="color:var(--ink);">91.1<span style="font-size:1rem;color:var(--subtle);">/100</span></div>
+        <div class="kpi-lbl">Top-60 Mean Email Score</div>
+        <div class="kpi-sub">vs. 60.3/100 indie GitHub SaaS baseline</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" style="color:var(--red);">4<span style="font-size:1rem;color:var(--subtle);">/60</span></div>
+        <div class="kpi-lbl">Spoofable Giants (p=none / Missing)</div>
+        <div class="kpi-sub">27/60 (45%) still below strict p=reject</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" style="color:var(--amber);">9<span style="font-size:1rem;color:var(--subtle);">/60</span></div>
+        <div class="kpi-lbl">SPF 8–10/10 Bloat Redline (15%)</div>
+        <div class="kpi-sub">Mean 4.3 lookups · 2 domains at exact 10/10</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" style="color:var(--emerald);">41.7%</div>
+        <div class="kpi-lbl">BIMI SVG Logo Deployed (25/60)</div>
+        <div class="kpi-sub">18 with VMC cert · only 5/60 (8.3%) MTA-STS</div>
+      </div>
+    </section>
+
+    <section class="audit-hero">
+      <h2>Benchmark Your Own Domain Against the Top 60 in 2 Seconds (Free, Zero Signup)</h2>
+      <p>Run InboxShield v7.0's 6-phase passive DNS audit: NS/SOA drift, MX IPv4 redundancy, recursive SPF tree &amp; flattener, 24 DKIM selectors, RFC 7489 DMARC linter, BIMI, MTA-STS, and 5 DNSBLs.</p>
+      <form id="auditSelfForm" class="audit-form">
+        <input id="selfDomainInput" type="text" placeholder="Enter your domain (e.g. yoursaas.com)" required aria-label="Domain to audit" />
+        <button class="btn btn-emerald" type="submit">Audit My Domain Free</button>
+      </form>
+      <div class="hero-links">
+        <a class="btn btn-ghost" href="https://inbox-checker.appwrite.network/spf-flattener?ref=top60-hero" target="_blank" rel="noopener" data-track="outbound">Free SPF 10-Lookup Flattener</a>
+        <a class="btn btn-ghost" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener" data-track="paywall">Unlock 5-Record DNS Fix ($2 Launch, reg. $9)</a>
+        <a class="btn btn-ghost" href="https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack" target="_blank" rel="noopener" data-track="paywall">3-in-1 Complete Suite ($5 Launch, reg. $29)</a>
+      </div>
+    </section>
+
+    <div class="contrast-box">
+      <strong>The Indie vs. Leader Deliverability Gap:</strong> Across our companion passive DNS study of <a href="./email-deliverability-benchmark-2026.html">60 newly launched GitHub indie SaaS custom domains</a>, the average score is only <strong>60.3/100</strong> and <strong>71.7% lack enforced DMARC</strong> — compared to <strong>91.1/100</strong> and <strong>93.3% DMARC enforcement</strong> among these Top 60 brands. Fixing SPF, DKIM, and DMARC takes 5 minutes and immediately stops onboarding emails from landing in Gmail/Outlook spam.
+    </div>
+
+    <h2 class="section-title">4 Key Findings From the Live Passive DNS Scan</h2>
+    <section class="findings-grid">
+      <article class="card">
+        <h3>1. Four Famous Brands Remain Spoofable (and 45% Lack p=reject)</h3>
+        <p><strong>4 of 60 (6.7%)</strong> still ship zero DMARC enforcement: <strong>Bolt.new</strong> (<code>bolt.new</code>: <code>none</code>), <strong>Gumroad</strong> (<code>gumroad.com</code>: <code>none</code>), <strong>Hugging Face</strong> (<code>huggingface.co</code>: <code>none</code>), <strong>v0 (Vercel)</strong> (<code>v0.dev</code>: <code>missing</code>).</p>
+        <p>Another <strong>23 (38.3%)</strong> stop at <code>p=quarantine</code> rather than full <code>p=reject</code> (33/60, 55%).</p>
+      </article>
+      <article class="card">
+        <h3>2. SPF Recursion Cliff: 9 Leaders Sit at 8–10/10 Lookups</h3>
+        <p>RFC 7208 caps SPF at <strong>10 recursive DNS lookups</strong> — exceeding it causes instant <code>PermError</code> failures across Gmail and Microsoft 365.</p>
+        <p><strong><code>posthog.com</code> (10/10), <code>vercel.com</code> (10/10), <code>datadoghq.com</code> (9/10), <code>airtable.com</code> (8/10), <code>mailgun.com</code> (8/10), <code>perplexity.ai</code> (8/10)</strong> plus 3 more have 0–2 lookups left. Use our <a href="https://inbox-checker.appwrite.network/spf-flattener?ref=top60-finding" target="_blank" rel="noopener">Free SPF Flattener</a> to inspect nested include trees.</p>
+      </article>
+      <article class="card">
+        <h3>3. BIMI Verified Logos Reach 41.7%, But VMC Trails at 30%</h3>
+        <p><strong>25 of 60</strong> brands publish a <code>default._bimi</code> record (including <strong>Cloudflare</strong>, <strong>Loops</strong>, <strong>Render</strong>, <strong>Netlify</strong>, <strong>Clerk</strong>, <strong>Linear</strong>), and <strong>18 (30%)</strong> attach a Verified Mark Certificate (<code>a=*.pem</code>) required for Gmail blue-check logos.</p>
+        <p>Meanwhile <strong>35 (58.3%)</strong> still show generic letter avatars in recipient inboxes.</p>
+      </article>
+      <article class="card">
+        <h3>4. 91.7% Omit MTA-STS Transport Security; AI Coding Trails Last</h3>
+        <p>Only <strong>5 of 60 (8.3%)</strong> deploy <code>_mta-sts</code> (<code>cloudflare.com</code>, <code>loops.so</code>, <code>mixpanel.com</code>, <code>render.com</code>, <code>posthog.com</code>) and <strong>6 (10%)</strong> publish TLS-RPT.</p>
+        <p>By vertical, <strong>Cloud &amp; DB (95/100)</strong> leads while <strong>AI Coding (83.4/100)</strong> ranks dead last.</p>
+      </article>
+    </section>
+
+    <h2 class="section-title">Category Leaderboard (6 Verticals · 10 Brands Each)</h2>
+    <div class="cat-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Avg Score</th>
+            <th>DMARC Enforced</th>
+            <th>SPF Bloat (&gt;=8/10)</th>
+            <th>BIMI Deployed</th>
+            <th>MTA-STS Deployed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cloud &amp; DB</strong> <span class="muted">(10)</span></td>
+            <td><strong>95/100</strong></td>
+            <td>100%</td>
+            <td>1 / 10</td>
+            <td>5 / 10</td>
+            <td>2 / 10</td>
+          </tr>
+          <tr>
+            <td><strong>Email &amp; APIs</strong> <span class="muted">(10)</span></td>
+            <td><strong>93.9/100</strong></td>
+            <td>100%</td>
+            <td>1 / 10</td>
+            <td>5 / 10</td>
+            <td>1 / 10</td>
+          </tr>
+          <tr>
+            <td><strong>AI Labs</strong> <span class="muted">(10)</span></td>
+            <td><strong>93.2/100</strong></td>
+            <td>90%</td>
+            <td>1 / 10</td>
+            <td>3 / 10</td>
+            <td>0 / 10</td>
+          </tr>
+          <tr>
+            <td><strong>Analytics &amp; Growth</strong> <span class="muted">(10)</span></td>
+            <td><strong>91.3/100</strong></td>
+            <td>90%</td>
+            <td>3 / 10</td>
+            <td>1 / 10</td>
+            <td>2 / 10</td>
+          </tr>
+          <tr>
+            <td><strong>Product &amp; Ops</strong> <span class="muted">(10)</span></td>
+            <td><strong>89.8/100</strong></td>
+            <td>100%</td>
+            <td>2 / 10</td>
+            <td>7 / 10</td>
+            <td>0 / 10</td>
+          </tr>
+          <tr>
+            <td><strong>AI Coding</strong> <span class="muted">(10)</span></td>
+            <td><strong>83.4/100</strong></td>
+            <td>80%</td>
+            <td>1 / 10</td>
+            <td>4 / 10</td>
+            <td>0 / 10</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section-title">Full 60-Domain Interactive Leaderboard (Live Passive DNS Audit)</h2>
+    <div class="controls">
+      <div id="filterBar" class="filter-bar">
+        <button type="button" class="active" data-filter="all">All (60)</button>
+        <button type="button" data-filter="spoofable">DMARC Spoofable (4)</button>
+        <button type="button" data-filter="spf-bloat">SPF Bloat &gt;=8/10 (9)</button>
+        <button type="button" data-filter="bimi">BIMI (25)</button>
+        <button type="button" data-filter="mtasts">MTA-STS (5)</button>
+        <button type="button" data-filter="AI Labs">AI Labs</button>
+        <button type="button" data-filter="AI Coding">AI Coding</button>
+        <button type="button" data-filter="Cloud & DB">Cloud &amp; DB</button>
+        <button type="button" data-filter="Email & APIs">Email &amp; APIs</button>
+        <button type="button" data-filter="Product & Ops">Product &amp; Ops</button>
+        <button type="button" data-filter="Analytics & Growth">Analytics &amp; Growth</button>
+      </div>
+      <div class="search-sort">
+        <input id="searchInput" type="search" placeholder="Search company or domain..." aria-label="Search domains" />
+        <select id="sortSelect" aria-label="Sort table">
+          <option value="score-desc">Score: High to Low</option>
+          <option value="score-asc">Score: Low to High</option>
+          <option value="spf-desc">SPF Lookups: High to Low</option>
+          <option value="name-asc">Company: A to Z</option>
+        </select>
+      </div>
+    </div>
+    <div class="meta-row">
+      <span id="shownCount">Showing 60 of 60 domains</span>
+      <span>Collected 2026-11-23 via strictly passive public DNS (InboxShield v7.0)</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Company &amp; Domain</th>
+            <th>Category</th>
+            <th>Score</th>
+            <th>DMARC</th>
+            <th>SPF Lookups</th>
+            <th>DKIM</th>
+            <th>BIMI / VMC</th>
+            <th>Transport</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="benchBody"></tbody>
+      </table>
+    </div>
+
+    <h2 class="section-title">Methodology &amp; Companion 2026 Open Benchmarks</h2>
+    <div class="card">
+      <p><strong>Methodology:</strong> Strictly passive public DNS audit of 60 iconic SaaS &amp; AI startup apex domains across 6 categories (10 each) on 2026-11-23. Checks authoritative NS/SOA, MX redundancy, recursive SPF include expansion (RFC 7208), 24 standard DKIM selectors, strict RFC 7489 DMARC policy, BIMI, MTA-STS, TLS-RPT, CAA, and 5 DNSBLs. Zero intrusive traffic. Every score can be independently reproduced in 2 seconds using the MIT CLI (<code>npx github:zColdWater/inboxshield-cli check &lt;domain&gt;</code>) or the free hosted workbench at <a href="https://inbox-checker.appwrite.network/" target="_blank" rel="noopener">inbox-checker.appwrite.network</a>. Note that some organizations use custom private DKIM selectors outside our 24 standard ESP selectors.</p>
+      <p><strong>Companion 2026 Open Benchmarks:</strong> <a href="./email-deliverability-benchmark-2026.html">60 Indie SaaS Email Deliverability Study</a> · <a href="https://zcoldwater.github.io/vibeshield-cli/web-security-headers-benchmark-2026.html">60 Indie SaaS Web Security Headers &amp; TLS Study</a> · <a href="https://zcoldwater.github.io/citeready-cli/ai-search-readiness-benchmark-2026.html">Top 50 AI &amp; Dev SaaS AI Search /llms.txt Study</a> · <a href="https://zcoldwater.github.io/omniforge-skills/">50 AI Agent Pre-Launch Audit Skills (skills.sh)</a></p>
+    </div>
+
+    <footer>
+      <div>MIT (c) OmniForge · Agent Arena Studio · Support: <a href="mailto:agentarenastudio@proton.me">agentarenastudio@proton.me</a> · <a href="https://x.com/agentarenastudi">@agentarenastudi</a></div>
+      <div><a href="./index.html">InboxShield Docs</a> · <a href="./top-60-saas-email-authentication-benchmark-2026.json">JSON Dataset</a> · <a href="https://brand-checker.appwrite.network/?ref=top60-footer">BrandShield (100% Free)</a></div>
+    </footer>
+  </main>
+
+  <script>
+
+(function () {
+  var DATA = [{"rank":1,"name":"Cloudflare","domain":"cloudflare.com","category":"Cloud & DB","score":100,"grade":"A+","provider":"Custom / Self-Hosted Mail","spfLookups":7,"spfPresent":true,"spfPermError":false,"dkimFoundCount":3,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":true,"hasTlsRpt":true,"caaCount":11},{"rank":2,"name":"Loops","domain":"loops.so","category":"Email & APIs","score":100,"grade":"A+","provider":"Google Workspace","spfLookups":1,"spfPresent":true,"spfPermError":false,"dkimFoundCount":3,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":true,"hasTlsRpt":true,"caaCount":14},{"rank":3,"name":"Mixpanel","domain":"mixpanel.com","category":"Analytics & Growth","score":100,"grade":"A+","provider":"Google Workspace","spfLookups":3,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":true,"hasTlsRpt":true,"caaCount":0},{"rank":4,"name":"Render","domain":"render.com","category":"Cloud & DB","score":100,"grade":"A+","provider":"Google Workspace","spfLookups":5,"spfPresent":true,"spfPermError":false,"dkimFoundCount":3,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":true,"hasTlsRpt":true,"caaCount":7},{"rank":5,"name":"Netlify","domain":"netlify.com","category":"Cloud & DB","score":97,"grade":"A+","provider":"Google Workspace","spfLookups":3,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":true,"caaCount":3},{"rank":6,"name":"Anthropic","domain":"anthropic.com","category":"AI Labs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":1,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":20},{"rank":7,"name":"Clerk","domain":"clerk.com","category":"Email & APIs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":1,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":8,"name":"Cognition (Devin)","domain":"cognition.ai","category":"AI Coding","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":3,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":9,"name":"Kit","domain":"kit.com","category":"Analytics & Growth","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":3,"spfPresent":true,"spfPermError":false,"dkimFoundCount":3,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":10,"name":"Lemon Squeezy","domain":"lemonsqueezy.com","category":"Analytics & Growth","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":3,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":11,"name":"Linear","domain":"linear.app","category":"Product & Ops","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":4,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":12,"name":"Loom","domain":"loom.com","category":"Product & Ops","score":95,"grade":"A+","provider":"Proofpoint Security Gateway","spfLookups":4,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":13,"name":"Neon","domain":"neon.tech","category":"Cloud & DB","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":4,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":15},{"rank":14,"name":"OpenAI","domain":"openai.com","category":"AI Labs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":7,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":11},{"rank":15,"name":"PlanetScale","domain":"planetscale.com","category":"Cloud & DB","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":6,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":16,"name":"Postmark","domain":"postmarkapp.com","category":"Email & APIs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":7,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":17,"name":"Raycast","domain":"raycast.com","category":"Product & Ops","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":1,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":18,"name":"Replit","domain":"replit.com","category":"AI Coding","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":2,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":19,"name":"Resend","domain":"resend.com","category":"Email & APIs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":1,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":20,"name":"SendGrid","domain":"sendgrid.com","category":"Email & APIs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":3,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":6},{"rank":21,"name":"Sentry","domain":"sentry.io","category":"Analytics & Growth","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":5,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":3},{"rank":22,"name":"Stripe","domain":"stripe.com","category":"Email & APIs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":7,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":4},{"rank":23,"name":"Supabase","domain":"supabase.com","category":"Cloud & DB","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":2,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":24,"name":"Tabnine","domain":"tabnine.com","category":"AI Coding","score":95,"grade":"A+","provider":"Proofpoint Security Gateway","spfLookups":2,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":25,"name":"Twilio","domain":"twilio.com","category":"Email & APIs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":2,"spfPresent":true,"spfPermError":false,"dkimFoundCount":5,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":26,"name":"xAI","domain":"x.ai","category":"AI Labs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":1,"spfPresent":true,"spfPermError":false,"dkimFoundCount":3,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":14},{"rank":27,"name":"Cal.com","domain":"cal.com","category":"Product & Ops","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":3,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":14},{"rank":28,"name":"Cohere","domain":"cohere.com","category":"AI Labs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":7,"spfPresent":true,"spfPermError":false,"dkimFoundCount":3,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":29,"name":"Cursor","domain":"cursor.com","category":"AI Coding","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":3,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":30,"name":"DeepSeek","domain":"deepseek.com","category":"AI Labs","score":95,"grade":"A+","provider":"NetEase Enterprise Mail (163)","spfLookups":5,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":31,"name":"Dub.co","domain":"dub.co","category":"Product & Ops","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":5,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":4},{"rank":32,"name":"Fly.io","domain":"fly.io","category":"Cloud & DB","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":3,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":33,"name":"Mintlify","domain":"mintlify.com","category":"Email & APIs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":2,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":11},{"rank":34,"name":"Miro","domain":"miro.com","category":"Product & Ops","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":5,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":13},{"rank":35,"name":"Mistral AI","domain":"mistral.ai","category":"AI Labs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":3,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":10},{"rank":36,"name":"Railway","domain":"railway.com","category":"Cloud & DB","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":1,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":37,"name":"Replicate","domain":"replicate.com","category":"AI Labs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":2,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":38,"name":"Runway","domain":"runwayml.com","category":"AI Labs","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":3,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":5},{"rank":39,"name":"Sourcegraph","domain":"sourcegraph.com","category":"AI Coding","score":95,"grade":"A+","provider":"Google Workspace","spfLookups":4,"spfPresent":true,"spfPermError":false,"dkimFoundCount":3,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":12},{"rank":40,"name":"Plausible","domain":"plausible.io","category":"Analytics & Growth","score":92,"grade":"A","provider":"Custom / Self-Hosted Mail","spfLookups":2,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":41,"name":"PostHog","domain":"posthog.com","category":"Analytics & Growth","score":92,"grade":"A","provider":"Google Workspace","spfLookups":10,"spfPresent":true,"spfPermError":false,"dkimFoundCount":3,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":true,"hasTlsRpt":true,"caaCount":0},{"rank":42,"name":"Figma","domain":"figma.com","category":"Product & Ops","score":91,"grade":"A","provider":"Google Workspace","spfLookups":4,"spfPresent":true,"spfPermError":false,"dkimFoundCount":5,"dmarcPolicy":"quarantine","dmarcHasRua":false,"hasBimi":true,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":4},{"rank":43,"name":"Lovable","domain":"lovable.dev","category":"AI Coding","score":91,"grade":"A","provider":"Google Workspace","spfLookups":7,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"quarantine","dmarcHasRua":false,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":44,"name":"Upstash","domain":"upstash.com","category":"Cloud & DB","score":91,"grade":"A","provider":"Google Workspace","spfLookups":2,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"quarantine","dmarcHasRua":false,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":45,"name":"Airtable","domain":"airtable.com","category":"Product & Ops","score":87,"grade":"B","provider":"Google Workspace","spfLookups":8,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":46,"name":"Datadog","domain":"datadoghq.com","category":"Analytics & Growth","score":87,"grade":"B","provider":"Google Workspace","spfLookups":9,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":47,"name":"Mailgun","domain":"mailgun.com","category":"Email & APIs","score":87,"grade":"B","provider":"Microsoft 365","spfLookups":8,"spfPresent":true,"spfPermError":false,"dkimFoundCount":3,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":48,"name":"Perplexity","domain":"perplexity.ai","category":"AI Labs","score":87,"grade":"B","provider":"Google Workspace","spfLookups":8,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":17},{"rank":49,"name":"Retool","domain":"retool.com","category":"Product & Ops","score":87,"grade":"B","provider":"Google Workspace","spfLookups":8,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":11},{"rank":50,"name":"Windsurf","domain":"windsurf.com","category":"AI Coding","score":87,"grade":"B","provider":"Google Workspace","spfLookups":7,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":3},{"rank":51,"name":"Amplitude","domain":"amplitude.com","category":"Analytics & Growth","score":87,"grade":"B","provider":"Google Workspace","spfLookups":8,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":52,"name":"Appwrite","domain":"appwrite.io","category":"Cloud & DB","score":87,"grade":"B","provider":"Google Workspace","spfLookups":8,"spfPresent":true,"spfPermError":false,"dkimFoundCount":6,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":53,"name":"Auth0","domain":"auth0.com","category":"Email & APIs","score":87,"grade":"B","provider":"Proofpoint Security Gateway","spfLookups":5,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":54,"name":"Vercel","domain":"vercel.com","category":"AI Coding","score":87,"grade":"B","provider":"Google Workspace","spfLookups":10,"spfPresent":true,"spfPermError":false,"dkimFoundCount":4,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":4},{"rank":55,"name":"beehiiv","domain":"beehiiv.com","category":"Analytics & Growth","score":85,"grade":"B","provider":"Google Workspace","spfLookups":2,"spfPresent":true,"spfPermError":false,"dkimFoundCount":3,"dmarcPolicy":"reject","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":56,"name":"Bolt.new","domain":"bolt.new","category":"AI Coding","score":85,"grade":"B","provider":"Google Workspace","spfLookups":2,"spfPresent":true,"spfPermError":false,"dkimFoundCount":1,"dmarcPolicy":"none","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":57,"name":"Gumroad","domain":"gumroad.com","category":"Analytics & Growth","score":85,"grade":"B","provider":"Google Workspace","spfLookups":6,"spfPresent":true,"spfPermError":false,"dkimFoundCount":3,"dmarcPolicy":"none","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":58,"name":"Hugging Face","domain":"huggingface.co","category":"AI Labs","score":85,"grade":"B","provider":"Google Workspace","spfLookups":4,"spfPresent":true,"spfPermError":false,"dkimFoundCount":2,"dmarcPolicy":"none","dmarcHasRua":true,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":59,"name":"Notion","domain":"notion.so","category":"Product & Ops","score":63,"grade":"D","provider":"No MX Configured","spfLookups":0,"spfPresent":true,"spfPermError":false,"dkimFoundCount":0,"dmarcPolicy":"quarantine","dmarcHasRua":true,"hasBimi":true,"bimiHasVmc":true,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":0},{"rank":60,"name":"v0 (Vercel)","domain":"v0.dev","category":"AI Coding","score":9,"grade":"F","provider":"No MX Configured","spfLookups":0,"spfPresent":false,"spfPermError":false,"dkimFoundCount":0,"dmarcPolicy":"missing","dmarcHasRua":false,"hasBimi":false,"bimiHasVmc":false,"hasMtaSts":false,"hasTlsRpt":false,"caaCount":3}];
+  var state = { filter: "all", q: "", sort: "score-desc" };
+
+  function opTrack(ev, extra) {
+    try {
+      var payload = JSON.stringify(Object.assign({
+        site: "inboxshield",
+        event: ev,
+        path: "/top-60-benchmark-2026",
+        referrer: document.referrer || "",
+        lang: "en",
+        tz: (Intl && Intl.DateTimeFormat ? Intl.DateTimeFormat().resolvedOptions().timeZone : "") || "",
+        screen: window.screen ? (window.screen.width + "x" + window.screen.height) : ""
+      }, extra || {}));
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon("https://omnipulse-x402.appwrite.network/v1/telemetry", new Blob([payload], { type: "text/plain;charset=UTF-8" }));
+      } else {
+        fetch("https://omnipulse-x402.appwrite.network/v1/telemetry", { method: "POST", body: payload, keepalive: true, mode: "cors" }).catch(function () {});
+      }
+    } catch (e) {}
+  }
+
+  opTrack("pageview");
+
+  function escHtml(s) {
+    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function policyPill(p) {
+    if (p === "reject") return '<span class="pill pill-green">p=reject</span>';
+    if (p === "quarantine") return '<span class="pill pill-blue">p=quarantine</span>';
+    if (p === "none") return '<span class="pill pill-amber">p=none (Exposed)</span>';
+    return '<span class="pill pill-red">MISSING</span>';
+  }
+
+  function spfCell(r) {
+    if (!r.spfPresent) return '<span class="pill pill-red">Missing</span>';
+    if (r.spfPermError || r.spfLookups > 10) return '<span class="pill pill-red">' + r.spfLookups + '/10 PermErr</span>';
+    if (r.spfLookups >= 10) return '<span class="pill pill-red">' + r.spfLookups + '/10 Redline</span>';
+    if (r.spfLookups >= 8) return '<span class="pill pill-amber">' + r.spfLookups + '/10 High</span>';
+    return '<span class="mono">' + r.spfLookups + '/10</span>';
+  }
+
+  function scorePill(score, grade) {
+    var cls = score >= 90 ? "pill-green" : score >= 75 ? "pill-blue" : score >= 60 ? "pill-amber" : "pill-red";
+    return '<span class="pill ' + cls + '">' + score + ' · ' + escHtml(grade) + '</span>';
+  }
+
+  function bimiCell(r) {
+    if (r.hasBimi && r.bimiHasVmc) return '<span class="pill pill-green">BIMI + VMC</span>';
+    if (r.hasBimi) return '<span class="pill pill-blue">BIMI SVG</span>';
+    return '<span class="muted">None</span>';
+  }
+
+  function transportCell(r) {
+    var parts = [];
+    if (r.hasMtaSts) parts.push("MTA-STS");
+    if (r.hasTlsRpt) parts.push("TLS-RPT");
+    if (!parts.length) return '<span class="muted">None</span>';
+    return '<span class="pill pill-green">' + parts.join(" + ") + '</span>';
+  }
+
+  function renderTable() {
+    var q = state.q.trim().toLowerCase();
+    var filtered = DATA.filter(function (r) {
+      if (q && r.name.toLowerCase().indexOf(q) === -1 && r.domain.toLowerCase().indexOf(q) === -1 && r.category.toLowerCase().indexOf(q) === -1) {
+        return false;
+      }
+      if (state.filter === "spoofable") return r.dmarcPolicy === "none" || r.dmarcPolicy === "missing";
+      if (state.filter === "spf-bloat") return r.spfLookups >= 8 || r.spfPermError;
+      if (state.filter === "bimi") return r.hasBimi;
+      if (state.filter === "mtasts") return r.hasMtaSts;
+      if (state.filter !== "all") return r.category === state.filter;
+      return true;
+    });
+
+    filtered.sort(function (a, b) {
+      if (state.sort === "score-asc") return a.score - b.score || a.domain.localeCompare(b.domain);
+      if (state.sort === "spf-desc") return b.spfLookups - a.spfLookups || b.score - a.score;
+      if (state.sort === "name-asc") return a.name.localeCompare(b.name);
+      return b.score - a.score || a.rank - b.rank;
+    });
+
+    var tbody = document.getElementById("benchBody");
+    var countEl = document.getElementById("shownCount");
+    if (countEl) countEl.textContent = "Showing " + filtered.length + " of " + DATA.length + " domains";
+    if (!tbody) return;
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:24px;color:#64748b;">No matching domains for this filter.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(function (r) {
+      var auditHref = "https://inbox-checker.appwrite.network/?domain=" + encodeURIComponent(r.domain) + "&ref=top60-table";
+      return '<tr>' +
+        '<td class="mono muted">#' + r.rank + '</td>' +
+        '<td><div class="co-name">' + escHtml(r.name) + '</div><div class="co-dom mono">' + escHtml(r.domain) + '</div></td>' +
+        '<td><span class="cat-tag">' + escHtml(r.category) + '</span></td>' +
+        '<td>' + scorePill(r.score, r.grade) + '</td>' +
+        '<td>' + policyPill(r.dmarcPolicy) + (r.dmarcPolicy !== "missing" && !r.dmarcHasRua ? '<div class="tiny-warn">No rua</div>' : '') + '</td>' +
+        '<td>' + spfCell(r) + '</td>' +
+        '<td class="mono">' + r.dkimFoundCount + ' sel.</td>' +
+        '<td>' + bimiCell(r) + '</td>' +
+        '<td>' + transportCell(r) + '</td>' +
+        '<td><a class="row-cta" href="' + auditHref + '" target="_blank" rel="noopener" data-track-dom="' + escHtml(r.domain) + '">Re-Audit</a></td>' +
+      '</tr>';
+    }).join("");
+  }
+
+  var filterBar = document.getElementById("filterBar");
+  if (filterBar) {
+    filterBar.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[data-filter]");
+      if (!btn) return;
+      state.filter = btn.getAttribute("data-filter");
+      var allBtns = filterBar.querySelectorAll("button[data-filter]");
+      for (var i = 0; i < allBtns.length; i++) allBtns[i].classList.remove("active");
+      btn.classList.add("active");
+      renderTable();
+    });
+  }
+
+  var searchEl = document.getElementById("searchInput");
+  if (searchEl) {
+    searchEl.addEventListener("input", function () {
+      state.q = searchEl.value || "";
+      renderTable();
+    });
+  }
+
+  var sortEl = document.getElementById("sortSelect");
+  if (sortEl) {
+    sortEl.addEventListener("change", function () {
+      state.sort = sortEl.value || "score-desc";
+      renderTable();
+    });
+  }
+
+  var form = document.getElementById("auditSelfForm");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var inp = document.getElementById("selfDomainInput");
+      var dom = (inp && inp.value ? inp.value : "").trim().toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0];
+      if (!dom) return;
+      opTrack("outbound", { target: "inboxshield-self-audit", domain: dom });
+      window.open("https://inbox-checker.appwrite.network/?domain=" + encodeURIComponent(dom) + "&ref=top60-benchmark-2026", "_blank", "noopener");
+    });
+  }
+
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("a[data-track]");
+    if (el) opTrack(el.getAttribute("data-track"), { href: el.getAttribute("href") });
+  });
+
+  renderTable();
+})();
+
+  </script>
+</body>
+</html>
