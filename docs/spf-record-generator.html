@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Free SPF Record Generator &amp; RFC 7208 10-Lookup Calculator | InboxShield v7.0</title>
+  <meta name="description" content="Build a clean v=spf1 DNS record for Google Workspace, Microsoft 365, Resend, Postmark, SendGrid, Mailchimp, and HubSpot with real-time RFC 7208 10-lookup budget tracking and free online SPF flattening." />
+  <link rel="canonical" href="https://zcoldwater.github.io/inboxshield-cli/spf-record-generator.html" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a'/%3E%3Cpath d='M16 5l9 4v7c0 6-3.8 10.6-9 12.5C10.8 26.6 7 22 7 16V9l9-4z' fill='%23059669'/%3E%3C/svg%3E" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Free SPF Record Generator &amp; 10-Lookup Budget Calculator" />
+  <meta property="og:description" content="Avoid RFC 7208 SPF PermError (>10 DNS lookups). Pick your SaaS email senders, check live lookup cost, and flatten or verify your live domain free." />
+  <meta property="og:url" content="https://zcoldwater.github.io/inboxshield-cli/spf-record-generator.html" />
+  <meta property="og:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "InboxShield Free SPF Record Generator & 10-Lookup Budget Calculator",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Web",
+      "url": "https://zcoldwater.github.io/inboxshield-cli/spf-record-generator.html",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does SPF fail after 10 DNS lookups?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "RFC 7208 Section 4.6.4 enforces a strict limit of 10 DNS-querying mechanisms (include, a, mx, ptr, exists, redirect) including nested sub-includes. Exceeding 10 returns PermError and breaks Gmail/Outlook inbox placement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I fix an SPF record that exceeds 10 DNS lookups?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Remove unused legacy senders first, isolate marketing tools onto a subdomain like news.yourdomain.com, or expand nested includes into direct ip4/ip6 CIDR blocks using InboxShield's free SPF Flattener."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <style>
+  :root {
+    --bg:#ffffff; --surface:#f8fafc; --border:#e2e8f0; --ink:#0f172a; --muted:#475569; --subtle:#64748b;
+    --emerald:#059669; --emerald-bg:#ecfdf5; --emerald-bd:#a7f3d0;
+    --blue:#2563eb; --blue-bg:#eff6ff; --blue-bd:#bfdbfe;
+    --amber:#b45309; --amber-bg:#fffbeb; --amber-bd:#fde68a;
+    --red:#dc2626; --red-bg:#fef2f2; --red-bd:#fecaca;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif; line-height:1.58; }
+  a { color:var(--blue); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
+  .topbar { border-bottom:1px solid var(--border); background:rgba(255,255,255,0.95); position:sticky; top:0; z-index:20; backdrop-filter:blur(8px); }
+  .topbar-in { max-width:1040px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .brand { display:inline-flex; align-items:center; gap:9px; font-weight:800; color:var(--ink); font-size:0.96rem; letter-spacing:-0.02em; }
+  .brand-dot { width:10px; height:10px; border-radius:50%; background:var(--emerald); }
+  .nav-links { display:flex; align-items:center; gap:14px; flex-wrap:wrap; font-size:0.85rem; font-weight:600; }
+  .nav-links a { color:var(--muted); }
+  .nav-links a.nav-cta { background:var(--ink); color:#fff; padding:7px 13px; border-radius:7px; }
+  .nav-links a.nav-cta:hover { text-decoration:none; opacity:0.9; }
+  .wrap { max-width:1040px; margin:0 auto; padding:32px 20px 72px; }
+  .eyebrow { display:inline-block; font-size:0.74rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:var(--emerald); background:var(--emerald-bg); border:1px solid var(--emerald-bd); padding:4px 10px; border-radius:99px; margin-bottom:12px; }
+  h1 { font-size:clamp(1.65rem,3.4vw,2.35rem); line-height:1.15; letter-spacing:-0.03em; margin:0 0 10px; }
+  .lead { color:var(--muted); max-width:780px; margin:0 0 24px; font-size:1rem; }
+  .grid-2 { display:grid; grid-template-columns:1.1fr 0.9fr; gap:20px; align-items:start; }
+  @media (max-width:840px) { .grid-2 { grid-template-columns:1fr; } }
+  .card { background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:20px; }
+  .card-dark { background:var(--ink); color:#fff; border-radius:12px; padding:20px; }
+  .field { margin-bottom:14px; }
+  .field label { display:block; font-size:0.82rem; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .field input, .field select { width:100%; padding:9px 12px; border-radius:8px; border:1px solid var(--border); font-size:0.9rem; color:var(--ink); background:#fff; }
+  .hint { font-size:0.76rem; color:var(--subtle); margin-top:4px; }
+  .code-box { background:#0b1220; color:#d1fae5; border:1px solid #1e293b; border-radius:10px; padding:14px; font-size:0.86rem; word-break:break-all; line-height:1.5; margin:10px 0 14px; }
+  .btn-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; padding:9px 15px; border-radius:8px; font-weight:700; font-size:0.86rem; cursor:pointer; border:1px solid transparent; }
+  .btn-emerald { background:#10b981; color:#022c22; }
+  .btn-emerald:hover { background:#34d399; text-decoration:none; }
+  .btn-dark { background:var(--ink); color:#fff; }
+  .btn-dark:hover { opacity:0.9; text-decoration:none; }
+  .btn-out { background:#fff; color:var(--ink); border-color:var(--border); }
+  .btn-out:hover { background:var(--surface); text-decoration:none; }
+  .btn-ghost { background:transparent; color:#e2e8f0; border-color:#475569; }
+  .btn-ghost:hover { background:rgba(255,255,255,0.08); text-decoration:none; }
+  .dns-table { width:100%; border-collapse:collapse; font-size:0.84rem; margin-top:12px; }
+  .dns-table th, .dns-table td { text-align:left; padding:8px 10px; border-bottom:1px solid #334155; }
+  .dns-table th { color:#94a3b8; font-size:0.74rem; text-transform:uppercase; }
+  .pill { display:inline-block; padding:3px 9px; border-radius:99px; font-size:0.76rem; font-weight:700; border:1px solid transparent; }
+  .pill-green { background:var(--emerald-bg); color:var(--emerald); border-color:var(--emerald-bd); }
+  .pill-amber { background:var(--amber-bg); color:var(--amber); border-color:var(--amber-bd); }
+  .pill-red { background:var(--red-bg); color:var(--red); border-color:var(--red-bd); }
+  .esp-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(195px,1fr)); gap:8px; margin-bottom:14px; }
+  .esp-item { display:flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--border); border-radius:8px; background:var(--surface); cursor:pointer; font-size:0.82rem; font-weight:600; }
+  .esp-item input { width:auto; margin:0; }
+  .esp-cost { margin-left:auto; font-size:0.74rem; color:var(--subtle); font-weight:700; }
+  .meter-track { height:10px; background:#1e293b; border-radius:99px; overflow:hidden; margin:8px 0 12px; }
+  .meter-fill { height:100%; border-radius:99px; transition:width 0.15s ease; }
+  .faq-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; margin-top:26px; }
+  footer { border-top:1px solid var(--border); margin-top:44px; padding-top:20px; font-size:0.83rem; color:var(--subtle); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-in">
+      <a class="brand" href="./index.html"><span class="brand-dot"></span><span>InboxShield v7.0 Tools</span></a>
+      <nav class="nav-links">
+        <a href="./dmarc-record-generator.html">DMARC Generator</a>
+        <a href="./top-60-saas-email-authentication-benchmark-2026.html">Top 60 Benchmark</a>
+        <a href="https://inbox-checker.appwrite.network/spf-flattener?ref=spf-gen-nav" target="_blank" rel="noopener">Free SPF Flattener</a>
+        <a class="nav-cta" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener" data-track="paywall">Unlock 5-Record Fix $2</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="eyebrow">FREE INTERACTIVE DNS TOOL · RFC 7208 10-LOOKUP GUARD · ZERO SIGNUP</div>
+    <h1>Free SPF Record Generator &amp; 10-Lookup Budget Calculator</h1>
+    <p class="lead">In our <a href="./top-60-saas-email-authentication-benchmark-2026.html">2026 Top 60 SaaS Benchmark</a>, 15% of leading brands already sit at 8–10/10 SPF lookups (including <code>vercel.com</code> and <code>posthog.com</code> at the exact 10/10 redline). Select your email providers below to calculate nested lookup cost before deploying to DNS.</p>
+
+    <div class="grid-2">
+      <section class="card">
+        <h2 style="margin:0 0 12px;font-size:1.1rem;">1. Select Your Email Senders</h2>
+        <div class="field">
+          <label for="spfDomain">Your Domain</label>
+          <input id="spfDomain" type="text" value="yoursaas.com" placeholder="yoursaas.com" />
+        </div>
+        <div class="esp-grid">
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:_spf.google.com" data-esp-cost="3" checked /><span>Google Workspace</span><span class="esp-cost">+3</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:spf.protection.outlook.com" data-esp-cost="2"  /><span>Microsoft 365</span><span class="esp-cost">+2</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:amazonses.com" data-esp-cost="1" checked /><span>Resend (SES)</span><span class="esp-cost">+1</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:spf.mtasv.net" data-esp-cost="1"  /><span>Postmark</span><span class="esp-cost">+1</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:sendgrid.net" data-esp-cost="1"  /><span>SendGrid</span><span class="esp-cost">+1</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:mailgun.org" data-esp-cost="1"  /><span>Mailgun</span><span class="esp-cost">+1</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:servers.mcsv.net" data-esp-cost="2"  /><span>Mailchimp</span><span class="esp-cost">+2</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:spf.klaviyomail.com" data-esp-cost="1"  /><span>Klaviyo</span><span class="esp-cost">+1</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:spf.hubspotemail.net" data-esp-cost="2"  /><span>HubSpot</span><span class="esp-cost">+2</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:mail.zendesk.com" data-esp-cost="2"  /><span>Zendesk</span><span class="esp-cost">+2</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:_spf.protonmail.ch" data-esp-cost="1"  /><span>Proton Mail</span><span class="esp-cost">+1</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:spf.messagingengine.com" data-esp-cost="1"  /><span>Fastmail</span><span class="esp-cost">+1</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:zoho.com" data-esp-cost="1"  /><span>Zoho Mail</span><span class="esp-cost">+1</span></label>
+          <label class="esp-item"><input type="checkbox" data-esp-inc="include:spf.brevo.com" data-esp-cost="2"  /><span>Brevo (Sendinblue)</span><span class="esp-cost">+2</span></label>
+        </div>
+        <div class="field">
+          <label for="spfExtraIncludes">Additional Custom Includes (optional, comma-separated)</label>
+          <input id="spfExtraIncludes" type="text" placeholder="spf.customesp.com" />
+        </div>
+        <div class="field">
+          <label for="spfExtraIps">Direct IPv4 / IPv6 Addresses (0 lookup cost)</label>
+          <input id="spfExtraIps" type="text" placeholder="203.0.113.10/32" />
+        </div>
+        <div class="field" style="margin-bottom:0;">
+          <label for="spfQualifier">Failure Policy Qualifier</label>
+          <select id="spfQualifier">
+            <option value="~all" selected>~all (SoftFail — standard best practice with DMARC)</option>
+            <option value="-all">-all (HardFail — strict rejection of unlisted IPs)</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="card-dark">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+          <h2 style="margin:0;font-size:1.08rem;color:#fff;">2. Generated SPF Record &amp; Lookup Meter</h2>
+          <span id="spfMeterText" class="mono" style="color:#94a3b8;font-size:0.8rem;">0 / 10</span>
+        </div>
+        <div class="meter-track"><div id="spfMeterFill" class="meter-fill" style="width:40%;background:#10b981;"></div></div>
+        <div style="margin-bottom:10px;"><span id="spfAlertBox" class="pill pill-green">Healthy Budget</span></div>
+        <div id="spfOutput" class="code-box mono"></div>
+        <table class="dns-table">
+          <thead><tr><th>Type</th><th>Host / Name</th><th>Rule</th></tr></thead>
+          <tbody><tr><td class="mono">TXT</td><td class="mono">@ (Apex)</td><td style="color:#cbd5e1;">Strictly ONE v=spf1 record per domain</td></tr></tbody>
+        </table>
+        <div class="btn-row" style="margin-top:16px;">
+          <button id="spfCopyBtn" type="button" class="btn btn-emerald">Copy TXT Record</button>
+          <a id="spfFlattenBtn" class="btn btn-ghost" href="https://inbox-checker.appwrite.network/spf-flattener?domain=yoursaas.com&ref=spf-gen" target="_blank" rel="noopener" data-track="outbound">Flatten Live SPF Online (Free)</a>
+          <a id="spfVerifyBtn" class="btn btn-ghost" href="https://inbox-checker.appwrite.network/?domain=yoursaas.com&ref=spf-gen" target="_blank" rel="noopener" data-track="outbound">Verify Live SPF Tree</a>
+        </div>
+        <div style="margin-top:18px;padding-top:14px;border-top:1px solid #334155;font-size:0.83rem;color:#cbd5e1;">
+          Hit &gt;10 lookups or need all 5 registrar-ready records (flattened SPF + DKIM + DMARC + MTA-STS + TLS-RPT) in one shot?
+          <div class="btn-row">
+            <a class="btn btn-emerald" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener" data-track="paywall">Unlock 5-Record Fix ($2 Launch, reg. $9)</a>
+            <a class="btn btn-ghost" href="https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack" target="_blank" rel="noopener" data-track="paywall">3-in-1 Suite ($5, reg. $29)</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="faq-grid">
+      <div class="card">
+        <h3 style="margin:0 0 6px;font-size:0.96rem;">Hidden Nested Includes Count Against 10</h3>
+        <p style="margin:0;font-size:0.86rem;color:var(--muted);"><code>include:_spf.google.com</code> alone expands into 3 recursive DNS queries (<code>_netblocks</code>, <code>_netblocks2</code>, <code>_netblocks3</code>). Always run a live recursive trace before shipping.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 6px;font-size:0.96rem;">Pair SPF With Enforced DMARC</h3>
+        <p style="margin:0;font-size:0.86rem;color:var(--muted);">SPF alone does not verify the visible <code>From:</code> header. Generate a matching RFC 7489 policy with our <a href="./dmarc-record-generator.html">Free DMARC Record Generator</a>.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 6px;font-size:0.96rem;">Check Real-Time Lookup Depth in CI</h3>
+        <p style="margin:0;font-size:0.86rem;color:var(--muted);">Catch accidental SPF bloat in pull requests with <code>npx github:zColdWater/inboxshield-cli check yourdomain.com</code> or <code>npx skills add zColdWater/omniforge-skills</code>.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div>MIT (c) OmniForge · Agent Arena Studio · <a href="mailto:agentarenastudio@proton.me">agentarenastudio@proton.me</a></div>
+      <div><a href="./index.html">InboxShield Home</a> · <a href="./dmarc-record-generator.html">DMARC Generator</a> · <a href="./top-60-saas-email-authentication-benchmark-2026.html">Top 60 Benchmark</a></div>
+    </footer>
+  </main>
+  <script>
+(function () {
+  function opTrack(ev, extra) {
+    try {
+      var p = JSON.stringify(Object.assign({
+        site: "inboxshield", event: ev, path: "/spf-record-generator",
+        referrer: document.referrer || "", lang: "en"
+      }, extra || {}));
+      if (navigator.sendBeacon) navigator.sendBeacon("https://omnipulse-x402.appwrite.network/v1/telemetry", new Blob([p], { type: "text/plain;charset=UTF-8" }));
+    } catch (e) {}
+  }
+  opTrack("pageview");
+
+  var domEl = document.getElementById("spfDomain");
+  var extraIncEl = document.getElementById("spfExtraIncludes");
+  var extraIpEl = document.getElementById("spfExtraIps");
+  var qualEl = document.getElementById("spfQualifier");
+  var outEl = document.getElementById("spfOutput");
+  var meterText = document.getElementById("spfMeterText");
+  var meterFill = document.getElementById("spfMeterFill");
+  var alertBox = document.getElementById("spfAlertBox");
+  var flattenBtn = document.getElementById("spfFlattenBtn");
+  var verifyBtn = document.getElementById("spfVerifyBtn");
+  var copyBtn = document.getElementById("spfCopyBtn");
+
+  function cleanDom(raw) {
+    return String(raw || "").trim().toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0] || "yourdomain.com";
+  }
+
+  function update() {
+    var dom = cleanDom(domEl.value);
+    var checks = document.querySelectorAll("input[data-esp-inc]");
+    var includes = [];
+    var seen = {};
+    var lookups = 0;
+
+    for (var i = 0; i < checks.length; i++) {
+      if (checks[i].checked) {
+        var inc = checks[i].getAttribute("data-esp-inc");
+        var cost = parseInt(checks[i].getAttribute("data-esp-cost") || "1", 10);
+        if (!seen[inc]) {
+          seen[inc] = true;
+          includes.push(inc);
+          lookups += cost;
+        }
+      }
+    }
+
+    var customIncs = String(extraIncEl.value || "").split(/[\s,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    for (var j = 0; j < customIncs.length; j++) {
+      var token = customIncs[j].indexOf("include:") === 0 ? customIncs[j] : ("include:" + customIncs[j]);
+      if (!seen[token]) { seen[token] = true; includes.push(token); lookups += 1; }
+    }
+
+    var customIps = String(extraIpEl.value || "").split(/[\s,]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    var ipTokens = [];
+    for (var k = 0; k < customIps.length; k++) {
+      var ip = customIps[k];
+      if (ip.indexOf("ip4:") === 0 || ip.indexOf("ip6:") === 0) ipTokens.push(ip);
+      else if (ip.indexOf(":") !== -1) ipTokens.push("ip6:" + ip);
+      else ipTokens.push("ip4:" + ip);
+    }
+
+    var qual = qualEl.value || "~all";
+    var parts = ["v=spf1"].concat(ipTokens, includes, [qual]);
+    outEl.textContent = parts.join(" ");
+
+    var pct = Math.min(100, Math.round((lookups / 10) * 100));
+    meterFill.style.width = pct + "%";
+    meterText.textContent = lookups + " / 10 estimated DNS lookups";
+
+    if (lookups > 10) {
+      meterFill.style.background = "#ef4444";
+      alertBox.className = "pill pill-red";
+      alertBox.textContent = "RFC 7208 PermError (>10 lookups) — Emails Will Fail SPF! Flatten Required";
+    } else if (lookups >= 8) {
+      meterFill.style.background = "#f59e0b";
+      alertBox.className = "pill pill-amber";
+      alertBox.textContent = "Redline Zone (" + lookups + "/10) — Only " + (10 - lookups) + " lookup(s) left before PermError";
+    } else {
+      meterFill.style.background = "#10b981";
+      alertBox.className = "pill pill-green";
+      alertBox.textContent = "Healthy Budget (" + lookups + "/10) — Compliant with RFC 7208";
+    }
+
+    verifyBtn.href = "https://inbox-checker.appwrite.network/?domain=" + encodeURIComponent(dom) + "&ref=spf-gen";
+    flattenBtn.href = "https://inbox-checker.appwrite.network/spf-flattener?domain=" + encodeURIComponent(dom) + "&ref=spf-gen";
+  }
+
+  document.addEventListener("change", function (e) {
+    if (e.target.matches("input[data-esp-inc], #spfQualifier")) update();
+  });
+  [domEl, extraIncEl, extraIpEl].forEach(function (el) {
+    el.addEventListener("input", update);
+  });
+
+  copyBtn.addEventListener("click", function () {
+    var txt = outEl.textContent || "";
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).catch(function () {});
+    copyBtn.textContent = "Copied SPF TXT";
+    opTrack("outbound", { target: "copy-spf-record" });
+    setTimeout(function () { copyBtn.textContent = "Copy TXT Record"; }, 1800);
+  });
+
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-track]");
+    if (a) opTrack(a.getAttribute("data-track"), { href: a.getAttribute("href") });
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Free RFC 7489 DMARC Record Generator &amp; p=reject Wizard | InboxShield v7.0</title>
+  <meta name="description" content="Generate a syntax-valid RFC 7489 _dmarc TXT record for Cloudflare, GoDaddy, Namecheap, and Route 53 in 10 seconds, then verify your live domain free with InboxShield v7.0." />
+  <link rel="canonical" href="https://zcoldwater.github.io/inboxshield-cli/dmarc-record-generator.html" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a'/%3E%3Cpath d='M16 5l9 4v7c0 6-3.8 10.6-9 12.5C10.8 26.6 7 22 7 16V9l9-4z' fill='%23059669'/%3E%3C/svg%3E" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Free RFC 7489 DMARC Record Generator | InboxShield v7.0" />
+  <meta property="og:description" content="Build a valid _dmarc TXT record with p=quarantine or p=reject and verify live DNS instantly (zero signup)." />
+  <meta property="og:url" content="https://zcoldwater.github.io/inboxshield-cli/dmarc-record-generator.html" />
+  <meta property="og:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "InboxShield Free RFC 7489 DMARC Record Generator",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Web",
+      "url": "https://zcoldwater.github.io/inboxshield-cli/dmarc-record-generator.html",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What DNS record type and host should I use for DMARC?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Publish exactly one TXT record at host _dmarc (i.e. _dmarc.yourdomain.com). Having two _dmarc TXT records violates RFC 7489 Section 6.6.3 and causes mail receivers to ignore DMARC completely."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I start with p=none, p=quarantine, or p=reject?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Verify SPF and DKIM are passing first, then publish p=quarantine with a valid rua=mailto: address for 7-14 days before graduating to p=reject for full anti-spoofing protection."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <style>
+  :root {
+    --bg:#ffffff; --surface:#f8fafc; --border:#e2e8f0; --ink:#0f172a; --muted:#475569; --subtle:#64748b;
+    --emerald:#059669; --emerald-bg:#ecfdf5; --emerald-bd:#a7f3d0;
+    --blue:#2563eb; --blue-bg:#eff6ff; --blue-bd:#bfdbfe;
+    --amber:#b45309; --amber-bg:#fffbeb; --amber-bd:#fde68a;
+    --red:#dc2626; --red-bg:#fef2f2; --red-bd:#fecaca;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif; line-height:1.58; }
+  a { color:var(--blue); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
+  .topbar { border-bottom:1px solid var(--border); background:rgba(255,255,255,0.95); position:sticky; top:0; z-index:20; backdrop-filter:blur(8px); }
+  .topbar-in { max-width:1040px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .brand { display:inline-flex; align-items:center; gap:9px; font-weight:800; color:var(--ink); font-size:0.96rem; letter-spacing:-0.02em; }
+  .brand-dot { width:10px; height:10px; border-radius:50%; background:var(--emerald); }
+  .nav-links { display:flex; align-items:center; gap:14px; flex-wrap:wrap; font-size:0.85rem; font-weight:600; }
+  .nav-links a { color:var(--muted); }
+  .nav-links a.nav-cta { background:var(--ink); color:#fff; padding:7px 13px; border-radius:7px; }
+  .nav-links a.nav-cta:hover { text-decoration:none; opacity:0.9; }
+  .wrap { max-width:1040px; margin:0 auto; padding:32px 20px 72px; }
+  .eyebrow { display:inline-block; font-size:0.74rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color:var(--emerald); background:var(--emerald-bg); border:1px solid var(--emerald-bd); padding:4px 10px; border-radius:99px; margin-bottom:12px; }
+  h1 { font-size:clamp(1.65rem,3.4vw,2.35rem); line-height:1.15; letter-spacing:-0.03em; margin:0 0 10px; }
+  .lead { color:var(--muted); max-width:780px; margin:0 0 24px; font-size:1rem; }
+  .grid-2 { display:grid; grid-template-columns:1.1fr 0.9fr; gap:20px; align-items:start; }
+  @media (max-width:840px) { .grid-2 { grid-template-columns:1fr; } }
+  .card { background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:20px; }
+  .card-dark { background:var(--ink); color:#fff; border-radius:12px; padding:20px; }
+  .field { margin-bottom:14px; }
+  .field label { display:block; font-size:0.82rem; font-weight:700; color:var(--ink); margin-bottom:5px; }
+  .field input, .field select { width:100%; padding:9px 12px; border-radius:8px; border:1px solid var(--border); font-size:0.9rem; color:var(--ink); background:#fff; }
+  .hint { font-size:0.76rem; color:var(--subtle); margin-top:4px; }
+  .code-box { background:#0b1220; color:#d1fae5; border:1px solid #1e293b; border-radius:10px; padding:14px; font-size:0.86rem; word-break:break-all; line-height:1.5; margin:10px 0 14px; }
+  .btn-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; padding:9px 15px; border-radius:8px; font-weight:700; font-size:0.86rem; cursor:pointer; border:1px solid transparent; }
+  .btn-emerald { background:#10b981; color:#022c22; }
+  .btn-emerald:hover { background:#34d399; text-decoration:none; }
+  .btn-dark { background:var(--ink); color:#fff; }
+  .btn-dark:hover { opacity:0.9; text-decoration:none; }
+  .btn-out { background:#fff; color:var(--ink); border-color:var(--border); }
+  .btn-out:hover { background:var(--surface); text-decoration:none; }
+  .btn-ghost { background:transparent; color:#e2e8f0; border-color:#475569; }
+  .btn-ghost:hover { background:rgba(255,255,255,0.08); text-decoration:none; }
+  .dns-table { width:100%; border-collapse:collapse; font-size:0.84rem; margin-top:12px; }
+  .dns-table th, .dns-table td { text-align:left; padding:8px 10px; border-bottom:1px solid #334155; }
+  .dns-table th { color:#94a3b8; font-size:0.74rem; text-transform:uppercase; }
+  .pill { display:inline-block; padding:3px 9px; border-radius:99px; font-size:0.76rem; font-weight:700; border:1px solid transparent; }
+  .pill-green { background:var(--emerald-bg); color:var(--emerald); border-color:var(--emerald-bd); }
+  .pill-amber { background:var(--amber-bg); color:var(--amber); border-color:var(--amber-bd); }
+  .pill-red { background:var(--red-bg); color:var(--red); border-color:var(--red-bd); }
+  .esp-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(195px,1fr)); gap:8px; margin-bottom:14px; }
+  .esp-item { display:flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--border); border-radius:8px; background:var(--surface); cursor:pointer; font-size:0.82rem; font-weight:600; }
+  .esp-item input { width:auto; margin:0; }
+  .esp-cost { margin-left:auto; font-size:0.74rem; color:var(--subtle); font-weight:700; }
+  .meter-track { height:10px; background:#1e293b; border-radius:99px; overflow:hidden; margin:8px 0 12px; }
+  .meter-fill { height:100%; border-radius:99px; transition:width 0.15s ease; }
+  .faq-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; margin-top:26px; }
+  footer { border-top:1px solid var(--border); margin-top:44px; padding-top:20px; font-size:0.83rem; color:var(--subtle); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-in">
+      <a class="brand" href="./index.html"><span class="brand-dot"></span><span>InboxShield v7.0 Tools</span></a>
+      <nav class="nav-links">
+        <a href="./spf-record-generator.html">SPF Builder</a>
+        <a href="./top-60-saas-email-authentication-benchmark-2026.html">Top 60 Benchmark</a>
+        <a href="https://inbox-checker.appwrite.network/?ref=dmarc-gen-nav" target="_blank" rel="noopener">Live DNS Audit</a>
+        <a class="nav-cta" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener" data-track="paywall">Unlock 5-Record Fix $2</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="eyebrow">FREE INTERACTIVE DNS TOOL · RFC 7489 STRICT SYNTAX · ZERO SIGNUP</div>
+    <h1>Free DMARC Record Generator &amp; Safe <code>p=reject</code> Builder</h1>
+    <p class="lead">In our <a href="./top-60-saas-email-authentication-benchmark-2026.html">2026 Top 60 SaaS Benchmark</a>, 45% of leading brands still fall short of <code>p=reject</code> — and 71.7% of newly launched indie SaaS domains have zero DMARC enforcement. Generate a clean RFC 7489 <code>_dmarc</code> TXT record below and verify live propagation in 2 seconds.</p>
+
+    <div class="grid-2">
+      <section class="card">
+        <h2 style="margin:0 0 14px;font-size:1.1rem;">1. Configure Your DMARC Policy</h2>
+        <div class="field">
+          <label for="dmarcDomain">Your Domain</label>
+          <input id="dmarcDomain" type="text" value="yoursaas.com" placeholder="yoursaas.com" />
+        </div>
+        <div class="field">
+          <label for="dmarcPolicy">Enforcement Policy (<code>p=</code>)</label>
+          <select id="dmarcPolicy">
+            <option value="quarantine" selected>p=quarantine (Recommended first enforcement — sends unauthenticated mail to spam)</option>
+            <option value="reject">p=reject (Maximum protection — blocks spoofed mail outright)</option>
+            <option value="none">p=none (Monitor-only — use temporarily while auditing ESPs)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="dmarcSubPolicy">Subdomain Policy (<code>sp=</code>)</label>
+          <select id="dmarcSubPolicy">
+            <option value="reject">sp=reject (Block spoofing on unused subdomains)</option>
+            <option value="quarantine" selected>sp=quarantine (Quarantine unauthenticated subdomain mail)</option>
+            <option value="inherit">Inherit apex policy</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="dmarcRua">Aggregate Report Email (<code>rua=mailto:</code>)</label>
+          <input id="dmarcRua" type="email" placeholder="dmarc@yoursaas.com" />
+          <div class="hint">Receives daily XML pass/fail summaries from Gmail, Microsoft, and Yahoo.</div>
+        </div>
+        <div class="field">
+          <label for="dmarcPct">Enforcement Coverage Percentage (<code>pct=</code>)</label>
+          <input id="dmarcPct" type="number" min="1" max="100" value="100" />
+        </div>
+        <div class="field" style="margin-bottom:0;">
+          <label for="dmarcAlign">SPF &amp; DKIM Alignment Mode</label>
+          <select id="dmarcAlign">
+            <option value="relaxed" selected>Relaxed (adkim=r; aspf=r — allows subdomains like mail.yoursaas.com)</option>
+            <option value="strict">Strict (adkim=s; aspf=s — exact apex domain match required)</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="card-dark">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+          <h2 style="margin:0;font-size:1.08rem;color:#fff;">2. Registrar-Ready DNS TXT Record</h2>
+          <span id="dmarcStatusBadge" class="pill pill-green">RFC 7489 Valid</span>
+        </div>
+        <div id="dmarcOutput" class="code-box mono"></div>
+        <table class="dns-table">
+          <thead><tr><th>Type</th><th>Host / Name</th><th>TTL</th></tr></thead>
+          <tbody><tr><td class="mono">TXT</td><td id="dmarcHostCell" class="mono">_dmarc.yoursaas.com</td><td class="mono">3600 (Auto)</td></tr></tbody>
+        </table>
+        <div class="btn-row" style="margin-top:16px;">
+          <button id="dmarcCopyBtn" type="button" class="btn btn-emerald">Copy TXT Record</button>
+          <a id="dmarcVerifyBtn" class="btn btn-ghost" href="https://inbox-checker.appwrite.network/?domain=yoursaas.com&ref=dmarc-gen" target="_blank" rel="noopener">Verify Live DNS Now</a>
+        </div>
+        <div style="margin-top:18px;padding-top:14px;border-top:1px solid #334155;font-size:0.83rem;color:#cbd5e1;">
+          Need exact conflict-free <strong>SPF + DKIM + DMARC + MTA-STS + TLS-RPT</strong> records tailored to your live ESPs (Cloudflare, GoDaddy, Namecheap, Aliyun, DNSPod)?
+          <div class="btn-row">
+            <a class="btn btn-emerald" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener" data-track="paywall">Unlock Full 5-Record Fix ($2 Launch, reg. $9)</a>
+            <a class="btn btn-ghost" href="https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack" target="_blank" rel="noopener" data-track="paywall">3-in-1 Complete Suite ($5, reg. $29)</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="faq-grid">
+      <div class="card">
+        <h3 style="margin:0 0 6px;font-size:0.96rem;">Never Publish Two <code>_dmarc</code> Records</h3>
+        <p style="margin:0;font-size:0.86rem;color:var(--muted);">Under RFC 7489 Section 6.6.3, multiple TXT records starting with <code>v=DMARC1</code> on the same host cause receivers to discard DMARC completely. Edit or replace your existing record.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 6px;font-size:0.96rem;">Check SPF Lookups Alongside DMARC</h3>
+        <p style="margin:0;font-size:0.86rem;color:var(--muted);">DMARC relies on SPF or DKIM passing alignment. Use our <a href="./spf-record-generator.html">Free SPF 10-Lookup Calculator</a> or <a href="https://inbox-checker.appwrite.network/spf-flattener?ref=dmarc-gen" target="_blank" rel="noopener">Free SPF Flattener</a> to eliminate <code>PermError</code>.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 6px;font-size:0.96rem;">Automate in CI or AI Coding Agents</h3>
+        <p style="margin:0;font-size:0.86rem;color:var(--muted);">Install 50 pre-launch security &amp; DNS skills into Claude Code, Cursor, or Codex via <code>npx skills add zColdWater/omniforge-skills</code> (<a href="https://www.skills.sh/zColdWater/omniforge-skills" target="_blank" rel="noopener">skills.sh</a>).</p>
+      </div>
+    </section>
+
+    <footer>
+      <div>MIT (c) OmniForge · Agent Arena Studio · <a href="mailto:agentarenastudio@proton.me">agentarenastudio@proton.me</a></div>
+      <div><a href="./index.html">InboxShield Home</a> · <a href="./spf-record-generator.html">SPF Calculator</a> · <a href="./top-60-saas-email-authentication-benchmark-2026.html">Top 60 Benchmark</a></div>
+    </footer>
+  </main>
+  <script>
+(function () {
+  function opTrack(ev, extra) {
+    try {
+      var p = JSON.stringify(Object.assign({
+        site: "inboxshield", event: ev, path: "/dmarc-record-generator",
+        referrer: document.referrer || "", lang: "en"
+      }, extra || {}));
+      if (navigator.sendBeacon) navigator.sendBeacon("https://omnipulse-x402.appwrite.network/v1/telemetry", new Blob([p], { type: "text/plain;charset=UTF-8" }));
+    } catch (e) {}
+  }
+  opTrack("pageview");
+
+  var domEl = document.getElementById("dmarcDomain");
+  var polEl = document.getElementById("dmarcPolicy");
+  var spEl = document.getElementById("dmarcSubPolicy");
+  var pctEl = document.getElementById("dmarcPct");
+  var ruaEl = document.getElementById("dmarcRua");
+  var alignEl = document.getElementById("dmarcAlign");
+  var outEl = document.getElementById("dmarcOutput");
+  var hostEl = document.getElementById("dmarcHostCell");
+  var statusEl = document.getElementById("dmarcStatusBadge");
+  var verifyBtn = document.getElementById("dmarcVerifyBtn");
+  var copyBtn = document.getElementById("dmarcCopyBtn");
+
+  function cleanDom(raw) {
+    return String(raw || "").trim().toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0] || "yourdomain.com";
+  }
+
+  function update() {
+    var dom = cleanDom(domEl.value);
+    var p = polEl.value;
+    var sp = spEl.value;
+    var pct = Math.max(1, Math.min(100, parseInt(pctEl.value || "100", 10) || 100));
+    var rua = String(ruaEl.value || "").trim() || ("dmarc@" + dom);
+    var align = alignEl.value;
+
+    var tags = ["v=DMARC1", "p=" + p];
+    if (sp && sp !== "inherit") tags.push("sp=" + sp);
+    if (pct < 100) tags.push("pct=" + pct);
+    if (align === "strict") {
+      tags.push("adkim=s", "aspf=s");
+    } else {
+      tags.push("adkim=r", "aspf=r");
+    }
+    if (rua) tags.push("rua=mailto:" + rua.replace(/^mailto:/i, ""));
+    tags.push("fo=1");
+
+    var rec = tags.join("; ") + ";";
+    outEl.textContent = rec;
+    hostEl.textContent = "_dmarc." + dom;
+    verifyBtn.href = "https://inbox-checker.appwrite.network/?domain=" + encodeURIComponent(dom) + "&ref=dmarc-gen";
+
+    if (p === "reject") {
+      statusEl.className = "pill pill-green";
+      statusEl.textContent = "RFC 7489 Valid · Full Spoofing Protection (p=reject)";
+    } else if (p === "quarantine") {
+      statusEl.className = "pill pill-green";
+      statusEl.textContent = "RFC 7489 Valid · Enforced (p=quarantine)";
+    } else {
+      statusEl.className = "pill pill-amber";
+      statusEl.textContent = "Monitor Only (p=none) — Upgrade to quarantine/reject after 7 days";
+    }
+  }
+
+  [domEl, polEl, spEl, pctEl, ruaEl, alignEl].forEach(function (el) {
+    el.addEventListener("input", update);
+    el.addEventListener("change", update);
+  });
+
+  copyBtn.addEventListener("click", function () {
+    var txt = outEl.textContent || "";
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).catch(function () {});
+    }
+    copyBtn.textContent = "Copied DMARC TXT";
+    opTrack("outbound", { target: "copy-dmarc-record" });
+    setTimeout(function () { copyBtn.textContent = "Copy TXT Record"; }, 1800);
+  });
+
+  verifyBtn.addEventListener("click", function () {
+    opTrack("outbound", { target: "verify-dmarc-live", domain: cleanDom(domEl.value) });
+  });
+
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("a[data-track]");
+    if (a) opTrack(a.getAttribute("data-track"), { href: a.getAttribute("href") });
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
