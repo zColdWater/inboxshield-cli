@@ -10,7 +10,8 @@
 
 - **Flagship v7.0 Online Web App (Zero Signup, 6-Phase Real Protocol Trace):** [https://inbox-checker.appwrite.network](https://inbox-checker.appwrite.network)
 - **Free Online SPF Flattener (Collapse `>10`-Lookup PermError -> `1/10`):** [https://inbox-checker.appwrite.network/spf-flattener](https://inbox-checker.appwrite.network/spf-flattener)
-- **NEW — 2026 Indie SaaS Email Deliverability Benchmark (60 Domains Audited):** [Read the Full Study](./docs/email-deliverability-benchmark-2026.md)
+- **NEW — 2026 Indie SaaS Email Deliverability Benchmark (60 Domains Audited):** [Interactive HTML Study](https://zcoldwater.github.io/inboxshield-cli/email-deliverability-benchmark-2026.html) · [Markdown](./docs/email-deliverability-benchmark-2026.md)
+- **40 Zero-Dependency AI Agent Skills (`skills.sh` — SPF/DKIM/DMARC, Cold Email, Google Workspace, M365, SES, Security & GEO):** `npx skills add zColdWater/omniforge-skills` ([Browse All 40 Skills](https://zcoldwater.github.io/omniforge-skills/))
 - **EasyDMARC ($432/yr) vs. InboxShield ($2 Launch Special) Comparison:** [https://zcoldwater.github.io/launch-audit-reports/compare/easydmarc-vs-inboxshield.html](https://zcoldwater.github.io/launch-audit-reports/compare/easydmarc-vs-inboxshield.html)
 - **Single-Domain Emergency Fix ($2 Launch Special, reg. $9 — One-Time — Instant In-Browser Unlock, 14-Day Refund):** [Gumroad Checkout](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield) · [Direct Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)
 - **OmniForge Complete Suite ($5 Launch Special, reg. $29 — One-Time — Unlocks VibeShield + InboxShield + CiteReady):** [Gumroad Bundle](https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack) · [Direct Checkout](https://omnipulse-x402.appwrite.network/checkout/launch-stack)
