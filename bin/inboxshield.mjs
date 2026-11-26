@@ -11,16 +11,16 @@
  *
  * Need instant copy-paste 5-registrar DNS fix records, auto-merged SPF flattening,
  * 50-domain online batch CSV & branded A4 PDF reports?
- *   Free Web Workbench: https://inbox-checker.appwrite.network
- *   Single-Domain Emergency Fix ($2 Launch Special, reg. $9): https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield
+ *   Free Web Workbench: https://inbox.shipbastion.com
+ *   Single-Domain Emergency Fix ($2 Launch Special, reg. $9): https://api.shipbastion.com/go/gumroad/inboxshield
  */
 
 import { auditDomain } from "../src/dns-engine.mjs";
 
 const VERSION = "7.0.0";
-const WEB_SCANNER = "https://inbox-checker.appwrite.network";
-const PRO_URL = "https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield";
-const STACK_URL = "https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack";
+const WEB_SCANNER = "https://inbox.shipbastion.com";
+const PRO_URL = "https://api.shipbastion.com/go/gumroad/inboxshield";
+const STACK_URL = "https://api.shipbastion.com/go/gumroad/launch-stack";
 
 const C = {
   reset: "\x1b[0m",

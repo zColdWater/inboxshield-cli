@@ -5,19 +5,19 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![Node.js >= 20](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](./package.json)
-[![Email Security](https://inbox-checker.appwrite.network/badge/inbox/stripe.com.svg)](https://inbox-checker.appwrite.network/?domain=stripe.com)
-[![Live VibeShield Score](https://vibe-checker.appwrite.network/api/badge.svg?url=zcoldwater.github.io)](https://vibe-checker.appwrite.network/?url=https://zcoldwater.github.io/inboxshield-cli/)
-[![AI Search Readiness](https://citeready-checker.appwrite.network/api/badge?url=zcoldwater.github.io/inboxshield-cli)](https://citeready-checker.appwrite.network/?url=https://zcoldwater.github.io/inboxshield-cli/)
+[![Email Security](https://inbox.shipbastion.com/badge/inbox/stripe.com.svg)](https://inbox.shipbastion.com/?domain=stripe.com)
+[![Live VibeShield Score](https://shipbastion.com/api/badge.svg?url=zcoldwater.github.io)](https://shipbastion.com/?url=https://zcoldwater.github.io/inboxshield-cli/)
+[![AI Search Readiness](https://cite.shipbastion.com/api/badge?url=zcoldwater.github.io/inboxshield-cli)](https://cite.shipbastion.com/?url=https://zcoldwater.github.io/inboxshield-cli/)
 
-- **Flagship v7.0 Online Web App (Zero Signup, 6-Phase Real Protocol Trace):** [https://inbox-checker.appwrite.network](https://inbox-checker.appwrite.network)
-- **Free Online SPF Flattener (Collapse `>10`-Lookup PermError -> `1/10`):** [https://inbox-checker.appwrite.network/spf-flattener](https://inbox-checker.appwrite.network/spf-flattener)
+- **Flagship v7.0 Online Web App (Zero Signup, 6-Phase Real Protocol Trace):** [https://inbox.shipbastion.com](https://inbox.shipbastion.com)
+- **Free Online SPF Flattener (Collapse `>10`-Lookup PermError -> `1/10`):** [https://inbox.shipbastion.com/spf-flattener](https://inbox.shipbastion.com/spf-flattener)
 - **Free Interactive DNS Builders (Zero Signup):** [RFC 7489 DMARC Record Generator](https://zcoldwater.github.io/inboxshield-cli/dmarc-record-generator.html) · [SPF Record & 10-Lookup Budget Calculator](https://zcoldwater.github.io/inboxshield-cli/spf-record-generator.html)
 - **NEW — 2026 Top 60 SaaS & AI Startups Email Authentication, SPF Bloat & DMARC Spoofing Benchmark:** [Interactive 60-Brand Leaderboard](https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.html) · [Raw JSON Dataset](https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.json)
 - **2026 Indie SaaS Email Deliverability Benchmark (60 GitHub Startup Domains):** [Interactive HTML Study](https://zcoldwater.github.io/inboxshield-cli/email-deliverability-benchmark-2026.html) · [Markdown](./docs/email-deliverability-benchmark-2026.md)
 - **40 Zero-Dependency AI Agent Skills (`skills.sh` — SPF/DKIM/DMARC, Cold Email, Google Workspace, M365, SES, Security & GEO):** `npx skills add zColdWater/omniforge-skills` ([Browse All 40 Skills](https://zcoldwater.github.io/omniforge-skills/))
 - **EasyDMARC ($432/yr) vs. InboxShield ($2 Launch Special) Comparison:** [https://zcoldwater.github.io/launch-audit-reports/compare/easydmarc-vs-inboxshield.html](https://zcoldwater.github.io/launch-audit-reports/compare/easydmarc-vs-inboxshield.html)
-- **Single-Domain Emergency Fix ($2 Launch Special, reg. $9 — One-Time — Instant In-Browser Unlock, 14-Day Refund):** [Gumroad Checkout](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield) · [Direct Checkout](https://omnipulse-x402.appwrite.network/checkout/inboxshield)
-- **OmniForge Complete Suite ($5 Launch Special, reg. $29 — One-Time — Unlocks VibeShield + InboxShield + CiteReady):** [Gumroad Bundle](https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack) · [Direct Checkout](https://omnipulse-x402.appwrite.network/checkout/launch-stack)
+- **Single-Domain Emergency Fix ($2 Launch Special, reg. $9 — One-Time — Instant In-Browser Unlock, 14-Day Refund):** [Gumroad Checkout](https://api.shipbastion.com/go/gumroad/inboxshield) · [Direct Checkout](https://api.shipbastion.com/checkout/inboxshield)
+- **OmniForge Complete Suite ($5 Launch Special, reg. $29 — One-Time — Unlocks VibeShield + InboxShield + CiteReady):** [Gumroad Bundle](https://api.shipbastion.com/go/gumroad/launch-stack) · [Direct Checkout](https://api.shipbastion.com/checkout/launch-stack)
 
 ---
 
@@ -49,7 +49,7 @@ In our passive DNS audit of **60 recently active GitHub indie SaaS & AI custom d
 | **Online SPF Flattener (RFC 7208)** | Free online | **Auto-Merged & Flattened 1-TXT Output** | **InboxShield v7.0 ($2 Launch)** |
 | **5 Copy-Paste DNS Fix Records** | Root-cause diagnosis | **Unmasked SPF, DMARC, DKIM, MTA-STS & TLS-RPT for Cloudflare, GoDaddy, Namecheap, Aliyun & DNSPod** | **+ VibeShield v7.0 ($2 Launch)** |
 | **Printable A4 Client Deliverability PDF** | Summary only | **Branded A4 PDF Export (`@media print`)** | **+ CiteReady v6.0 ($2 Launch)** |
-| **Companion Free Domain Tool** | [BrandShield v6.2 (100% Free)](https://brand-checker.appwrite.network) | **78 TLDs + 17 Aftermarket Marketplaces Free** | **Included Free Forever** |
+| **Companion Free Domain Tool** | [BrandShield v6.2 (100% Free)](https://brand.shipbastion.com) | **78 TLDs + 17 Aftermarket Marketplaces Free** | **Included Free Forever** |
 
 > **Honest Scope:** InboxShield is an on-demand live DNS diagnostic & copy-paste remediation workbench (`$2` Launch Special, reg. `$9`, vs. `$432+/yr` hosted DMARC SaaS platforms). It does not operate a hosted 24/7 inbound DMARC XML mailbox server (no CNAME lock-in, no subscriptions).
 
@@ -87,12 +87,12 @@ jobs:
 ## Live Badge Embed
 
 ```markdown
-[![Email Security](https://inbox-checker.appwrite.network/badge/inbox/yourdomain.com.svg)](https://inbox-checker.appwrite.network/?domain=yourdomain.com)
+[![Email Security](https://inbox.shipbastion.com/badge/inbox/yourdomain.com.svg)](https://inbox.shipbastion.com/?domain=yourdomain.com)
 ```
 
 ## Support & Contact
 
-OmniForge · Agent Arena Studio — `agentarenastudio@proton.me` · [@agentarenastudi](https://x.com/agentarenastudi) · [Support Portal](https://omnipulse-x402.appwrite.network/support) · [14-Day Refund Policy](https://omnipulse-x402.appwrite.network/refund-policy)
+OmniForge · Agent Arena Studio — `agentarenastudio@proton.me` · [@agentarenastudi](https://x.com/agentarenastudi) · [Support Portal](https://api.shipbastion.com/support) · [14-Day Refund Policy](https://api.shipbastion.com/refund-policy)
 
 ## License
 

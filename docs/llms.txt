@@ -2,8 +2,8 @@
 
 > Real 6-phase email DNS protocol auditor: Authoritative NS/SOA consistency, MX multi-node IPv4 redundancy, recursive SPF per-layer CIDR expansion (RFC 7208), 24-selector DKIM, strict RFC 7489 DMARC tag linter, MTA-STS, TLS-RPT, BIMI & 5 DNSBL blacklists.
 
-- Free 6-Phase Online Web App: https://inbox-checker.appwrite.network/
-- Free Online SPF Flattener: https://inbox-checker.appwrite.network/spf-flattener
+- Free 6-Phase Online Web App: https://inbox.shipbastion.com/
+- Free Online SPF Flattener: https://inbox.shipbastion.com/spf-flattener
 - Free DMARC p=reject & RUA Policy Generator + 3-Stage Rollout Planner: https://zcoldwater.github.io/inboxshield-cli/dmarc-p-reject-rua-policy-generator.html
 - Free Google & Yahoo 2026 Bulk Sender Compliance Checklist & Live DNS Validator: https://zcoldwater.github.io/inboxshield-cli/google-yahoo-2026-bulk-sender-compliance-checklist.html
 - Free RFC 7489 DMARC Record Generator: https://zcoldwater.github.io/inboxshield-cli/dmarc-record-generator.html
@@ -12,6 +12,6 @@
 - 2026 Indie SaaS Email Deliverability Benchmark (60 Domains Audited): https://zcoldwater.github.io/inboxshield-cli/email-deliverability-benchmark-2026.html
 - EasyDMARC & MxToolbox Alternative: https://zcoldwater.github.io/inboxshield-cli/mxtoolbox-easydmarc-alternative.html
 - Open-Source MIT CLI & GitHub Action (`uses: zColdWater/inboxshield-cli@v7`): https://github.com/zColdWater/inboxshield-cli
-- Single-Domain Emergency Fix ($2 Launch Special, regularly $9 — 5 Copy-Paste DNS Records for Cloudflare/GoDaddy/Namecheap/Aliyun/DNSPod, 50-Domain Batch CSV, A4 PDF, 14-Day Refund): https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield
-- OmniForge Complete Suite ($5 Launch Special, regularly $29 — Unlocks InboxShield + VibeShield + CiteReady): https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack
-- Companion Free Domain Tool — BrandShield v6.2 (100% Free Forever): https://brand-checker.appwrite.network/
+- Single-Domain Emergency Fix ($2 Launch Special, regularly $9 — 5 Copy-Paste DNS Records for Cloudflare/GoDaddy/Namecheap/Aliyun/DNSPod, 50-Domain Batch CSV, A4 PDF, 14-Day Refund): https://api.shipbastion.com/go/gumroad/inboxshield
+- OmniForge Complete Suite ($5 Launch Special, regularly $29 — Unlocks InboxShield + VibeShield + CiteReady): https://api.shipbastion.com/go/gumroad/launch-stack
+- Companion Free Domain Tool — BrandShield v6.2 (100% Free Forever): https://brand.shipbastion.com/

@@ -39,7 +39,7 @@
     "cli",
     "saas"
   ],
-  "homepage": "https://inbox-checker.appwrite.network/",
+  "homepage": "https://inbox.shipbastion.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/zColdWater/inboxshield-cli.git"

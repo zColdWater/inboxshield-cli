@@ -11,9 +11,9 @@
   <meta property="og:title" content="Free RFC 7489 DMARC Record Generator | InboxShield v7.0" />
   <meta property="og:description" content="Build a valid _dmarc TXT record with p=quarantine or p=reject and verify live DNS instantly (zero signup)." />
   <meta property="og:url" content="https://zcoldwater.github.io/inboxshield-cli/dmarc-record-generator.html" />
-  <meta property="og:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <meta property="og:image" content="https://brand.shipbastion.com/assets/cover-inboxshield-2usd.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <meta name="twitter:image" content="https://brand.shipbastion.com/assets/cover-inboxshield-2usd.png" />
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -122,8 +122,8 @@
       <nav class="nav-links">
         <a href="./spf-record-generator.html">SPF Builder</a>
         <a href="./top-60-saas-email-authentication-benchmark-2026.html">Top 60 Benchmark</a>
-        <a href="https://inbox-checker.appwrite.network/?ref=dmarc-gen-nav" target="_blank" rel="noopener">Live DNS Audit</a>
-        <a class="nav-cta" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener" data-track="paywall">Unlock 5-Record Fix $2</a>
+        <a href="https://inbox.shipbastion.com/?ref=dmarc-gen-nav" target="_blank" rel="noopener">Live DNS Audit</a>
+        <a class="nav-cta" href="https://api.shipbastion.com/go/gumroad/inboxshield" target="_blank" rel="noopener" data-track="paywall">Unlock 5-Record Fix $2</a>
       </nav>
     </div>
   </header>
@@ -186,13 +186,13 @@
         </table>
         <div class="btn-row" style="margin-top:16px;">
           <button id="dmarcCopyBtn" type="button" class="btn btn-emerald">Copy TXT Record</button>
-          <a id="dmarcVerifyBtn" class="btn btn-ghost" href="https://inbox-checker.appwrite.network/?domain=yoursaas.com&ref=dmarc-gen" target="_blank" rel="noopener">Verify Live DNS Now</a>
+          <a id="dmarcVerifyBtn" class="btn btn-ghost" href="https://inbox.shipbastion.com/?domain=yoursaas.com&ref=dmarc-gen" target="_blank" rel="noopener">Verify Live DNS Now</a>
         </div>
         <div style="margin-top:18px;padding-top:14px;border-top:1px solid #334155;font-size:0.83rem;color:#cbd5e1;">
           Need exact conflict-free <strong>SPF + DKIM + DMARC + MTA-STS + TLS-RPT</strong> records tailored to your live ESPs (Cloudflare, GoDaddy, Namecheap, Aliyun, DNSPod)?
           <div class="btn-row">
-            <a class="btn btn-emerald" href="https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" target="_blank" rel="noopener" data-track="paywall">Unlock Full 5-Record Fix ($2 Launch, reg. $9)</a>
-            <a class="btn btn-ghost" href="https://omnipulse-x402.appwrite.network/go/gumroad/launch-stack" target="_blank" rel="noopener" data-track="paywall">3-in-1 Complete Suite ($5, reg. $29)</a>
+            <a class="btn btn-emerald" href="https://api.shipbastion.com/go/gumroad/inboxshield" target="_blank" rel="noopener" data-track="paywall">Unlock Full 5-Record Fix ($2 Launch, reg. $9)</a>
+            <a class="btn btn-ghost" href="https://api.shipbastion.com/go/gumroad/launch-stack" target="_blank" rel="noopener" data-track="paywall">3-in-1 Complete Suite ($5, reg. $29)</a>
           </div>
         </div>
       </section>
@@ -205,7 +205,7 @@
       </div>
       <div class="card">
         <h3 style="margin:0 0 6px;font-size:0.96rem;">Check SPF Lookups Alongside DMARC</h3>
-        <p style="margin:0;font-size:0.86rem;color:var(--muted);">DMARC relies on SPF or DKIM passing alignment. Use our <a href="./spf-record-generator.html">Free SPF 10-Lookup Calculator</a> or <a href="https://inbox-checker.appwrite.network/spf-flattener?ref=dmarc-gen" target="_blank" rel="noopener">Free SPF Flattener</a> to eliminate <code>PermError</code>.</p>
+        <p style="margin:0;font-size:0.86rem;color:var(--muted);">DMARC relies on SPF or DKIM passing alignment. Use our <a href="./spf-record-generator.html">Free SPF 10-Lookup Calculator</a> or <a href="https://inbox.shipbastion.com/spf-flattener?ref=dmarc-gen" target="_blank" rel="noopener">Free SPF Flattener</a> to eliminate <code>PermError</code>.</p>
       </div>
       <div class="card">
         <h3 style="margin:0 0 6px;font-size:0.96rem;">Automate in CI or AI Coding Agents</h3>
@@ -226,7 +226,7 @@
         site: "inboxshield", event: ev, path: "/dmarc-record-generator",
         referrer: document.referrer || "", lang: "en"
       }, extra || {}));
-      if (navigator.sendBeacon) navigator.sendBeacon("https://omnipulse-x402.appwrite.network/v1/telemetry", new Blob([p], { type: "text/plain;charset=UTF-8" }));
+      if (navigator.sendBeacon) navigator.sendBeacon("https://api.shipbastion.com/v1/telemetry", new Blob([p], { type: "text/plain;charset=UTF-8" }));
     } catch (e) {}
   }
   opTrack("pageview");
@@ -269,7 +269,7 @@
     var rec = tags.join("; ") + ";";
     outEl.textContent = rec;
     hostEl.textContent = "_dmarc." + dom;
-    verifyBtn.href = "https://inbox-checker.appwrite.network/?domain=" + encodeURIComponent(dom) + "&ref=dmarc-gen";
+    verifyBtn.href = "https://inbox.shipbastion.com/?domain=" + encodeURIComponent(dom) + "&ref=dmarc-gen";
 
     if (p === "reject") {
       statusEl.className = "pill pill-green";

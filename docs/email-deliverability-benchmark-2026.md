@@ -1,6 +1,6 @@
 # 2026 Indie SaaS Email Deliverability Benchmark (60 Custom Domains Audited)
 
-**Passive Public DNS Study using [InboxShield v7.0](https://inbox-checker.appwrite.network/)**
+**Passive Public DNS Study using [InboxShield v7.0](https://inbox.shipbastion.com/)**
 
 - **Audit Date:** 2026-11-22
 - **Sample Size:** **60 live custom domains** of recently active public GitHub indie SaaS & AI web app repositories (`.com`, `.dev`, `.io`, `.ai`, `.app`, `.xyz`, `.org`, `.tech`)
@@ -57,7 +57,7 @@
 
 ## How to Fix Your Own Domain in 3 Minutes
 
-1. **Run a Free 6-Phase Live Audit:** Check your exact NS/SOA, MX redundancy, SPF CIDR layers, 24 DKIM selectors, and strict RFC 7489 DMARC syntax at **[inbox-checker.appwrite.network](https://inbox-checker.appwrite.network/)**.
-2. **Collapse `>10` SPF Lookups Free:** Use the free online **[SPF Flattener](https://inbox-checker.appwrite.network/spf-flattener)** to resolve nested `include:` chains before they hit RFC 7208 `PermError`.
-3. **Unlock Copy-Paste 5-Registrar DNS Records ($2 Launch Special, reg. $9, $0/mo):** Get merged SPF, enforced DMARC (`p=quarantine` -> `p=reject`), active DKIM host alignment, MTA-STS, and TLS-RPT formatted for Cloudflare, GoDaddy, Namecheap, Aliyun, and DNSPod — **[Unlock Single-Domain Emergency Fix ($2 Launch Special)](https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield)** (vs. `$432+/yr` DMARC SaaS subscriptions).
-4. **Also Launching a Web App?** Run a free 6-phase secret, Supabase RLS, Firebase, and CSP audit on **[VibeShield v7.0](https://vibe-checker.appwrite.network/)** or check 78 TLDs + 17 aftermarket marketplaces free on **[BrandShield v6.2](https://brand-checker.appwrite.network/)**.
+1. **Run a Free 6-Phase Live Audit:** Check your exact NS/SOA, MX redundancy, SPF CIDR layers, 24 DKIM selectors, and strict RFC 7489 DMARC syntax at **[inbox.shipbastion.com](https://inbox.shipbastion.com/)**.
+2. **Collapse `>10` SPF Lookups Free:** Use the free online **[SPF Flattener](https://inbox.shipbastion.com/spf-flattener)** to resolve nested `include:` chains before they hit RFC 7208 `PermError`.
+3. **Unlock Copy-Paste 5-Registrar DNS Records ($2 Launch Special, reg. $9, $0/mo):** Get merged SPF, enforced DMARC (`p=quarantine` -> `p=reject`), active DKIM host alignment, MTA-STS, and TLS-RPT formatted for Cloudflare, GoDaddy, Namecheap, Aliyun, and DNSPod — **[Unlock Single-Domain Emergency Fix ($2 Launch Special)](https://api.shipbastion.com/go/gumroad/inboxshield)** (vs. `$432+/yr` DMARC SaaS subscriptions).
+4. **Also Launching a Web App?** Run a free 6-phase secret, Supabase RLS, Firebase, and CSP audit on **[VibeShield v7.0](https://shipbastion.com/)** or check 78 TLDs + 17 aftermarket marketplaces free on **[BrandShield v6.2](https://brand.shipbastion.com/)**.

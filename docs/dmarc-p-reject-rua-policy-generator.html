@@ -6,18 +6,18 @@
   <title>DMARC p=reject &amp; RUA Policy Generator + 3-Stage Rollout Planner | InboxShield</title>
   <meta name="description" content="Free interactive RFC 7489 DMARC p=reject and RUA policy generator with 3-stage safe rollout schedule (Day 1 p=none -> Day 7 p=quarantine -> Day 14 p=reject), live DNS lookup, and Cloudflare/GoDaddy/Route 53/Terraform exports." />
   <link rel="canonical" href="https://zcoldwater.github.io/inboxshield-cli/dmarc-p-reject-rua-policy-generator.html" />
-  <link rel="icon" type="image/svg+xml" href="https://inbox-checker.appwrite.network/favicon.svg?v=6" />
+  <link rel="icon" type="image/svg+xml" href="https://inbox.shipbastion.com/favicon.svg?v=6" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="DMARC p=reject &amp; RUA Policy Generator + Safe Rollout Planner | InboxShield" />
   <meta property="og:description" content="Build strict RFC 7489 DMARC p=reject records, inspect live DNS before editing, and export Registrar TXT, BIND Zone, or Cloudflare Terraform." />
   <meta property="og:url" content="https://zcoldwater.github.io/inboxshield-cli/dmarc-p-reject-rua-policy-generator.html" />
-  <meta property="og:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <meta property="og:image" content="https://brand.shipbastion.com/assets/cover-inboxshield-2usd.png" />
   <meta property="og:image:width" content="1280" />
   <meta property="og:image:height" content="720" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="DMARC p=reject &amp; RUA Policy Generator" />
   <meta name="twitter:description" content="Generate RFC 7489 DMARC p=reject policies with 3-stage safe rollout and live DNS validation." />
-  <meta name="twitter:image" content="https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png" />
+  <meta name="twitter:image" content="https://brand.shipbastion.com/assets/cover-inboxshield-2usd.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -28,10 +28,10 @@
         "applicationCategory": "SecurityApplication",
         "operatingSystem": "Web",
         "url": "https://zcoldwater.github.io/inboxshield-cli/dmarc-p-reject-rua-policy-generator.html",
-        "image": "https://brand-checker.appwrite.network/assets/cover-inboxshield-2usd.png",
+        "image": "https://brand.shipbastion.com/assets/cover-inboxshield-2usd.png",
         "offers": [
           { "@type": "Offer", "name": "Free Interactive DMARC p=reject Generator", "price": "0", "priceCurrency": "USD" },
-          { "@type": "Offer", "name": "InboxShield Single-Domain Fix Unlock (Launch Special, Reg. $9)", "price": "2.00", "priceCurrency": "USD", "url": "https://omnipulse-x402.appwrite.network/go/gumroad/inboxshield" }
+          { "@type": "Offer", "name": "InboxShield Single-Domain Fix Unlock (Launch Special, Reg. $9)", "price": "2.00", "priceCurrency": "USD", "url": "https://api.shipbastion.com/go/gumroad/inboxshield" }
         ]
       },
       {
@@ -142,12 +142,12 @@
         <a href="./google-yahoo-2026-bulk-sender-compliance-checklist.html" data-t="nav_gy">2026 Compliance Checklist</a>
         <a href="./spf-record-generator.html" data-t="nav_spf">SPF Builder</a>
         <a href="./top-60-saas-email-authentication-benchmark-2026.html" data-t="nav_bench">Top 60 Benchmark</a>
-        <a href="https://inbox-checker.appwrite.network/?ref=dmarc-reject-nav" target="_blank" rel="noopener" data-t="nav_app">Full 6-Phase Audit</a>
+        <a href="https://inbox.shipbastion.com/?ref=dmarc-reject-nav" target="_blank" rel="noopener" data-t="nav_app">Full 6-Phase Audit</a>
         <div class="lang-pill" role="group" aria-label="Language">
           <button type="button" class="lang-btn active" id="btnEn" onclick="setLang('en',true)">EN</button>
           <button type="button" class="lang-btn" id="btnZh" onclick="setLang('zh',true)">中文</button>
         </div>
-        <a class="nav-cta" id="navUnlockLink" href="https://omnipulse-x402.appwrite.network/checkout/inboxshield" target="_blank" rel="noopener" data-t="nav_cta">Unlock 5-Record Fix $2</a>
+        <a class="nav-cta" id="navUnlockLink" href="https://api.shipbastion.com/checkout/inboxshield" target="_blank" rel="noopener" data-t="nav_cta">Unlock 5-Record Fix $2</a>
       </nav>
     </div>
   </header>
@@ -283,7 +283,7 @@
 
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button type="button" class="btn btn-emerald" id="copyBtn" onclick="copyOut()" data-t="btn_copy">Copy Output</button>
-          <a id="verifyBtn" class="btn btn-ghost" href="https://inbox-checker.appwrite.network/?ref=dmarc-reject-gen" target="_blank" rel="noopener" data-t="btn_verify">Verify Live DNS -&gt;</a>
+          <a id="verifyBtn" class="btn btn-ghost" href="https://inbox.shipbastion.com/?ref=dmarc-reject-gen" target="_blank" rel="noopener" data-t="btn_verify">Verify Live DNS -&gt;</a>
         </div>
 
         <div class="lint-list" id="lintList"></div>
@@ -291,7 +291,7 @@
         <div class="upsell-box">
           <div style="font-weight:800;font-size:0.9rem;color:#fff" data-t="up_t">Need Conflict-Free Merged SPF + DKIM + DMARC for Your Real Domain?</div>
           <div style="font-size:0.79rem;color:#cbd5e1;margin:5px 0 10px" data-t="up_d">InboxShield v7.2 auto-merges duplicate SPF conflicts, flattens &gt;10 lookup PermErrors, verifies 24 DKIM keys, and generates exact 5-registrar copy-paste records + A4 PDF for $2 Launch Special (was $9).</div>
-          <a id="checkoutBtn" class="btn btn-blue btn-sm" href="https://omnipulse-x402.appwrite.network/checkout/inboxshield" target="_blank" rel="noopener" data-t="up_cta">Unlock Full 5-Record Fix — $2 (was $9)</a>
+          <a id="checkoutBtn" class="btn btn-blue btn-sm" href="https://api.shipbastion.com/checkout/inboxshield" target="_blank" rel="noopener" data-t="up_cta">Unlock Full 5-Record Fix — $2 (was $9)</a>
         </div>
       </section>
     </div>
@@ -299,17 +299,17 @@
     <footer>
       <div><strong style="color:var(--ink)">InboxShield · OmniForge · Agent Arena Studio</strong></div>
       <div style="display:flex;gap:14px;flex-wrap:wrap">
-        <a href="https://inbox-checker.appwrite.network/" target="_blank" rel="noopener">InboxShield Web App</a>
+        <a href="https://inbox.shipbastion.com/" target="_blank" rel="noopener">InboxShield Web App</a>
         <a href="./google-yahoo-2026-bulk-sender-compliance-checklist.html">2026 Compliance Checklist</a>
-        <a href="https://inbox-checker.appwrite.network/spf-flattener" target="_blank" rel="noopener">Free SPF Flattener</a>
-        <a href="https://omnipulse-x402.appwrite.network/go/gumroad/suite" target="_blank" rel="noopener">Complete Suite ($5, reg. $29)</a>
-        <a href="https://omnipulse-x402.appwrite.network/support" target="_blank" rel="noopener">Support &amp; 14-Day Refund</a>
+        <a href="https://inbox.shipbastion.com/spf-flattener" target="_blank" rel="noopener">Free SPF Flattener</a>
+        <a href="https://api.shipbastion.com/go/gumroad/suite" target="_blank" rel="noopener">Complete Suite ($5, reg. $29)</a>
+        <a href="https://api.shipbastion.com/support" target="_blank" rel="noopener">Support &amp; 14-Day Refund</a>
       </div>
     </footer>
   </main>
 
 <script>
-(()=>{let E="https://omnipulse-x402.appwrite.network/v1/telemetry",d=document,de=d.documentElement,w=window,n=navigator,l=location,M=Math,N=Date.now,on=(x,e,f,o)=>x.addEventListener(e,f,o),a=0,v=d.hidden?0:N(),sc=0,c={scan:0,outbound:0,paywall:0},ll=0,tz="",id="is_"+N().toString(36)+M.random().toString(36).slice(2,9);try{id=sessionStorage.of_sid_is||(sessionStorage.of_sid_is=id);}catch{}try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";}catch{}let u=()=>{let h=de.scrollHeight-innerHeight;if(h>0)sc=M.max(sc,M.min(100,M.round(scrollY/h*100)));},t=ev=>{u();let b=JSON.stringify({site:"inboxshield",sid:id,event:ev,path:l.pathname.slice(0,160),webdriver:!!n.webdriver,screen:screen.width+"x"+screen.height,dwellSec:M.round((a+(v?N()-v:0))/1e3),scrollPct:sc,scansRun:c.scan,outboundClicks:c.outbound,paywallClicks:c.paywall,referrer:d.referrer.slice(0,128),tz,lang:de.lang||"en"});if(!n.sendBeacon?.(E,b))fetch(E,{method:"POST",body:b,keepalive:1}).catch(()=>{});},lv=()=>{if(v){a+=N()-v;v=0;}if(N()-ll>1e3){ll=N();t("leave");}};w.__ofTrack=ev=>{if(ev in c)c[ev]++;t(ev);};on(w,"scroll",u,{passive:1});on(d,"click",e=>{let g=e.target?.closest?.("a[href]"),h=g?.href||"";if(/gumroad|\/checkout\//i.test(h))__ofTrack("paywall");else if(/^https?:/i.test(h)&&g.hostname!==l.hostname)__ofTrack("outbound");},1);on(d,"visibilitychange",()=>d.hidden?lv():!v&&(v=N()));on(w,"pagehide",lv);setInterval(()=>!d.hidden&&t("heartbeat"),15e3);on(d,"DOMContentLoaded",()=>t("pageview"));})();
+(()=>{let E="https://api.shipbastion.com/v1/telemetry",d=document,de=d.documentElement,w=window,n=navigator,l=location,M=Math,N=Date.now,on=(x,e,f,o)=>x.addEventListener(e,f,o),a=0,v=d.hidden?0:N(),sc=0,c={scan:0,outbound:0,paywall:0},ll=0,tz="",id="is_"+N().toString(36)+M.random().toString(36).slice(2,9);try{id=sessionStorage.of_sid_is||(sessionStorage.of_sid_is=id);}catch{}try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";}catch{}let u=()=>{let h=de.scrollHeight-innerHeight;if(h>0)sc=M.max(sc,M.min(100,M.round(scrollY/h*100)));},t=ev=>{u();let b=JSON.stringify({site:"inboxshield",sid:id,event:ev,path:l.pathname.slice(0,160),webdriver:!!n.webdriver,screen:screen.width+"x"+screen.height,dwellSec:M.round((a+(v?N()-v:0))/1e3),scrollPct:sc,scansRun:c.scan,outboundClicks:c.outbound,paywallClicks:c.paywall,referrer:d.referrer.slice(0,128),tz,lang:de.lang||"en"});if(!n.sendBeacon?.(E,b))fetch(E,{method:"POST",body:b,keepalive:1}).catch(()=>{});},lv=()=>{if(v){a+=N()-v;v=0;}if(N()-ll>1e3){ll=N();t("leave");}};w.__ofTrack=ev=>{if(ev in c)c[ev]++;t(ev);};on(w,"scroll",u,{passive:1});on(d,"click",e=>{let g=e.target?.closest?.("a[href]"),h=g?.href||"";if(/gumroad|\/checkout\//i.test(h))__ofTrack("paywall");else if(/^https?:/i.test(h)&&g.hostname!==l.hostname)__ofTrack("outbound");},1);on(d,"visibilitychange",()=>d.hidden?lv():!v&&(v=N()));on(w,"pagehide",lv);setInterval(()=>!d.hidden&&t("heartbeat"),15e3);on(d,"DOMContentLoaded",()=>t("pageview"));})();
 </script>
 <script>
 const DICT = {
@@ -482,10 +482,10 @@ function render() {
     '<div class="lint-item"><span class="mono"><strong>' + c.k + '</strong> · ' + c.v + '</span><span class="pill ' + (c.ok ? "p-pass" : "p-warn") + '">' + (c.ok ? "PASS" : "WARN") + '</span></div>'
   ).join("");
 
-  document.getElementById("verifyBtn").href = "https://inbox-checker.appwrite.network/?domain=" + encodeURIComponent(dom) + "&ref=dmarc-reject-gen";
+  document.getElementById("verifyBtn").href = "https://inbox.shipbastion.com/?domain=" + encodeURIComponent(dom) + "&ref=dmarc-reject-gen";
   const ctxQ = "?domain=" + encodeURIComponent(dom) + (lastScore != null ? ("&score=" + encodeURIComponent(String(lastScore)) + "&issues=" + encodeURIComponent(String(lastIssues || 0))) : "");
-  document.getElementById("checkoutBtn").href = "https://omnipulse-x402.appwrite.network/checkout/inboxshield" + ctxQ;
-  document.getElementById("navUnlockLink").href = "https://omnipulse-x402.appwrite.network/checkout/inboxshield" + ctxQ;
+  document.getElementById("checkoutBtn").href = "https://api.shipbastion.com/checkout/inboxshield" + ctxQ;
+  document.getElementById("navUnlockLink").href = "https://api.shipbastion.com/checkout/inboxshield" + ctxQ;
 }
 
 async function fetchLiveDns() {
@@ -498,7 +498,7 @@ async function fetchLiveDns() {
   box.style.display = "block";
   box.textContent = lang === "zh" ? ("正在实时读取 " + dom + " 的 DNS 记录...") : ("Reading live DNS records for " + dom + "...");
   try {
-    const resp = await fetch("https://inbox-checker.appwrite.network/api/free-audit?domain=" + encodeURIComponent(dom));
+    const resp = await fetch("https://inbox.shipbastion.com/api/free-audit?domain=" + encodeURIComponent(dom));
     const d = await resp.json();
     if (!resp.ok || !d.ok) {
       box.textContent = d.error || "Lookup failed";
