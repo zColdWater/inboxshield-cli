@@ -9,6 +9,17 @@
 [![Live VibeShield Score](https://shipbastion.com/api/badge.svg?url=zcoldwater.github.io)](https://shipbastion.com/?url=https://zcoldwater.github.io/inboxshield-cli/)
 [![AI Search Readiness](https://cite.shipbastion.com/api/badge?url=zcoldwater.github.io/inboxshield-cli)](https://cite.shipbastion.com/?url=https://zcoldwater.github.io/inboxshield-cli/)
 
+
+<!-- shipbastion-hero:start -->
+<p align="center">
+  <a href="https://inbox.shipbastion.com/">
+    <img src="./assets/shipbastion-inboxshield-preview.png" alt="ShipBastion InboxShield — Live SPF, DKIM, DMARC & MTA-STS Email Deliverability Workbench" width="100%" />
+  </a>
+</p>
+
+*Live email DNS workbench at [inbox.shipbastion.com](https://inbox.shipbastion.com/) — instant SPF/DKIM/DMARC trace with zero signup.*
+<!-- shipbastion-hero:end -->
+
 - **Flagship v7.0 Online Web App (Zero Signup, 6-Phase Real Protocol Trace):** [https://inbox.shipbastion.com](https://inbox.shipbastion.com)
 - **Free Online SPF Flattener (Collapse `>10`-Lookup PermError -> `1/10`):** [https://inbox.shipbastion.com/spf-flattener](https://inbox.shipbastion.com/spf-flattener)
 - **Free Interactive DNS Builders (Zero Signup):** [RFC 7489 DMARC Record Generator](https://zcoldwater.github.io/inboxshield-cli/dmarc-record-generator.html) · [SPF Record & 10-Lookup Budget Calculator](https://zcoldwater.github.io/inboxshield-cli/spf-record-generator.html)
