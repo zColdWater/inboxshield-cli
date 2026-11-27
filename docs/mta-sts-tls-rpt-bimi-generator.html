@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MTA-STS, TLS-RPT &amp; BIMI Generator + SVG Tiny-PS Validator | InboxShield</title>
+  <meta name="description" content="Free interactive RFC 8461 MTA-STS policy generator (_mta-sts TXT + mta-sts.txt + Cloudflare Worker/Nginx/Caddy configs), RFC 8460 TLS-RPT builder, and BIMI SVG Tiny-PS validator with live DNS lookup." />
+  <link rel="canonical" href="https://zcoldwater.github.io/inboxshield-cli/mta-sts-tls-rpt-bimi-generator.html" />
+  <link rel="icon" type="image/svg+xml" href="https://inbox.shipbastion.com/favicon.svg?v=6" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MTA-STS, TLS-RPT &amp; BIMI Generator + SVG Tiny-PS Validator | InboxShield" />
+  <meta property="og:description" content="Generate RFC 8461 MTA-STS policies, RFC 8460 TLS-RPT records, and BIMI TXT records with live MX auto-fetch, SVG Tiny-PS validation, and Cloudflare/Nginx/Caddy/Terraform exports." />
+  <meta property="og:url" content="https://zcoldwater.github.io/inboxshield-cli/mta-sts-tls-rpt-bimi-generator.html" />
+  <meta property="og:image" content="https://brand.shipbastion.com/assets/cover-inboxshield-2usd.png" />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="720" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MTA-STS, TLS-RPT &amp; BIMI Generator + SVG Tiny-PS Validator" />
+  <meta name="twitter:description" content="Build RFC 8461 MTA-STS, RFC 8460 TLS-RPT, and BIMI DNS records with live MX lookup and Cloudflare Worker/Nginx/Caddy snippets." />
+  <meta name="twitter:image" content="https://brand.shipbastion.com/assets/cover-inboxshield-2usd.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "InboxShield MTA-STS, TLS-RPT & BIMI Generator",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Web",
+        "url": "https://zcoldwater.github.io/inboxshield-cli/mta-sts-tls-rpt-bimi-generator.html",
+        "image": "https://brand.shipbastion.com/assets/cover-inboxshield-2usd.png",
+        "offers": [
+          { "@type": "Offer", "name": "Free Interactive MTA-STS, TLS-RPT & BIMI Generator", "price": "0", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "InboxShield Single-Domain Fix Unlock (Black Friday 2026, Reg. $9)", "price": "2.00", "priceCurrency": "USD", "url": "https://api.shipbastion.com/go/gumroad/inboxshield" }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "InboxShield Tools", "item": "https://zcoldwater.github.io/inboxshield-cli/" },
+          { "@type": "ListItem", "position": 2, "name": "MTA-STS, TLS-RPT & BIMI Generator", "item": "https://zcoldwater.github.io/inboxshield-cli/mta-sts-tls-rpt-bimi-generator.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are the two pieces required to enable MTA-STS (RFC 8461)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "MTA-STS requires both a DNS TXT record at _mta-sts.yourdomain.com (v=STSv1; id=YYYYMMDDHHMMSSZ) and a plain-text HTTPS policy file hosted at https://mta-sts.yourdomain.com/.well-known/mta-sts.txt listing your valid MX host patterns, mode (testing or enforce), and max_age."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Should I start MTA-STS in testing mode or enforce mode?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Always deploy mode: testing alongside an RFC 8460 TLS-RPT record (_smtp._tls) for 7 to 14 days first. Once TLS-RPT reports show zero certificate or MX-pattern mismatches, switch mode to enforce and increase max_age to at least 604800 seconds (7 days) or 2592000 seconds (30 days)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does BIMI require DMARC enforcement and SVG Tiny-PS?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Receiving mailbox providers only render BIMI brand logos when the sending domain enforces DMARC at p=quarantine (pct=100) or p=reject, and the logo conforms strictly to SVG Tiny Portable/Secure (version=1.2, baseProfile=tiny-ps, square viewBox, no scripts or external references, under 32 KB)."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --bg:#ffffff; --surface:#f8fafc; --border:#e2e8f0; --ink:#0f172a; --muted:#475569; --subtle:#64748b;
+      --emerald:#059669; --emerald-bg:#ecfdf5; --emerald-bd:#a7f3d0;
+      --blue:#2563eb; --blue-bg:#eff6ff; --blue-bd:#bfdbfe;
+      --amber:#b45309; --amber-bg:#fffbeb; --amber-bd:#fde68a;
+      --red:#dc2626; --red-bg:#fef2f2; --red-bd:#fecaca;
+    }
+    * { box-sizing:border-box; }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif; line-height:1.58; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .mono { font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
+    .topbar { border-bottom:1px solid var(--border); background:rgba(255,255,255,0.96); position:sticky; top:0; z-index:20; backdrop-filter:blur(8px); }
+    .topbar-in { max-width:1080px; margin:0 auto; padding:11px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .brand { display:inline-flex; align-items:center; gap:9px; font-weight:800; color:var(--ink); font-size:0.96rem; letter-spacing:-0.02em; }
+    .brand-dot { width:10px; height:10px; border-radius:50%; background:var(--emerald); }
+    .nav-links { display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:0.84rem; font-weight:600; }
+    .nav-links a { color:var(--muted); }
+    .nav-links a.nav-cta { background:var(--ink); color:#fff; padding:7px 13px; border-radius:7px; }
+    .nav-links a.nav-cta:hover { text-decoration:none; opacity:0.92; }
+    .lang-pill { display:inline-flex; border:1px solid var(--border); border-radius:99px; background:var(--surface); padding:2px; }
+    .lang-btn { border:0; background:transparent; color:var(--muted); font:700 11.5px/1 inherit; padding:5px 9px; border-radius:99px; cursor:pointer; }
+    .lang-btn.active { background:#fff; color:var(--ink); box-shadow:0 1px 2px rgba(15,23,42,0.08); }
+    .wrap { max-width:1080px; margin:0 auto; padding:30px 20px 72px; }
+    .eyebrow { display:inline-block; font-size:0.74rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--emerald); background:var(--emerald-bg); border:1px solid var(--emerald-bd); padding:4px 10px; border-radius:99px; margin-bottom:12px; }
+    h1 { font-size:clamp(1.65rem,3.4vw,2.35rem); line-height:1.15; letter-spacing:-0.03em; margin:0 0 10px; }
+    .lead { color:var(--muted); max-width:820px; margin:0 0 20px; font-size:0.98rem; }
+    .bf-strip { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; background:#0f172a; color:#f8fafc; border-radius:12px; padding:13px 18px; margin-bottom:22px; border:1px solid #1e293b; }
+    .bf-strip strong { color:#34d399; }
+    .bf-strip p { margin:0; font-size:0.86rem; color:#cbd5e1; }
+    .bf-actions { display:flex; gap:8px; flex-wrap:wrap; }
+    .grid-2 { display:grid; grid-template-columns:1.03fr 0.97fr; gap:20px; align-items:start; }
+    @media (max-width:860px) { .grid-2 { grid-template-columns:1fr; } }
+    .card { background:#fff; border:1px solid var(--border); border-radius:13px; padding:20px; min-width:0; }
+    .card + .card { margin-top:16px; }
+    .card-dark { background:#0f172a; color:#f8fafc; border-radius:13px; padding:20px; min-width:0; }
+    .card-dark + .card-dark, .card-dark + .card { margin-top:16px; }
+    .sec-title { font-size:0.98rem; font-weight:800; margin:0 0 12px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+    .field { margin-bottom:13px; }
+    .field label { display:block; font-size:0.81rem; font-weight:700; color:var(--ink); margin-bottom:4px; }
+    .field input, .field select, .field textarea { width:100%; padding:9px 11px; border:1.5px solid var(--border); border-radius:8px; font-size:0.88rem; color:var(--ink); background:#fff; font-family:inherit; }
+    .field textarea { min-height:92px; resize:vertical; }
+    .field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media (max-width:520px) { .field-row { grid-template-columns:1fr; } }
+    .inline-row { display:flex; gap:8px; flex-wrap:wrap; }
+    .inline-row input { flex:1 1 180px; min-width:0; }
+    .chips { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+    .chip { border:1px solid var(--border); background:var(--surface); color:var(--muted); font:600 12px/1 inherit; padding:5px 10px; border-radius:99px; cursor:pointer; }
+    .chip:hover { border-color:var(--blue); color:var(--blue); background:#fff; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:9px 15px; border-radius:8px; font-weight:700; font-size:0.84rem; cursor:pointer; border:1px solid transparent; font-family:inherit; text-decoration:none; }
+    .btn:hover { text-decoration:none; opacity:0.94; }
+    .btn-blue { background:var(--blue); color:#fff; }
+    .btn-emerald { background:#10b981; color:#022c22; }
+    .btn-out { background:#fff; color:var(--ink); border-color:var(--border); }
+    .btn-ghost { background:transparent; color:#e2e8f0; border-color:#475569; }
+    .btn-sm { padding:6px 10px; font-size:0.78rem; }
+    .pill-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+    .pill-tab { border:1px solid #334155; background:#1e293b; color:#cbd5e1; font:700 12px/1 inherit; padding:7px 11px; border-radius:8px; cursor:pointer; }
+    .pill-tab.active { background:#10b981; border-color:#10b981; color:#022c22; }
+    .pill-tab-light { border:1px solid var(--border); background:var(--surface); color:var(--muted); font:700 12px/1 inherit; padding:6px 10px; border-radius:8px; cursor:pointer; }
+    .pill-tab-light.active { background:var(--ink); border-color:var(--ink); color:#fff; }
+    .codebox { background:#020617; color:#e2e8f0; border:1px solid #1e293b; border-radius:10px; padding:13px 14px; font-size:0.8rem; line-height:1.55; overflow-x:auto; white-space:pre-wrap; word-break:break-word; margin:0; }
+    .status-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:12px; }
+    @media (max-width:520px) { .status-grid { grid-template-columns:1fr; } }
+    .stat-tile { border:1px solid var(--border); background:var(--surface); border-radius:9px; padding:9px 11px; min-width:0; }
+    .stat-tile .k { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--subtle); }
+    .stat-tile .v { font-size:0.84rem; font-weight:700; margin-top:2px; word-break:break-word; }
+    .ok { color:var(--emerald); }
+    .warn { color:var(--amber); }
+    .bad { color:var(--red); }
+    .notice { border-radius:9px; padding:10px 12px; font-size:0.82rem; margin-top:10px; border:1px solid var(--border); background:var(--surface); color:var(--muted); }
+    .notice.ok-box { background:var(--emerald-bg); border-color:var(--emerald-bd); color:#065f46; }
+    .notice.warn-box { background:var(--amber-bg); border-color:var(--amber-bd); color:#92400e; }
+    .notice.bad-box { background:var(--red-bg); border-color:var(--red-bd); color:#991b1b; }
+    .check-list { list-style:none; margin:10px 0 0; padding:0; display:grid; gap:6px; }
+    .check-list li { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; padding:7px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface); font-size:0.81rem; }
+    .badge { display:inline-block; font-size:0.71rem; font-weight:800; padding:2px 7px; border-radius:99px; white-space:nowrap; }
+    .badge-pass { background:var(--emerald-bg); color:var(--emerald); border:1px solid var(--emerald-bd); }
+    .badge-fail { background:var(--red-bg); color:var(--red); border:1px solid var(--red-bd); }
+    .badge-warn { background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-bd); }
+    .faq { margin-top:34px; display:grid; gap:12px; }
+    .faq details { border:1px solid var(--border); border-radius:11px; padding:13px 16px; background:#fff; }
+    .faq summary { font-weight:700; cursor:pointer; font-size:0.92rem; }
+    .faq p { margin:8px 0 0; color:var(--muted); font-size:0.88rem; }
+    footer { border-top:1px solid var(--border); margin-top:44px; padding-top:20px; font-size:0.82rem; color:var(--subtle); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-in">
+      <a class="brand" href="./"><span class="brand-dot"></span><span>InboxShield Tools</span></a>
+      <nav class="nav-links">
+        <a href="https://inbox.shipbastion.com/" data-t="nav_app">Full 6-Phase Scanner</a>
+        <a href="https://inbox.shipbastion.com/spf-flattener" data-t="nav_spf">SPF Flattener</a>
+        <a href="./dmarc-p-reject-rua-policy-generator.html" data-t="nav_dmarc">DMARC Planner</a>
+        <a href="./google-yahoo-2026-bulk-sender-compliance-checklist.html" data-t="nav_bulk">2026 Checklist</a>
+        <a class="nav-cta" id="navScanCta" href="https://inbox.shipbastion.com/" data-t="nav_cta">Run Live Audit</a>
+        <div class="lang-pill" role="group" aria-label="Language">
+          <button type="button" class="lang-btn active" id="langEnBtn">EN</button>
+          <button type="button" class="lang-btn" id="langZhBtn">中文</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <span class="eyebrow" data-t="eyebrow">RFC 8461 &middot; RFC 8460 &middot; BIMI SVG Tiny-PS</span>
+    <h1 data-t="h1">MTA-STS, TLS-RPT &amp; BIMI Generator + SVG Tiny-PS Validator</h1>
+    <p class="lead" data-t="lead">Prevent SMTP downgrade attacks and display your verified brand logo in Gmail, Apple Mail, and Yahoo. Fetch your domain's live MX and DMARC records, generate copy-paste DNS TXT + mta-sts.txt hosting configs, and lint BIMI SVG Tiny-PS files in your browser with zero signup.</p>
+
+    <div class="bf-strip">
+      <p data-t="bf_text"><strong>Black Friday &amp; Cyber Monday 2026 (Ends Dec 1):</strong> Need all 5 conflict-free DNS fixes (SPF, DMARC, DKIM, MTA-STS, TLS-RPT) + 5-registrar walkthroughs + A4 PDF for your domain? Unlock InboxShield Pro for <strong>$2 one-time</strong> (78% off regular $9) or all 3 ShipBastion apps for <strong>$5 one-time</strong> (reg. $29).</p>
+      <div class="bf-actions">
+        <a class="btn btn-emerald btn-sm" id="bfUnlockBtn" href="https://api.shipbastion.com/go/gumroad/inboxshield" target="_blank" rel="noopener" data-t="bf_cta1">Unlock Pro — $2 (78% OFF)</a>
+        <a class="btn btn-ghost btn-sm" id="bfSuiteBtn" href="https://api.shipbastion.com/checkout/launch-stack" target="_blank" rel="noopener" data-t="bf_cta2">3-App Suite — $5</a>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <section class="card">
+          <h2 class="sec-title"><span data-t="s1_title">1. Domain &amp; Live DNS Auto-Fetch</span></h2>
+          <div class="field">
+            <label for="domainInput" data-t="lbl_domain">Sending Domain</label>
+            <div class="inline-row">
+              <input id="domainInput" type="text" value="example.com" placeholder="yourdomain.com" autocomplete="off" />
+              <button type="button" class="btn btn-blue" id="fetchDnsBtn" data-t="btn_fetch">Fetch Live MX &amp; DNS</button>
+            </div>
+            <div class="chips">
+              <button type="button" class="chip" data-sample="stripe.com">stripe.com</button>
+              <button type="button" class="chip" data-sample="resend.com">resend.com</button>
+              <button type="button" class="chip" data-sample="github.com">github.com</button>
+              <button type="button" class="chip" data-sample="google.com">google.com</button>
+            </div>
+          </div>
+          <div id="liveStatusWrap" class="status-grid" aria-live="polite">
+            <div class="stat-tile"><div class="k">MX Hosts</div><div class="v mono" id="stMx">Not fetched yet</div></div>
+            <div class="stat-tile"><div class="k">DMARC Policy</div><div class="v mono" id="stDmarc">Not fetched yet</div></div>
+            <div class="stat-tile"><div class="k">_mta-sts TXT</div><div class="v mono" id="stMta">Not fetched yet</div></div>
+            <div class="stat-tile"><div class="k">_smtp._tls &amp; BIMI</div><div class="v mono" id="stRpt">Not fetched yet</div></div>
+          </div>
+          <div id="liveNotice" class="notice" style="display:none;"></div>
+        </section>
+
+        <section class="card">
+          <h2 class="sec-title">
+            <span data-t="s2_title">2. MTA-STS Policy (RFC 8461)</span>
+            <button type="button" class="btn btn-out btn-sm" id="regenIdBtn" data-t="btn_regen_id">Refresh Policy ID</button>
+          </h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="stsMode" data-t="lbl_mode">Enforcement Mode</label>
+              <select id="stsMode">
+                <option value="testing" selected>testing (Recommended Day 1-14)</option>
+                <option value="enforce">enforce (Reject downgrade / bad cert)</option>
+                <option value="none">none (Disable MTA-STS)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="stsMaxAge" data-t="lbl_maxage">Cache max_age (seconds)</label>
+              <select id="stsMaxAge">
+                <option value="86400">86400 (1 day - initial rollout)</option>
+                <option value="604800" selected>604800 (7 days - standard testing)</option>
+                <option value="2592000">2592000 (30 days - production enforce)</option>
+                <option value="31557600">31557600 (365 days - maximum)</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="stsPolicyId" data-t="lbl_id">Policy ID (increment whenever mta-sts.txt changes)</label>
+            <input id="stsPolicyId" class="mono" type="text" value="20261127140000Z" />
+          </div>
+          <div class="field">
+            <label for="mxPatterns" data-t="lbl_mx">Authorized MX Patterns (one per line)</label>
+            <textarea id="mxPatterns" class="mono">*.google.com
+aspmx.l.google.com
+alt1.aspmx.l.google.com
+alt2.aspmx.l.google.com</textarea>
+            <div class="chips">
+              <button type="button" class="chip" data-mxpreset="gws">Google Workspace</button>
+              <button type="button" class="chip" data-mxpreset="m365">Microsoft 365</button>
+              <button type="button" class="chip" data-mxpreset="cf">Cloudflare Email</button>
+              <button type="button" class="chip" data-mxpreset="zoho">Zoho Mail</button>
+              <button type="button" class="chip" data-mxpreset="fastmail">Fastmail</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2 class="sec-title"><span data-t="s3_title">3. TLS-RPT (RFC 8460) &amp; BIMI Record</span></h2>
+          <div class="field-row">
+            <div class="field">
+              <label for="tlsRptEmail" data-t="lbl_tlsrpt">TLS-RPT Aggregate Email (rua=mailto:)</label>
+              <input id="tlsRptEmail" type="email" value="tls-rpt@example.com" placeholder="tls-rpt@yourdomain.com" />
+            </div>
+            <div class="field">
+              <label for="tlsRptHttps" data-t="lbl_tlshttps">Optional HTTPS Webhook URI</label>
+              <input id="tlsRptHttps" type="url" value="" placeholder="https://reports.yourdomain.com/tls-rpt" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="bimiSelector" data-t="lbl_bimi_sel">BIMI Selector</label>
+              <input id="bimiSelector" class="mono" type="text" value="default" />
+            </div>
+            <div class="field">
+              <label for="bimiLogo" data-t="lbl_bimi_logo">SVG Tiny-PS Logo URL (HTTPS)</label>
+              <input id="bimiLogo" type="url" value="https://example.com/brand/logo-bimi.svg" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="bimiCert" data-t="lbl_bimi_cert">Optional VMC / CMC Authority Evidence URL (.pem)</label>
+            <input id="bimiCert" type="url" value="" placeholder="https://example.com/brand/vmc-cert.pem (leave blank for self-asserted)" />
+          </div>
+          <div id="bimiDmarcNotice" class="notice warn-box" data-t="bimi_dmarc_hint">BIMI Prerequisite: Gmail, Apple Mail, and Yahoo require DMARC p=quarantine (pct=100) or p=reject before displaying your BIMI logo.</div>
+        </section>
+
+        <section class="card">
+          <h2 class="sec-title">
+            <span data-t="s4_title">4. Interactive BIMI SVG Tiny-PS Linter</span>
+            <button type="button" class="btn btn-out btn-sm" id="loadSampleSvgBtn" data-t="btn_sample_svg">Load Valid Sample SVG</button>
+          </h2>
+          <div class="field" style="margin-bottom:6px;">
+            <label for="svgInput" data-t="lbl_svg">Paste raw .svg markup to validate against draft-blank-ietf-bimi</label>
+            <textarea id="svgInput" class="mono" placeholder='<svg version="1.2" baseProfile="tiny-ps" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><title>Brand Logo</title>...</svg>'></textarea>
+          </div>
+          <ul id="svgChecks" class="check-list"></ul>
+        </section>
+      </div>
+
+      <div>
+        <section class="card-dark">
+          <div class="sec-title">
+            <span data-t="out_dns_title">Generated DNS Records</span>
+            <button type="button" class="btn btn-emerald btn-sm" id="copyDnsBtn" data-t="btn_copy">Copy Output</button>
+          </div>
+          <div class="pill-tabs" role="tablist">
+            <button type="button" class="pill-tab active" data-export="registrar">Registrar TXT</button>
+            <button type="button" class="pill-tab" data-export="bind">BIND Zone</button>
+            <button type="button" class="pill-tab" data-export="terraform">Cloudflare Terraform</button>
+            <button type="button" class="pill-tab" data-export="markdown">Rollout Checklist</button>
+          </div>
+          <pre id="dnsOutput" class="codebox mono"></pre>
+        </section>
+
+        <section class="card-dark">
+          <div class="sec-title">
+            <span data-t="out_policy_title">Policy File: https://mta-sts.&lt;domain&gt;/.well-known/mta-sts.txt</span>
+            <button type="button" class="btn btn-emerald btn-sm" id="copyPolicyBtn" data-t="btn_copy_policy">Copy mta-sts.txt</button>
+          </div>
+          <pre id="policyOutput" class="codebox mono"></pre>
+          <p style="font-size:0.78rem;color:#94a3b8;margin:10px 0 0;" data-t="policy_note">Must be served over valid HTTPS (no redirects to a different host) with Content-Type: text/plain and CRLF/LF line endings.</p>
+        </section>
+
+        <section class="card">
+          <div class="sec-title">
+            <span data-t="out_host_title">1-Click Policy Host Deployment Config</span>
+            <button type="button" class="btn btn-out btn-sm" id="copyHostBtn" data-t="btn_copy_cfg">Copy Config</button>
+          </div>
+          <div class="pill-tabs" role="tablist">
+            <button type="button" class="pill-tab-light active" data-host="worker">Cloudflare Worker</button>
+            <button type="button" class="pill-tab-light" data-host="caddy">Caddyfile</button>
+            <button type="button" class="pill-tab-light" data-host="nginx">Nginx</button>
+            <button type="button" class="pill-tab-light" data-host="vercel">Vercel</button>
+          </div>
+          <pre id="hostOutput" class="codebox mono"></pre>
+        </section>
+
+        <section class="card">
+          <h2 class="sec-title" data-t="next_title">Verify Live Deployment in 3 Seconds</h2>
+          <p style="font-size:0.86rem;color:var(--muted);margin:0 0 12px;" data-t="next_desc">Once your DNS TXT records and mta-sts.txt policy file are live, run InboxShield's free 6-phase protocol audit to verify authoritative NS/SOA, recursive SPF 10-lookup count, 24 DKIM selectors, DMARC RFC 7489 syntax, MTA-STS, TLS-RPT, BIMI, and 5 DNSBL blacklists.</p>
+          <div class="inline-row">
+            <a class="btn btn-blue" id="verifyLiveBtn" href="https://inbox.shipbastion.com/" target="_blank" rel="noopener" data-t="btn_verify_live">Audit Domain Live on InboxShield</a>
+            <a class="btn btn-out" href="./dmarc-p-reject-rua-policy-generator.html" data-t="btn_go_dmarc">Open DMARC p=reject Planner</a>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <section class="faq">
+      <h2 style="font-size:1.15rem;margin:0 0 4px;" data-t="faq_h">Frequently Asked Questions</h2>
+      <details open>
+        <summary data-t="faq1_q">What DNS records do I need for MTA-STS and TLS-RPT?</summary>
+        <p data-t="faq1_a">Publish three records: (1) an A/AAAA or CNAME record for mta-sts.yourdomain.com pointing to the HTTPS host serving /.well-known/mta-sts.txt, (2) a TXT record at _mta-sts.yourdomain.com containing v=STSv1; id=..., and (3) a TXT record at _smtp._tls.yourdomain.com containing v=TLSRPTv1; rua=mailto:... to receive daily JSON TLS failure reports.</p>
+      </details>
+      <details>
+        <summary data-t="faq2_q">Why does mta-sts.txt need exact MX patterns instead of IP addresses?</summary>
+        <p data-t="faq2_a">RFC 8461 verifies that the sending server's resolved MX hostname matches one of the mx: lines in mta-sts.txt (supporting single-label wildcards such as *.google.com or *.mail.protection.outlook.com) and that the TLS certificate matches that hostname and chains to a trusted CA.</p>
+      </details>
+      <details>
+        <summary data-t="faq3_q">Do I need a paid VMC certificate for BIMI?</summary>
+        <p data-t="faq3_a">Yahoo Mail and Fastmail accept self-asserted BIMI records (a=;) as long as your domain enforces DMARC p=quarantine or p=reject and uses a valid SVG Tiny-PS logo. Gmail and Apple Mail require a Verified Mark Certificate (VMC) or Common Mark Certificate (CMC) referenced in a=https://...pem.</p>
+      </details>
+    </section>
+
+    <footer>
+      <div>
+        <a href="https://inbox.shipbastion.com/">InboxShield Web App</a> &middot;
+        <a href="https://inbox.shipbastion.com/spf-flattener">SPF Flattener</a> &middot;
+        <a href="./google-yahoo-2026-bulk-sender-compliance-checklist.html">2026 Bulk Sender Checklist</a> &middot;
+        <a href="./dmarc-p-reject-rua-policy-generator.html">DMARC p=reject Planner</a> &middot;
+        <a href="https://github.com/zColdWater/inboxshield-cli">MIT CLI on GitHub</a>
+      </div>
+      <div>OmniForge &middot; ShipBastion &middot; <a href="https://api.shipbastion.com/support">Support</a> &middot; <a href="https://api.shipbastion.com/refund-policy">14-Day Refund</a></div>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const I18N = {
+        en: {
+          nav_app: "Full 6-Phase Scanner", nav_spf: "SPF Flattener", nav_dmarc: "DMARC Planner",
+          nav_bulk: "2026 Checklist", nav_cta: "Run Live Audit",
+          eyebrow: "RFC 8461 · RFC 8460 · BIMI SVG Tiny-PS",
+          h1: "MTA-STS, TLS-RPT & BIMI Generator + SVG Tiny-PS Validator",
+          lead: "Prevent SMTP downgrade attacks and display your verified brand logo in Gmail, Apple Mail, and Yahoo. Fetch your domain's live MX and DMARC records, generate copy-paste DNS TXT + mta-sts.txt hosting configs, and lint BIMI SVG Tiny-PS files in your browser with zero signup.",
+          bf_cta1: "Unlock Pro — $2 (78% OFF)", bf_cta2: "3-App Suite — $5",
+          s1_title: "1. Domain & Live DNS Auto-Fetch", lbl_domain: "Sending Domain", btn_fetch: "Fetch Live MX & DNS",
+          s2_title: "2. MTA-STS Policy (RFC 8461)", btn_regen_id: "Refresh Policy ID",
+          lbl_mode: "Enforcement Mode", lbl_maxage: "Cache max_age (seconds)",
+          lbl_id: "Policy ID (increment whenever mta-sts.txt changes)", lbl_mx: "Authorized MX Patterns (one per line)",
+          s3_title: "3. TLS-RPT (RFC 8460) & BIMI Record", lbl_tlsrpt: "TLS-RPT Aggregate Email (rua=mailto:)",
+          lbl_tlshttps: "Optional HTTPS Webhook URI", lbl_bimi_sel: "BIMI Selector",
+          lbl_bimi_logo: "SVG Tiny-PS Logo URL (HTTPS)", lbl_bimi_cert: "Optional VMC / CMC Authority Evidence URL (.pem)",
+          bimi_dmarc_hint: "BIMI Prerequisite: Gmail, Apple Mail, and Yahoo require DMARC p=quarantine (pct=100) or p=reject before displaying your BIMI logo.",
+          s4_title: "4. Interactive BIMI SVG Tiny-PS Linter", btn_sample_svg: "Load Valid Sample SVG",
+          lbl_svg: "Paste raw .svg markup to validate against draft-blank-ietf-bimi",
+          out_dns_title: "Generated DNS Records", btn_copy: "Copy Output",
+          out_policy_title: "Policy File: https://mta-sts.<domain>/.well-known/mta-sts.txt", btn_copy_policy: "Copy mta-sts.txt",
+          policy_note: "Must be served over valid HTTPS (no redirects to a different host) with Content-Type: text/plain and CRLF/LF line endings.",
+          out_host_title: "1-Click Policy Host Deployment Config", btn_copy_cfg: "Copy Config",
+          next_title: "Verify Live Deployment in 3 Seconds",
+          next_desc: "Once your DNS TXT records and mta-sts.txt policy file are live, run InboxShield's free 6-phase protocol audit to verify authoritative NS/SOA, recursive SPF 10-lookup count, 24 DKIM selectors, DMARC RFC 7489 syntax, MTA-STS, TLS-RPT, BIMI, and 5 DNSBL blacklists.",
+          btn_verify_live: "Audit Domain Live on InboxShield", btn_go_dmarc: "Open DMARC p=reject Planner",
+          faq_h: "Frequently Asked Questions"
+        },
+        zh: {
+          nav_app: "6 阶段完整扫描", nav_spf: "SPF 展平工具", nav_dmarc: "DMARC 策略规划",
+          nav_bulk: "2026 群发清单", nav_cta: "在线实扫",
+          eyebrow: "RFC 8461 · RFC 8460 · BIMI SVG Tiny-PS",
+          h1: "MTA-STS、TLS-RPT 与 BIMI 记录生成器 + SVG Tiny-PS 校验器",
+          lead: "防止 SMTP 降级窃听并在 Gmail、Apple Mail 与 Yahoo 展示品牌徽标。一键拉取域名实时 MX 与 DMARC 记录，生成 DNS TXT、mta-sts.txt 托管配置及 BIMI SVG Tiny-PS 实时校验，零注册即用。",
+          bf_cta1: "黑五 $2 解锁 Pro (省 78%)", bf_cta2: "三合一全家桶 $5",
+          s1_title: "1. 域名与实时 DNS 自动拉取", lbl_domain: "发信域名", btn_fetch: "拉取实时 MX 与 DNS",
+          s2_title: "2. MTA-STS 传输加密策略 (RFC 8461)", btn_regen_id: "刷新策略 ID",
+          lbl_mode: "执行模式", lbl_maxage: "缓存时长 max_age (秒)",
+          lbl_id: "策略 ID（每次修改 mta-sts.txt 需递增）", lbl_mx: "授权 MX 主机模式（每行一条）",
+          s3_title: "3. TLS-RPT 报表 (RFC 8460) 与 BIMI 记录", lbl_tlsrpt: "TLS-RPT 接收邮箱 (rua=mailto:)",
+          lbl_tlshttps: "可选 HTTPS 回调地址", lbl_bimi_sel: "BIMI 选择器",
+          lbl_bimi_logo: "SVG Tiny-PS 徽标地址 (HTTPS)", lbl_bimi_cert: "可选 VMC / CMC 证书地址 (.pem)",
+          bimi_dmarc_hint: "BIMI 前置条件：Gmail、Apple Mail 与 Yahoo 要求域名已启用 DMARC p=quarantine (pct=100) 或 p=reject 才会展示品牌徽标。",
+          s4_title: "4. BIMI SVG Tiny-PS 实时语法校验器", btn_sample_svg: "载入合规 SVG 示例",
+          lbl_svg: "粘贴原始 .svg 源码以按 draft-blank-ietf-bimi 规范逐项校验",
+          out_dns_title: "生成的 DNS 记录", btn_copy: "复制记录",
+          out_policy_title: "策略文件：https://mta-sts.<domain>/.well-known/mta-sts.txt", btn_copy_policy: "复制 mta-sts.txt",
+          policy_note: "必须通过有效 HTTPS 直接返回（不可跨主机重定向），响应头为 Content-Type: text/plain。",
+          out_host_title: "一键策略托管部署配置", btn_copy_cfg: "复制配置",
+          next_title: "3 秒验证线上生效状态",
+          next_desc: "发布 DNS TXT 与 mta-sts.txt 后，立即使用 InboxShield 免费 6 阶段协议审计，一站式核验 NS/SOA、SPF 10 次查询树、24 组 DKIM、DMARC、MTA-STS、TLS-RPT、BIMI 与 5 大黑名单。",
+          btn_verify_live: "前往 InboxShield 在线实扫", btn_go_dmarc: "打开 DMARC p=reject 规划器",
+          faq_h: "常见问题"
+        }
+      };
+
+      const MX_PRESETS = {
+        gws: ["*.google.com", "aspmx.l.google.com", "alt1.aspmx.l.google.com", "alt2.aspmx.l.google.com", "smtp.google.com"],
+        m365: ["*.mail.protection.outlook.com"],
+        cf: ["*.mx.cloudflare.net"],
+        zoho: ["mx.zoho.com", "mx2.zoho.com", "mx3.zoho.com"],
+        fastmail: ["in1-smtp.messagingengine.com", "in2-smtp.messagingengine.com"]
+      };
+
+      const SAMPLE_SVG = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<svg version="1.2" baseProfile="tiny-ps" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">',
+        '  <title>Acme Brand Mark</title>',
+        '  <rect width="120" height="120" rx="24" fill="#0f172a"/>',
+        '  <path d="M60 24L96 92H24L60 24Z" fill="#10b981"/>',
+        '</svg>'
+      ].join("\n");
+
+      const $ = (id) => document.getElementById(id);
+      let exportTab = "registrar";
+      let hostTab = "worker";
+
+      function cleanDomain(raw) {
+        return String(raw || "").trim().toLowerCase()
+          .replace(/^https?:\/\//, "")
+          .replace(/^www\./, "")
+          .replace(/\/.*$/, "")
+          .replace(/^.*@/, "")
+          .replace(/[^a-z0-9.-]/g, "") || "example.com";
+      }
+
+      function nowPolicyId() {
+        const d = new Date();
+        const pad = (n) => String(n).padStart(2, "0");
+        return "" + d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDate()) +
+          pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + pad(d.getUTCSeconds()) + "Z";
+      }
+
+      function getMxList() {
+        const lines = $("mxPatterns").value.split(/\r?\n/).map(s => s.trim().replace(/\.$/, "")).filter(Boolean);
+        return lines.length ? lines : ["*.google.com"];
+      }
+
+      function buildPolicyText() {
+        const mode = $("stsMode").value;
+        const maxAge = $("stsMaxAge").value;
+        const mxLines = getMxList().map(m => "mx: " + m).join("\n");
+        return ["version: STSv1", "mode: " + mode, mxLines, "max_age: " + maxAge].join("\n");
+      }
+
+      function buildRecords() {
+        const dom = cleanDomain($("domainInput").value);
+        const policyId = ($("stsPolicyId").value.trim() || nowPolicyId()).replace(/[^a-zA-Z0-9]/g, "");
+        const mtaTxt = "v=STSv1; id=" + policyId;
+        const rptParts = [];
+        const email = $("tlsRptEmail").value.trim();
+        const httpsUrl = $("tlsRptHttps").value.trim();
+        if (email) rptParts.push("mailto:" + email);
+        if (httpsUrl) rptParts.push(httpsUrl);
+        if (!rptParts.length) rptParts.push("mailto:tls-rpt@" + dom);
+        const tlsRptTxt = "v=TLSRPTv1; rua=" + rptParts.join(",");
+
+        const sel = ($("bimiSelector").value.trim() || "default").replace(/[^a-zA-Z0-9_-]/g, "");
+        const logo = $("bimiLogo").value.trim();
+        const cert = $("bimiCert").value.trim();
+        const bimiTxt = "v=BIMI1; l=" + logo + "; a=" + cert + ";";
+
+        return { dom, policyId, mtaTxt, tlsRptTxt, sel, bimiTxt };
+      }
+
+      function renderAll() {
+        const r = buildRecords();
+        const policyTxt = buildPolicyText();
+        $("policyOutput").textContent = policyTxt;
+
+        const qDom = encodeURIComponent(r.dom);
+        $("verifyLiveBtn").href = "https://inbox.shipbastion.com/?domain=" + qDom;
+        $("navScanCta").href = "https://inbox.shipbastion.com/?domain=" + qDom;
+        $("bfSuiteBtn").href = "https://api.shipbastion.com/checkout/launch-stack?domain=" + qDom;
+
+        let dnsOut = "";
+        if (exportTab === "registrar") {
+          dnsOut = [
+            "# 1. MTA-STS DNS Policy Discovery (RFC 8461)",
+            "Type:  TXT",
+            "Host:  _mta-sts." + r.dom + "   (enter '_mta-sts' in Cloudflare/GoDaddy/Namecheap)",
+            "Value: " + r.mtaTxt,
+            "TTL:   300",
+            "",
+            "# 2. TLS-RPT Failure Reporting (RFC 8460)",
+            "Type:  TXT",
+            "Host:  _smtp._tls." + r.dom + "   (enter '_smtp._tls')",
+            "Value: " + r.tlsRptTxt,
+            "TTL:   3600",
+            "",
+            "# 3. BIMI Brand Logo Discovery (requires DMARC p=quarantine or p=reject)",
+            "Type:  TXT",
+            "Host:  " + r.sel + "._bimi." + r.dom + "   (enter '" + r.sel + "._bimi')",
+            "Value: " + r.bimiTxt,
+            "TTL:   3600"
+          ].join("\n");
+        } else if (exportTab === "bind") {
+          dnsOut = [
+            "; InboxShield MTA-STS, TLS-RPT & BIMI Zone Snippet for " + r.dom,
+            "_mta-sts." + r.dom + ".        300  IN TXT \"" + r.mtaTxt + "\"",
+            "_smtp._tls." + r.dom + ".      3600 IN TXT \"" + r.tlsRptTxt + "\"",
+            r.sel + "._bimi." + r.dom + ".   3600 IN TXT \"" + r.bimiTxt + "\""
+          ].join("\n");
+        } else if (exportTab === "terraform") {
+          dnsOut = [
+            'resource "cloudflare_record" "mta_sts_txt" {',
+            '  zone_id = var.cloudflare_zone_id',
+            '  name    = "_mta-sts"',
+            '  type    = "TXT"',
+            '  content = "\\"' + r.mtaTxt + '\\""',
+            '  ttl     = 300',
+            '}',
+            '',
+            'resource "cloudflare_record" "tls_rpt_txt" {',
+            '  zone_id = var.cloudflare_zone_id',
+            '  name    = "_smtp._tls"',
+            '  type    = "TXT"',
+            '  content = "\\"' + r.tlsRptTxt + '\\""',
+            '  ttl     = 3600',
+            '}',
+            '',
+            'resource "cloudflare_record" "bimi_txt" {',
+            '  zone_id = var.cloudflare_zone_id',
+            '  name    = "' + r.sel + '._bimi"',
+            '  type    = "TXT"',
+            '  content = "\\"' + r.bimiTxt + '\\""',
+            '  ttl     = 3600',
+            '}'
+          ].join("\n");
+        } else {
+          dnsOut = [
+            "# MTA-STS, TLS-RPT & BIMI Rollout Checklist (" + r.dom + ")",
+            "",
+            "- [ ] Host `https://mta-sts." + r.dom + "/.well-known/mta-sts.txt` over valid HTTPS (`Content-Type: text/plain`).",
+            "- [ ] Publish `_mta-sts." + r.dom + "` TXT: `" + r.mtaTxt + "`",
+            "- [ ] Publish `_smtp._tls." + r.dom + "` TXT: `" + r.tlsRptTxt + "`",
+            "- [ ] Monitor TLS-RPT JSON reports for 7-14 days in `mode: testing`, then switch to `mode: enforce` and bump `id=`.",
+            "- [ ] Confirm DMARC is `p=quarantine; pct=100` or `p=reject`, then publish `" + r.sel + "._bimi." + r.dom + "` TXT: `" + r.bimiTxt + "`",
+            "- [ ] Re-verify live: https://inbox.shipbastion.com/?domain=" + r.dom
+          ].join("\n");
+        }
+        $("dnsOutput").textContent = dnsOut;
+
+        const escapedPolicy = policyTxt.replace(/\\/g, "\\\\").replace(/`/g, "\\`");
+        let hostOut = "";
+        if (hostTab === "worker") {
+          hostOut = [
+            "// Deploy on route: mta-sts." + r.dom + "/.well-known/mta-sts.txt",
+            "const POLICY = `" + escapedPolicy + "\\n`;",
+            "export default {",
+            "  fetch(request) {",
+            "    const { pathname } = new URL(request.url);",
+            '    if (pathname === "/.well-known/mta-sts.txt") {',
+            '      return new Response(POLICY, { headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "public, max-age=300" } });',
+            "    }",
+            '    return new Response("Not Found", { status: 404 });',
+            "  }",
+            "};"
+          ].join("\n");
+        } else if (hostTab === "caddy") {
+          hostOut = [
+            "mta-sts." + r.dom + " {",
+            "  handle /.well-known/mta-sts.txt {",
+            '    header Content-Type "text/plain; charset=utf-8"',
+            '    respond <<TXT',
+            policyTxt,
+            "    TXT 200",
+            "  }",
+            '  respond 404',
+            "}"
+          ].join("\n");
+        } else if (hostTab === "nginx") {
+          const oneline = policyTxt.replace(/\n/g, "\\n") + "\\n";
+          hostOut = [
+            "server {",
+            "  listen 443 ssl http2;",
+            "  server_name mta-sts." + r.dom + ";",
+            "  # ssl_certificate / ssl_certificate_key configured for mta-sts." + r.dom,
+            "  location = /.well-known/mta-sts.txt {",
+            "    default_type text/plain;",
+            '    return 200 "' + oneline + '";',
+            "  }",
+            "}"
+          ].join("\n");
+        } else {
+          hostOut = [
+            "// 1. Save policy to public/.well-known/mta-sts.txt",
+            "// 2. Attach domain mta-sts." + r.dom + " in Vercel and add vercel.json:",
+            "{",
+            '  "headers": [{',
+            '    "source": "/.well-known/mta-sts.txt",',
+            '    "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }]',
+            "  }]",
+            "}"
+          ].join("\n");
+        }
+        $("hostOutput").textContent = hostOut;
+      }
+
+      function validateSvg() {
+        const raw = $("svgInput").value.trim();
+        const ul = $("svgChecks");
+        if (!raw) {
+          ul.innerHTML = '<li><span>Paste SVG markup above (or click Load Valid Sample SVG) to run 7 BIMI Tiny-PS checks.</span><span class="badge badge-warn">IDLE</span></li>';
+          return;
+        }
+        const bytes = new TextEncoder().encode(raw).length;
+        const hasSvg = /<svg\b/i.test(raw);
+        const hasVer = /version\s*=\s*["']1\.2["']/i.test(raw);
+        const hasProf = /baseProfile\s*=\s*["']tiny-ps["']/i.test(raw);
+        const hasTitle = /<title\b[^>]*>[^<]+<\/title>/i.test(raw);
+        const vbMatch = raw.match(/viewBox\s*=\s*["']\s*([0-9.-]+)\s+([0-9.-]+)\s+([0-9.-]+)\s+([0-9.-]+)\s*["']/i);
+        const squareVb = !!(vbMatch && Number(vbMatch[3]) > 0 && Number(vbMatch[3]) === Number(vbMatch[4]));
+        const noUnsafe = !/<(script|foreignObject|iframe|image|animate|set)\b|on[a-z]+\s*=|xlink:href\s*=\s*["']https?:/i.test(raw);
+        const under32k = bytes <= 32768;
+
+        const items = [
+          { label: "Root &lt;svg&gt; with version=\"1.2\"", ok: hasSvg && hasVer },
+          { label: "Profile baseProfile=\"tiny-ps\"", ok: hasProf },
+          { label: "Accessible &lt;title&gt; element present", ok: hasTitle },
+          { label: "Square viewBox (1:1 aspect ratio)", ok: squareVb, warnText: vbMatch ? (vbMatch[3] + "x" + vbMatch[4]) : "Missing viewBox" },
+          { label: "No &lt;script&gt;, &lt;foreignObject&gt;, raster &lt;image&gt;, or inline handlers", ok: noUnsafe },
+          { label: "File size <= 32 KB (" + bytes + " bytes)", ok: under32k }
+        ];
+        ul.innerHTML = items.map(it =>
+          '<li><span>' + it.label + (!it.ok && it.warnText ? " (" + it.warnText + ")" : "") +
+          '</span><span class="badge ' + (it.ok ? "badge-pass" : "badge-fail") + '">' + (it.ok ? "PASS" : "FIX") + "</span></li>"
+        ).join("");
+      }
+
+      async function dohTxt(name, type) {
+        try {
+          const r = await fetch("https://dns.google/resolve?name=" + encodeURIComponent(name) + "&type=" + type);
+          if (!r.ok) return [];
+          const d = await r.json();
+          return (d.Answer || []).map(a => String(a.data || "").replace(/^"|"$/g, "").replace(/"\s*"/g, ""));
+        } catch (_) {
+          return [];
+        }
+      }
+
+      async function fetchLiveDns() {
+        const dom = cleanDomain($("domainInput").value);
+        $("domainInput").value = dom;
+        $("tlsRptEmail").value = "tls-rpt@" + dom;
+        $("bimiLogo").value = "https://" + dom + "/brand/logo-bimi.svg";
+
+        const btn = $("fetchDnsBtn");
+        btn.disabled = true;
+        btn.textContent = "Checking...";
+        const notice = $("liveNotice");
+        notice.style.display = "none";
+
+        const [apiData, mxAns, dmarcAns, mtaAns, rptAns, bimiAns] = await Promise.all([
+          fetch("https://inbox.shipbastion.com/api/free-audit?domain=" + encodeURIComponent(dom)).then(r => r.ok ? r.json() : null).catch(() => null),
+          dohTxt(dom, "MX"),
+          dohTxt("_dmarc." + dom, "TXT"),
+          dohTxt("_mta-sts." + dom, "TXT"),
+          dohTxt("_smtp._tls." + dom, "TXT"),
+          dohTxt("default._bimi." + dom, "TXT")
+        ]);
+
+        const mxHosts = mxAns.map(x => x.split(/\s+/).pop().replace(/\.$/, "").toLowerCase()).filter(Boolean);
+        if (mxHosts.length) {
+          $("mxPatterns").value = [...new Set(mxHosts)].join("\n");
+          $("stMx").textContent = mxHosts.length + " host(s): " + mxHosts[0];
+          $("stMx").className = "v mono ok";
+        } else {
+          $("stMx").textContent = "No MX found";
+          $("stMx").className = "v mono bad";
+        }
+
+        const dmarcRec = dmarcAns.find(t => /^v=DMARC1/i.test(t.trim())) || "";
+        const pm = dmarcRec.match(/(?:^|;\s*)p=([a-z]+)/i);
+        const pol = pm ? pm[1].toLowerCase() : "missing";
+        $("stDmarc").textContent = pm ? ("p=" + pol) : "Missing _dmarc";
+        $("stDmarc").className = "v mono " + ((pol === "reject" || pol === "quarantine") ? "ok" : (pol === "none" ? "warn" : "bad"));
+
+        const bimiHint = $("bimiDmarcNotice");
+        if (pol === "reject" || pol === "quarantine") {
+          bimiHint.className = "notice ok-box";
+          bimiHint.textContent = "DMARC Ready (" + dom + " has p=" + pol + "): Eligible for BIMI logo display once SVG Tiny-PS and TXT record are published.";
+        } else {
+          bimiHint.className = "notice warn-box";
+          bimiHint.textContent = "DMARC Prerequisite Gap (" + dom + " has " + pol + "): Upgrade DMARC to p=quarantine or p=reject first before expecting BIMI logos to render.";
+        }
+
+        const mtaRec = mtaAns.find(t => /^v=STSv1/i.test(t.trim())) || "";
+        $("stMta").textContent = mtaRec ? mtaRec : "Missing _mta-sts";
+        $("stMta").className = "v mono " + (mtaRec ? "ok" : "warn");
+
+        const rptRec = rptAns.find(t => /^v=TLSRPTv1/i.test(t.trim())) || "";
+        const bimiRec = bimiAns.find(t => /^v=BIMI1/i.test(t.trim())) || "";
+        $("stRpt").textContent = (rptRec ? "TLS-RPT Live" : "No TLS-RPT") + " / " + (bimiRec ? "BIMI Live" : "No BIMI");
+        $("stRpt").className = "v mono " + (rptRec && bimiRec ? "ok" : "warn");
+
+        if (apiData && (apiData.score !== undefined || (apiData.summary && apiData.summary.score !== undefined))) {
+          const sc = apiData.score ?? apiData.summary.score;
+          notice.style.display = "block";
+          notice.className = "notice " + (sc >= 80 ? "ok-box" : "warn-box");
+          notice.textContent = "Live InboxShield Score for " + dom + ": " + sc + "/100. MX patterns below were auto-populated from your live DNS.";
+        }
+
+        renderAll();
+        btn.disabled = false;
+        btn.textContent = I18N[currentLang].btn_fetch;
+      }
+
+      function copyText(text, btn) {
+        const orig = btn.textContent;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = "Copied";
+            setTimeout(() => { btn.textContent = orig; }, 1400);
+          }).catch(() => {});
+        }
+      }
+
+      let currentLang = "en";
+      function applyLang(lang) {
+        currentLang = lang === "zh" ? "zh" : "en";
+        document.documentElement.lang = currentLang;
+        $("langEnBtn").classList.toggle("active", currentLang === "en");
+        $("langZhBtn").classList.toggle("active", currentLang === "zh");
+        try { localStorage.setItem("of_lang_v5", currentLang); } catch (_) {}
+        const dict = I18N[currentLang];
+        document.querySelectorAll("[data-t]").forEach(el => {
+          const k = el.getAttribute("data-t");
+          if (dict[k]) el.textContent = dict[k];
+        });
+      }
+
+      $("langEnBtn").addEventListener("click", () => applyLang("en"));
+      $("langZhBtn").addEventListener("click", () => applyLang("zh"));
+      $("fetchDnsBtn").addEventListener("click", fetchLiveDns);
+      $("regenIdBtn").addEventListener("click", () => { $("stsPolicyId").value = nowPolicyId(); renderAll(); });
+      $("loadSampleSvgBtn").addEventListener("click", () => { $("svgInput").value = SAMPLE_SVG; validateSvg(); });
+      $("copyDnsBtn").addEventListener("click", () => copyText($("dnsOutput").textContent, $("copyDnsBtn")));
+      $("copyPolicyBtn").addEventListener("click", () => copyText($("policyOutput").textContent, $("copyPolicyBtn")));
+      $("copyHostBtn").addEventListener("click", () => copyText($("hostOutput").textContent, $("copyHostBtn")));
+
+      ["domainInput", "stsMode", "stsMaxAge", "stsPolicyId", "mxPatterns", "tlsRptEmail", "tlsRptHttps", "bimiSelector", "bimiLogo", "bimiCert"]
+        .forEach(id => $(id).addEventListener("input", renderAll));
+      $("svgInput").addEventListener("input", validateSvg);
+
+      document.querySelectorAll("[data-sample]").forEach(b => b.addEventListener("click", () => {
+        $("domainInput").value = b.getAttribute("data-sample");
+        fetchLiveDns();
+      }));
+      document.querySelectorAll("[data-mxpreset]").forEach(b => b.addEventListener("click", () => {
+        const p = MX_PRESETS[b.getAttribute("data-mxpreset")];
+        if (p) { $("mxPatterns").value = p.join("\n"); renderAll(); }
+      }));
+      document.querySelectorAll("[data-export]").forEach(b => b.addEventListener("click", () => {
+        exportTab = b.getAttribute("data-export");
+        document.querySelectorAll("[data-export]").forEach(x => x.classList.toggle("active", x === b));
+        renderAll();
+      }));
+      document.querySelectorAll("[data-host]").forEach(b => b.addEventListener("click", () => {
+        hostTab = b.getAttribute("data-host");
+        document.querySelectorAll("[data-host]").forEach(x => x.classList.toggle("active", x === b));
+        renderAll();
+      }));
+
+      try {
+        const saved = localStorage.getItem("of_lang_v5");
+        if (saved === "zh") applyLang("zh");
+      } catch (_) {}
+      $("stsPolicyId").value = nowPolicyId();
+      renderAll();
+      validateSvg();
+    })();
+  </script>
+  <script>
+    (function(){try{var E="https://api.shipbastion.com/v1/telemetry",S="of_sid_"+Math.random().toString(36).slice(2,10),t0=Date.now();function s(ev,ex){try{var p=Object.assign({app:"inboxshield-docs",event:ev,path:location.pathname,sid:S,ref:document.referrer.slice(0,120),webdriver:!!navigator.webdriver,dwellMs:Date.now()-t0},ex||{});navigator.sendBeacon(E,new Blob([JSON.stringify(p)],{type:"application/json"}));}catch(_){}}s("pageview");addEventListener("pagehide",function(){s("leave");});}catch(_){}})();
+  </script>
+</body>
+</html>

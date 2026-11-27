@@ -4,6 +4,7 @@
 
 - Free 6-Phase Online Web App: https://inbox.shipbastion.com/
 - Free Online SPF Flattener: https://inbox.shipbastion.com/spf-flattener
+- Free MTA-STS (RFC 8461), TLS-RPT (RFC 8460) & BIMI SVG Tiny-PS Validator & Generator (with Cloudflare Worker/Caddy/Nginx/Vercel configs): https://zcoldwater.github.io/inboxshield-cli/mta-sts-tls-rpt-bimi-generator.html
 - Free DMARC p=reject & RUA Policy Generator + 3-Stage Rollout Planner: https://zcoldwater.github.io/inboxshield-cli/dmarc-p-reject-rua-policy-generator.html
 - Free Google & Yahoo 2026 Bulk Sender Compliance Checklist & Live DNS Validator: https://zcoldwater.github.io/inboxshield-cli/google-yahoo-2026-bulk-sender-compliance-checklist.html
 - Free RFC 7489 DMARC Record Generator: https://zcoldwater.github.io/inboxshield-cli/dmarc-record-generator.html

@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![Node.js >= 20](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org)
 [![Zero Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](./package.json)
-[![Email Security](https://inbox.shipbastion.com/badge/inbox/stripe.com.svg)](https://inbox.shipbastion.com/?domain=stripe.com)
+[![Email Security](https://inbox.shipbastion.com/api/badge.svg?domain=stripe.com)](https://inbox.shipbastion.com/?domain=stripe.com)
 [![Live VibeShield Score](https://shipbastion.com/api/badge.svg?url=zcoldwater.github.io)](https://shipbastion.com/?url=https://zcoldwater.github.io/inboxshield-cli/)
 [![AI Search Readiness](https://cite.shipbastion.com/api/badge?url=zcoldwater.github.io/inboxshield-cli)](https://cite.shipbastion.com/?url=https://zcoldwater.github.io/inboxshield-cli/)
 
@@ -22,7 +22,7 @@
 
 - **Flagship v7.0 Online Web App (Zero Signup, 6-Phase Real Protocol Trace):** [https://inbox.shipbastion.com](https://inbox.shipbastion.com)
 - **Free Online SPF Flattener (Collapse `>10`-Lookup PermError -> `1/10`):** [https://inbox.shipbastion.com/spf-flattener](https://inbox.shipbastion.com/spf-flattener)
-- **Free Interactive DNS Builders (Zero Signup):** [RFC 7489 DMARC Record Generator](https://zcoldwater.github.io/inboxshield-cli/dmarc-record-generator.html) · [SPF Record & 10-Lookup Budget Calculator](https://zcoldwater.github.io/inboxshield-cli/spf-record-generator.html)
+- **Free Interactive DNS Builders (Zero Signup):** [MTA-STS, TLS-RPT & BIMI SVG Tiny-PS Generator](https://zcoldwater.github.io/inboxshield-cli/mta-sts-tls-rpt-bimi-generator.html) · [DMARC p=reject & 3-Stage Rollout Planner](https://zcoldwater.github.io/inboxshield-cli/dmarc-p-reject-rua-policy-generator.html) · [Google/Yahoo 2026 Bulk Sender Checklist](https://zcoldwater.github.io/inboxshield-cli/google-yahoo-2026-bulk-sender-compliance-checklist.html) · [SPF Record & 10-Lookup Calculator](https://zcoldwater.github.io/inboxshield-cli/spf-record-generator.html)
 - **NEW — 2026 Top 60 SaaS & AI Startups Email Authentication, SPF Bloat & DMARC Spoofing Benchmark:** [Interactive 60-Brand Leaderboard](https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.html) · [Raw JSON Dataset](https://zcoldwater.github.io/inboxshield-cli/top-60-saas-email-authentication-benchmark-2026.json)
 - **2026 Indie SaaS Email Deliverability Benchmark (60 GitHub Startup Domains):** [Interactive HTML Study](https://zcoldwater.github.io/inboxshield-cli/email-deliverability-benchmark-2026.html) · [Markdown](./docs/email-deliverability-benchmark-2026.md)
 - **40 Zero-Dependency AI Agent Skills (`skills.sh` — SPF/DKIM/DMARC, Cold Email, Google Workspace, M365, SES, Security & GEO):** `npx skills add zColdWater/omniforge-skills` ([Browse All 40 Skills](https://zcoldwater.github.io/omniforge-skills/))
@@ -98,7 +98,7 @@ jobs:
 ## Live Badge Embed
 
 ```markdown
-[![Email Security](https://inbox.shipbastion.com/badge/inbox/yourdomain.com.svg)](https://inbox.shipbastion.com/?domain=yourdomain.com)
+[![Email Security](https://inbox.shipbastion.com/api/badge.svg?domain=yourdomain.com)](https://inbox.shipbastion.com/?domain=yourdomain.com)
 ```
 
 ## Support & Contact
